@@ -27,12 +27,6 @@
     color: #7A0BC0;
 }
 
-
-/* .cover {
-    display: flex;
-    padding: 7em 0;
-    justify-content: center;
-} */
 .cover{
     display: flex;
     flex-direction: row;
@@ -76,16 +70,6 @@
     border-radius: 5px;
 }
 
-/* .footer {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    background: #191C1F;
-    width: 100%;
-    font-weight: 200;
-    font-size: .8em;
-} */
-
 .footer {
     position: absolute;
     bottom: 0;
@@ -97,7 +81,7 @@
   }
 
 .footer p {
-    font-size: 1em;
+    font-size: .9em;
     font-weight: 200;
     background-color: #191C1F;
 }
