@@ -8,7 +8,7 @@
       href="../public/assets/css/responsividade/sobreNos.css"
     />
     <link rel="icon" href="../public/assets/icon/owl.svg" />
-    <title>Sobre Nós</title>
+    <title>HowlZ | SOBRE NÓS</title>
   </head>
   <body>
     <div class="path-header">
@@ -51,12 +51,36 @@
       </div>
     </div>
 
+    <!-- <div class="carrossel">
+        <button class="seta-esquerda"></button>
+    <div class="carrosel" id="img">
+      <img class="img1"></img>
+      <img class="img2"></img>
+      <img class="img3"></img>
+      <img class="img4"></img>
+      <img class="img5"></img>
+      <img class="img6"></img>
+      <img class="img7"></img>
+      <img class="img8"></img>
+      <img class="img9"></img>
+    </div>
+    <button class="seta-direita"></button>
+    </div> -->
+
     <div class="carrossel">
-      <div class="seta-esquerda"></div>
-      <div class="img1"></div>
-      <div class="img2"></div>
-      <div class="img3"></div>
-      <div class="seta-direita"></div>
+      <button class="seta-esquerda" onclick="moverSlide(-1)">&#10094;</button>
+      <div class="carrossel-container">
+        <img class="img1" alt="Imagem 1" />
+        <img class="img2" alt="Imagem 2" />
+        <img class="img3" alt="Imagem 3" />
+        <img class="img4" alt="Imagem 4" />
+        <img class="img5" alt="Imagem 5" />
+        <img class="img6" alt="Imagem 6" />
+        <img class="img7" alt="Imagem 7" />
+        <img class="img8" alt="Imagem 8" />
+        <img class="img9" alt="Imagem 9" />
+      </div>
+      <button class="seta-direita" onclick="moverSlide(1)">&#10095;</button>
     </div>
 
     <div class="container">
@@ -74,3 +98,61 @@
     </div>
   </body>
 </html>
+
+<script>
+  //   const imgs = document.getElementById("img");
+  //   const img = document.querySelectorAll("#img img");
+
+  //   let idx = 0;
+
+  //   function carrosel() {
+  //     idx++;
+
+  //     if (idx > img.length - 1) {
+  //       idx = 0;
+  //     }
+
+  //     imgs.style.transform = `translateX(${idx * 50}%)`;
+  //   }
+
+  //   setInterval(carrosel, 2500);
+
+const carrosselContainer = document.querySelector(".carrossel-container");
+const imgCount = document.querySelectorAll(".carrossel-container img").length;
+let currentIndex = 0;
+const transitionDuration = 0.5; // Duração da transição em segundos
+const imgWidth = 10; // Largura de cada imagem em porcentagem
+
+function moverSlide(direction) {
+  currentIndex += direction;
+
+  if (currentIndex >= imgCount) {
+    currentIndex = 0;
+  }
+
+  const translateXValue = -currentIndex * imgWidth;
+  carrosselContainer.style.transition = `transform ${transitionDuration}s ease-in-out`;
+  carrosselContainer.style.transform = `translateX(${translateXValue}%)`;
+}
+
+// Adicionar um movimento inicial para mostrar a primeira imagem
+moverSlide(0);
+
+setInterval(() => {
+  moverSlide(1);
+}, 2500);
+
+// Adicionar um ouvinte de evento de transição para detectar quando a transição é concluída
+carrosselContainer.addEventListener("transitionend", () => {
+  if (currentIndex === imgCount - 1) {
+    currentIndex = 0;
+    carrosselContainer.style.transition = "none";
+    carrosselContainer.style.transform = `translateX(0%)`;
+    setTimeout(() => {
+      carrosselContainer.style.transition = `transform ${transitionDuration}s ease-in-out`;
+    }, 10);
+  }
+});
+
+
+</script>
