@@ -36,6 +36,12 @@ body {
 
 .paths a {
     text-decoration: none;
+    color: #ffffff;
+    transition: all .2s;
+}
+
+.paths a:hover {
+    color: #7A0BC0;
 }
 
 .container {
@@ -43,6 +49,10 @@ body {
     width: 80%;
     margin: auto;
     
+}
+
+.container a{
+    color: #ffffff;
 }
 
 /*corpo*/

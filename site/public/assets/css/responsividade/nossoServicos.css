@@ -67,6 +67,10 @@ p {
     width: 50%;
 }
 
+.dash-img {
+    width: 50em;
+}
+
 .secao-servicos .texto-lateral {
     display: flex;
     flex-direction: column;
@@ -117,3 +121,6 @@ p {
     background-color: #191C1F;
 }
   
+
+
+
