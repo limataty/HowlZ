@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="../public/assets/css/responsividade/sobreNos.css"
+    />
+    <link rel="icon" href="../public/assets/icon/owl.svg" />
+    <title>HowlZ | SOBRE NÓS</title>
+  </head>
+  <body>
+    <div class="path-header">
+      <a href=""></a>
+      <img src="assets/icon/logoHowlZ.svg" alt="icone da pagina" />
+      <div class="paths__main">
+        <a class="path" href="/">SOBRE NÓS</a>
+        <a class="path" href="/">NOSSOS SERVIÇOS</a>
+        <a class="path" href="/">CONTATO</a>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="sobreNos">
+        <div class="text-sobreNos">
+          <h2>Sobre Nós</h2>
+          <span
+            >Bem-vindo à HowlZ, uma líder dedicada no fornecimento de soluções
+            de monitoramento de máquinas empresariais para designers digitais
+            que operam no conforto de seus lares. Combinando a expertise
+            tecnológica com a compreensão das necessidades únicas dos
+            profissionais de design, estamos comprometidos em oferecer serviços
+            de monitoramento abrangentes e eficazes, garantindo o desempenho
+            contínuo das suas operações.</span
+          >
+        </div>
+        <div class="image-computer">
+          <img src="../public/assets/img/mockup.svg" alt="" />
+        </div>
+      </div>
+
+      <div class="nossa-equipe">
+        <h2>Nossa Equipe</h2>
+        <span
+          >Nossa equipe é composta por profissionais apaixonados por tecnologia
+          e design. Entendemos as demandas únicas da indústria criativa e
+          estamos comprometidos em fornecer soluções que permitam que você
+          realize seu trabalho com tranquilidade.</span
+        >
+      </div>
+    </div>
+
+    <!-- <div class="carrossel">
+        <button class="seta-esquerda"></button>
+    <div class="carrosel" id="img">
+      <img class="img1"></img>
+      <img class="img2"></img>
+      <img class="img3"></img>
+      <img class="img4"></img>
+      <img class="img5"></img>
+      <img class="img6"></img>
+      <img class="img7"></img>
+      <img class="img8"></img>
+      <img class="img9"></img>
+    </div>
+    <button class="seta-direita"></button>
+    </div> -->
+
+    <div class="carrossel">
+      <button class="seta-esquerda" onclick="moverSlide(-1)">&#10094;</button>
+      <div class="carrossel-container">
+        <img class="img1" alt="Imagem 1" />
+        <img class="img2" alt="Imagem 2" />
+        <img class="img3" alt="Imagem 3" />
+        <img class="img4" alt="Imagem 4" />
+        <img class="img5" alt="Imagem 5" />
+        <img class="img6" alt="Imagem 6" />
+        <img class="img7" alt="Imagem 7" />
+        <img class="img8" alt="Imagem 8" />
+        <img class="img9" alt="Imagem 9" />
+      </div>
+      <button class="seta-direita" onclick="moverSlide(1)">&#10095;</button>
+    </div>
+
+    <div class="container">
+      <div class="know-services">
+        <h2>CURTIU? VENHA CONHECER NOSSOS SERVIÇOS!</h2>
+        <button class="descubra"><span>DESCUBRA</span></button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>
+        Projeto feito por alunos do curso de Análise e Desenvolvimento de
+        Sistemas - HowlZ ©
+      </p>
+    </div>
+  </body>
+</html>
+
+<script>
+  //   const imgs = document.getElementById("img");
+  //   const img = document.querySelectorAll("#img img");
+
+  //   let idx = 0;
+
+  //   function carrosel() {
+  //     idx++;
+
+  //     if (idx > img.length - 1) {
+  //       idx = 0;
+  //     }
+
+  //     imgs.style.transform = `translateX(${idx * 50}%)`;
+  //   }
+
+  //   setInterval(carrosel, 2500);
+
+const carrosselContainer = document.querySelector(".carrossel-container");
+const imgCount = document.querySelectorAll(".carrossel-container img").length;
+let currentIndex = 0;
+const transitionDuration = 0.5; // Duração da transição em segundos
+const imgWidth = 10; // Largura de cada imagem em porcentagem
+
+function moverSlide(direction) {
+  currentIndex += direction;
+
+  if (currentIndex >= imgCount) {
+    currentIndex = 0;
+  }
+
+  const translateXValue = -currentIndex * imgWidth;
+  carrosselContainer.style.transition = `transform ${transitionDuration}s ease-in-out`;
+  carrosselContainer.style.transform = `translateX(${translateXValue}%)`;
+}
+
+// Adicionar um movimento inicial para mostrar a primeira imagem
+moverSlide(0);
+
+setInterval(() => {
+  moverSlide(1);
+}, 2500);
+
+// Adicionar um ouvinte de evento de transição para detectar quando a transição é concluída
+carrosselContainer.addEventListener("transitionend", () => {
+  if (currentIndex === imgCount - 1) {
+    currentIndex = 0;
+    carrosselContainer.style.transition = "none";
+    carrosselContainer.style.transform = `translateX(0%)`;
+    setTimeout(() => {
+      carrosselContainer.style.transition = `transform ${transitionDuration}s ease-in-out`;
+    }, 10);
+  }
+});
+
+
+</script>
