@@ -69,55 +69,6 @@
     font-size: 1.3em;
 }
 
-/* Carrossel */
-
-/* .carrossel{
-    margin-top: 5em;
-    width: 100%;
-    height: 40em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-}
-
-.carrosel{
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    transform: translateX(0);
-}
-
-.img1, .img2, .img3, .img4, .img5{
-    background-color: #D9D9D9;
-    height: 35em;
-    width: 25em;
-    border-radius: 0.8em;
-    margin-right: 3em;
-    object-fit: cover;
-    cursor: pointer;
-    overflow: hidden;
-}
-
-.seta-esquerda{
-    background-color: #FA58B6;
-    width: 5em;
-    height: 5em;
-    border-radius: 50%;
-    position: absolute;
-    margin-left: -120em;
-    border: none;
-}
-
-.seta-direita{
-    background-color: #FA58B6;
-    width: 5em;
-    height: 5em;
-    border-radius: 50%;
-    position: absolute;
-    margin-right: -120em;
-    border: none;
-} */
-
 .carrossel {
     margin-top: 5em;
     width: 100%;
@@ -202,6 +153,7 @@
     height: 5em;
     border-radius: 0.8em;
     border: none;
+    cursor: pointer;
 }
 
 .descubra span{
@@ -224,4 +176,748 @@
     font-weight: 200;
     background-color: #191C1F;
 }
+
+@media only screen and (max-width: 600px) {
+    .path-header{
+        font-size: 0.6em;
+    }
+
+    img{
+        width: 8em;
+        margin-left: 3em;
+    }
+
+    .sobreNos{
+        /* font-size: 0.7em;
+        height: 65em; */
+        display: flex;
+        flex-direction: column;
+        margin: 1em;
+        margin-bottom: 3em;
+        gap: 1em;
+    }
+
+    .text-sobreNos{
+        height: 100%;
+        width: 100%;
+        font-size: 0.9em;
+        margin-right: 1em;
+    }
+
+    .text-sobreNos span{
+        font-size: 1em;
+    }
+
+    .image-computer{
+        height: 100%;
+        width: 15em;
+    }
+
+    .image-computer img{
+        height: 100%;
+        width: 15em;
+        margin-left: -2em;
+        margin-top: -0.5em;  
+    }
+
+    .nossa-equipe{
+        width: 100%;
+        height: 100%;
+        font-size: 0.9em;
+        margin-top: 8em;
+    }
+    
+    .nossa-equipe span{
+        font-size: 1em;
+    }
+
+    .carrossel{
+        margin-top: 0;
+    }
+
+    .img1,
+    .img2,
+    .img3,
+    .img4,
+    .img5,
+    .img6,
+    .img7,
+    .img8,
+    .img9 {
+      background-color: #D9D9D9;
+      height: 25em;
+      width: 15em;
+      border-radius: 0.8em;
+      margin-right: 3em;
+      position: relative;
+      object-fit: cover;
+      cursor: pointer;
+      overflow: hidden;
+      left: 0;
+      right: 0;
+    }
+    
+    .seta-esquerda,
+    .seta-direita {
+      background-color: #FA58B6;
+      width: 2em;
+      height: 2em;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      border: none;
+      z-index: 1
+    }
+
+    .know-services{
+        width: 100%;
+        height: 10em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.7em;
+        margin-bottom: 2em;
+    }
+    
+    .descubra{
+        background: linear-gradient(to left top, #500D7A, #841053);
+        width: 20em;
+        height: 5em;
+        border-radius: 0.8em;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .descubra span{
+        font-size: 1.4em;
+        background-color: transparent;
+    }
+
+    .footer{
+        font-size: 0.7em;
+    }
+}
   
+
+@media only screen and (min-width: 600px){
+    .path-header{
+        font-size: 0.9em;
+    }
+
+    img{
+        width: 8em;
+        margin-left: 3em;
+    }
+
+    .sobreNos{
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        margin-bottom: 0;
+        gap: 1em;
+    }
+
+    .text-sobreNos{
+        height: 100%;
+        width: 100%;
+        font-size: 1em;
+        margin-right: 0;
+    }
+
+    .text-sobreNos span{
+        font-size: 1em;
+    }
+
+    .image-computer{
+        height: 100%;
+        width: 15em;
+    }
+
+    .image-computer img{
+        height: 100%;
+        width: 15em;
+        margin-left: -2em;
+        margin-top: 1em;  
+    }
+
+    .nossa-equipe{
+        width: 100%;
+        height: 100%;
+        font-size: 1em;
+        margin-top: 8em;
+    }
+    
+    .nossa-equipe span{
+        font-size: 1em;
+    }
+
+    .carrossel{
+        margin-top: 0;
+    }
+
+    .img1,
+    .img2,
+    .img3,
+    .img4,
+    .img5,
+    .img6,
+    .img7,
+    .img8,
+    .img9 {
+      background-color: #D9D9D9;
+      height: 30em;
+      width: 20em;
+      border-radius: 0.8em;
+      margin-right: 3em;
+      position: relative;
+      object-fit: cover;
+      cursor: pointer;
+      overflow: hidden;
+      left: 0;
+      right: 0;
+    }
+    
+    .seta-esquerda,
+    .seta-direita {
+      background-color: #FA58B6;
+      width: 2em;
+      height: 2em;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      font-size: 2em;
+      cursor: pointer;
+      border: none;
+      z-index: 1
+    }
+
+    .know-services{
+        width: 100%;
+        height: 10em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.9em;
+        margin-bottom: 2em;
+    }
+    
+    .descubra{
+        background: linear-gradient(to left top, #500D7A, #841053);
+        width: 20em;
+        height: 5em;
+        border-radius: 0.8em;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .descubra span{
+        font-size: 1.4em;
+        background-color: transparent;
+    }
+
+    .footer{
+        font-size: 1em;
+    }
+}
+
+@media only screen and (min-width: 768px){
+    .path-header{
+        font-size: 0.9em;
+    }
+
+    img{
+        width: 8em;
+        margin-left: 3em;
+    }
+
+    .sobreNos{
+        display: flex;
+        flex-direction: row;
+        margin: 0;
+        margin-bottom: 0;
+        gap: 1em;
+    }
+
+    .text-sobreNos{
+        height: 100%;
+        width: 100%;
+        font-size: 1em;
+        margin-right: 0;
+    }
+
+    .text-sobreNos span{
+        font-size: 1em;
+    }
+
+    .image-computer{
+        height: 100%;
+        width: 15em;
+    }
+
+    .image-computer img{
+        height: 100%;
+        width: 15em;
+        margin-left: -2em;
+        margin-top: 1em;  
+    }
+
+    .nossa-equipe{
+        width: 100%;
+        height: 100%;
+        font-size: 1em;
+        margin-top: 0;
+    }
+    
+    .nossa-equipe span{
+        font-size: 1em;
+    }
+
+    .carrossel{
+        margin-top: 0;
+    }
+
+    .img1,
+    .img2,
+    .img3,
+    .img4,
+    .img5,
+    .img6,
+    .img7,
+    .img8,
+    .img9 {
+      background-color: #D9D9D9;
+      height: 30em;
+      width: 20em;
+      border-radius: 0.8em;
+      margin-right: 3em;
+      position: relative;
+      object-fit: cover;
+      cursor: pointer;
+      overflow: hidden;
+      left: 0;
+      right: 0;
+    }
+    
+    .seta-esquerda,
+    .seta-direita {
+      background-color: #FA58B6;
+      width: 2em;
+      height: 2em;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      font-size: 2em;
+      cursor: pointer;
+      border: none;
+      z-index: 1
+    }
+
+    .know-services{
+        width: 100%;
+        height: 10em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.9em;
+        margin-bottom: 2em;
+    }
+    
+    .descubra{
+        background: linear-gradient(to left top, #500D7A, #841053);
+        width: 20em;
+        height: 5em;
+        border-radius: 0.8em;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .descubra span{
+        font-size: 1.4em;
+        background-color: transparent;
+    }
+
+    .footer{
+        font-size: 1em;
+    }
+}
+
+@media only screen and (min-width: 992px){
+    .path-header{
+        font-size: 1em;
+    }
+
+    img{
+        width: 8em;
+        margin-left: 3em;
+    }
+
+    .sobreNos{
+        display: flex;
+        margin: 0;
+        margin-bottom: 0;
+        gap: 1em;
+    }
+
+    .text-sobreNos{
+        height: 100%;
+        width: 100%;
+        font-size: 1.2em;
+        margin-right: 0;
+    }
+
+    .text-sobreNos span{
+        font-size: 1em;
+    }
+
+    .image-computer{
+        height: 100%;
+        width: 20em;
+    }
+
+    .image-computer img{
+        height: 100%;
+        width: 20em;
+        margin-left: -2em;
+        margin-top: 2em;  
+    }
+
+    .nossa-equipe{
+        width: 100%;
+        height: 100%;
+        font-size: 1.2em;
+        margin-top: 5em;
+    }
+    
+    .nossa-equipe span{
+        font-size: 1em;
+    }
+
+    .carrossel{
+        margin-top: 0;
+    }
+
+    .img1,
+    .img2,
+    .img3,
+    .img4,
+    .img5,
+    .img6,
+    .img7,
+    .img8,
+    .img9 {
+      background-color: #D9D9D9;
+      height: 30em;
+      width: 20em;
+      border-radius: 0.8em;
+      margin-right: 3em;
+      position: relative;
+      object-fit: cover;
+      cursor: pointer;
+      overflow: hidden;
+      left: 0;
+      right: 0;
+    }
+    
+    .seta-esquerda,
+    .seta-direita {
+      background-color: #FA58B6;
+      width: 2em;
+      height: 2em;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      font-size: 2em;
+      cursor: pointer;
+      border: none;
+      z-index: 1
+    }
+
+    .know-services{
+        width: 100%;
+        height: 10em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 1em;
+        margin-bottom: 2em;
+    }
+    
+    .descubra{
+        background: linear-gradient(to left top, #500D7A, #841053);
+        width: 20em;
+        height: 5em;
+        border-radius: 0.8em;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .descubra span{
+        font-size: 1.4em;
+        background-color: transparent;
+    }
+
+    .footer{
+        font-size: 1em;
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    .path-header{
+        font-size: 1em;
+    }
+
+    img{
+        width: 8em;
+        margin-left: 3em;
+    }
+
+    .sobreNos{
+        display: flex;
+        margin: 0;
+        margin-bottom: 0;
+        gap: 1em;
+    }
+
+    .text-sobreNos{
+        height: 100%;
+        width: 100%;
+        font-size: 1.3em;
+        margin-right: 0;
+    }
+
+    .text-sobreNos span{
+        font-size: 1.2em;
+    }
+
+    .image-computer{
+        height: 100%;
+        width: 25em;
+    }
+
+    .image-computer img{
+        height: 100%;
+        width: 25em;
+        margin-left: -2em;
+        margin-top: 4em;  
+    }
+
+    .nossa-equipe{
+        width: 100%;
+        height: 100%;
+        font-size: 1.3em;
+        margin-top: 5em;
+    }
+    
+    .nossa-equipe span{
+        font-size: 1.2em;
+    }
+
+    .carrossel{
+        margin-top: 0;
+    }
+
+    .img1,
+    .img2,
+    .img3,
+    .img4,
+    .img5,
+    .img6,
+    .img7,
+    .img8,
+    .img9 {
+      background-color: #D9D9D9;
+      height: 30em;
+      width: 20em;
+      border-radius: 0.8em;
+      margin-right: 3em;
+      position: relative;
+      object-fit: cover;
+      cursor: pointer;
+      overflow: hidden;
+      left: 0;
+      right: 0;
+    }
+    
+    .seta-esquerda,
+    .seta-direita {
+      background-color: #FA58B6;
+      width: 2em;
+      height: 2em;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      font-size: 2em;
+      cursor: pointer;
+      border: none;
+      z-index: 1
+    }
+
+    .know-services{
+        width: 100%;
+        height: 10em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 1em;
+        margin-bottom: 2em;
+    }
+    
+    .descubra{
+        background: linear-gradient(to left top, #500D7A, #841053);
+        width: 20em;
+        height: 5em;
+        border-radius: 0.8em;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .descubra span{
+        font-size: 1.4em;
+        background-color: transparent;
+    }
+
+    .footer{
+        font-size: 1.2em;
+    }
+}
+
+@media only screen and (min-width: 2000px){
+    .path-header{
+        font-size: 1.4em;
+    }
+
+    img{
+        width: 8em;
+        margin-left: 3em;
+    }
+
+    .sobreNos{
+        display: flex;
+        margin: 0;
+        margin-bottom: 3em;
+        gap: 1em;
+    }
+
+    .text-sobreNos{
+        height: 100%;
+        width: 100%;
+        font-size: 1.8em;
+        margin-right: 0;
+    }
+
+    .text-sobreNos span{
+        font-size: 1.3em;
+    }
+
+    .image-computer{
+        height: 100%;
+        width: 35em;
+    }
+
+    .image-computer img{
+        height: 100%;
+        width: 35em;
+        margin-left: -2em;
+        margin-top: 8em;  
+    }
+
+    .nossa-equipe{
+        width: 100%;
+        height: 100%;
+        font-size: 1.7em;
+        margin-top: 5em;
+    }
+    
+    .nossa-equipe span{
+        font-size: 1.3em;
+    }
+
+    .carrossel{
+        margin-top: 8em;
+        margin-bottom: 5em;
+    }
+
+    .img1,
+    .img2,
+    .img3,
+    .img4,
+    .img5,
+    .img6,
+    .img7,
+    .img8,
+    .img9 {
+      background-color: #D9D9D9;
+      height: 40em;
+      width: 30em;
+      border-radius: 0.8em;
+      margin-right: 3em;
+      position: relative;
+      object-fit: cover;
+      cursor: pointer;
+      overflow: hidden;
+      left: 0;
+      right: 0;
+    }
+    
+    .seta-esquerda,
+    .seta-direita {
+      background-color: #FA58B6;
+      width: 2em;
+      height: 2em;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      font-size: 4em;
+      cursor: pointer;
+      border: none;
+      z-index: 1
+    }
+
+    .know-services{
+        width: 100%;
+        height: 10em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.6em;
+        margin-bottom: 2em;
+    }
+    
+    .descubra{
+        background: linear-gradient(to left top, #500D7A, #841053);
+        width: 35em;
+        height: 15em;
+        border-radius: 0.8em;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .descubra span{
+        font-size: 3em;
+        background-color: transparent;
+    }
+
+    .footer{
+        font-size: 2.5em;
+    }
+}
