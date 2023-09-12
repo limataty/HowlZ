@@ -51,22 +51,6 @@
       </div>
     </div>
 
-    <!-- <div class="carrossel">
-        <button class="seta-esquerda"></button>
-    <div class="carrosel" id="img">
-      <img class="img1"></img>
-      <img class="img2"></img>
-      <img class="img3"></img>
-      <img class="img4"></img>
-      <img class="img5"></img>
-      <img class="img6"></img>
-      <img class="img7"></img>
-      <img class="img8"></img>
-      <img class="img9"></img>
-    </div>
-    <button class="seta-direita"></button>
-    </div> -->
-
     <div class="carrossel">
       <button class="seta-esquerda" onclick="moverSlide(-1)">&#10094;</button>
       <div id="carrosselComFor" class="carrossel-container">
@@ -92,37 +76,18 @@
 </html>
 
 <script>
-  //   const imgs = document.getElementById("img");
-  //   const img = document.querySelectorAll("#img img");
 
-  //   let idx = 0;
-
-  //   function carrosel() {
-  //     idx++;
-
-  //     if (idx > img.length - 1) {
-  //       idx = 0;
-  //     }
-
-  //     imgs.style.transform = `translateX(${idx * 50}%)`;
-  //   }
-
-  //   setInterval(carrosel, 2500);
-
-    
     for(var i = 1; i <= 5; i++){
       carrosselComFor.innerHTML += `
       <img class="img${i}" alt="Imagem ${i}" />
       `;
     }
 
-
-
 const carrosselContainer = document.querySelector(".carrossel-container");
 const imgCount = document.querySelectorAll(".carrossel-container img").length;
 let currentIndex = 0;
 const transitionDuration = 0.5; // Duração da transição em segundos
-const imgWidth = 10; // Largura de cada imagem em porcentagem
+const imgWidth = 20; // Largura de cada imagem em porcentagem
 
 function moverSlide(direction) {
   currentIndex += direction;
@@ -141,7 +106,7 @@ function moverSlide(direction) {
 
 // Adicionar um ouvinte de evento de transição para detectar quando a transição é concluída
 carrosselContainer.addEventListener("transitionend", () => {
-  if (currentIndex === imgCount - 1) {
+  if (currentIndex === imgCount - 2 || currentIndex == imgCount - 5) {
     currentIndex = 0;
     carrosselContainer.style.transition = "none";
     carrosselContainer.style.transform = `translateX(0%)`;
