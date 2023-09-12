@@ -2,10 +2,17 @@
 
 * {
     color: #ffff;
-   
+    background-color: #141619;
     font-family: 'Poppins';
     text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
 
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 header {
@@ -102,18 +109,21 @@ li a:hover {
 }
 
 .footer {
-    position: absolute;
     left: 0;
+    height: 100%;
     width: 100%;
     text-align: center;
-    margin: 5em 0;
-    background-color: #191C1F;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-color: #141619;
+    padding-bottom: 0.8rem;
 }
 
 .footer p {
     font-size: .9em;
     font-weight: 200;
-    background-color: #191C1F;
+    background-color: #141619;
 }
 
 
@@ -166,9 +176,10 @@ li a:hover {
     .footer{
         font-size: 0.7em;
         display: flex;
-        justify-content: center;
+        justify-content: end;
         position: 0;
-        margin: 8.8em 0;
+        margin: 0;
+        background-color: red;
     }
 
     .footer p {
