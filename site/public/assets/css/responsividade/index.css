@@ -1,44 +1,61 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-*{
+* {
     color: #ffff;
    
     font-family: 'Poppins';
     text-decoration: none;
-  
+
 }
 
-.path-header {
-    display: flex;
+header {
     width: 100%;
+    padding: 1em 0;
+    display: flex;
     align-items: center;
     justify-content: center;
-    margin: 2em 0 ;
 }
 
-.paths__main {
+.logo {
+    width: 40%;
     display: flex;
     align-items: center;
-    width: 50%;
-    justify-content: space-around;
+    justify-content: center;
 }
 
-.path:hover {
+ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+    gap: 9em;
+    width: 60%;
+}
+
+li a {
+    font-size: 1.1em;
+    transition: all .2s;
+    text-transform: uppercase;
+}
+
+li a:hover {
     color: #7A0BC0;
 }
 
-.cover{
+.cover {
     display: flex;
     flex-direction: row;
     justify-content: center;
     padding: 5em 0;
 }
+
 .text-cover {
     font-size: 4.25em;
     width: 35%;
 }
 
-.floating { 
+.floating {
     animation-name: floating;
     animation-duration: 3s;
     animation-iteration-count: infinite;
@@ -46,19 +63,28 @@
     margin-left: 30px;
     margin-top: 5px;
 }
- 
+
 @keyframes floating {
-    0% { transform: translate(0,  0px); }
-    50%  { transform: translate(0, 15px); }
-    100%   { transform: translate(0, -0px); }   
+    0% {
+        transform: translate(0, 0px);
+    }
+
+    50% {
+        transform: translate(0, 15px);
+    }
+
+    100% {
+        transform: translate(0, -0px);
+    }
 }
 
 .button {
     display: flex;
     justify-content: center;
+    transition: all .5s;
 }
 
-.button a{
+.button a {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,21 +94,47 @@
     height: 3em;
     background-color: #7A0BC0;
     border-radius: 5px;
+    transition: all .2s;
+}
+
+.button a:hover {
+    background-color: #400f5f;
 }
 
 .footer {
     position: absolute;
-    bottom: 0;
     left: 0;
     width: 100%;
     text-align: center;
-    margin: 0;
+    margin: 5em 0;
     background-color: #191C1F;
-  }
+}
 
 .footer p {
     font-size: .9em;
     font-weight: 200;
     background-color: #191C1F;
 }
-  
+
+
+
+/* Dispositivos pequenos (celular) */
+@media only screen and (max-width: 600px) {
+    ul{
+        font-size: 0.8em;
+    }
+
+    img{
+        width: 5em;
+    }
+
+}
+
+/* Dispositivos médios (tablets) */
+@media only screen and (min-width: 768px) {}
+
+/* Dispositivos grandes (desktop) */
+@media only screen and (min-width: 992px) {}
+
+/* Dispositivos extragrandes (desktop) */
+@media only screen and (min-width: 1200px) {}

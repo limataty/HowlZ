@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    color: #ffff;
+    background-color: #141619;
+    font-family: 'Poppins';
+    text-decoration: none;
+  
+}
+
+.path-header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin: 2em 0 ;
+}
+
+.paths__main {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: space-around;
+}
+
+.path:hover {
+    color: #7A0BC0;
+}
+
+/* Nossos serviços */
+
+p {
+    font-size: 1.2em;
+}
+
+.banner-servicos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-servicos h1 {
+    font-size: 2.5em;
+    text-decoration: underline #7A0BC0 10px;
+}
+
+.container-secao-servicos {
+    margin: 0 5%;
+}
+
+.secao-servicos {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 3px #7A0BC0;   
+    padding: 50px 0;
+}
+
+.secao-servicos .imagem-lateral {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.secao-servicos .imagem-lateral img {
+    width: 50%;
+}
+
+.dash-img {
+    width: 50em;
+}
+
+.secao-servicos .texto-lateral {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    margin: 0 10%;
+}
+
+/* Descubra nossos serviços */
+
+.servicos-para-contato{
+    height: 275px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
+.link-contato{
+    background: linear-gradient(to left top, #500D7A, #841053);
+    width: 20em;
+    height: 5em;
+    border-radius: 0.8em;
+    border: none;
+    cursor: pointer;
+}
+
+.link-contato span{
+    font-size: 1.4em;
+    background-color: transparent;
+}
+
+/* Footer */
+
+.footer {
+    position: absolute;
+    width: 99.5%;
+    text-align: center;
+    margin: 0;
+    background-color: #191C1F;
+  }
+
+.footer p {
+    font-size: .9em;
+    font-weight: 200;
+    background-color: #191C1F;
+}
+  
+
+
+
