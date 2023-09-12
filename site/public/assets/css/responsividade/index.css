@@ -29,7 +29,7 @@ ul {
     list-style: none;
     align-items: center;
     justify-content: center;
-    gap: 9em;
+    justify-content: space-around;
     width: 60%;
 }
 
@@ -64,7 +64,7 @@ li a:hover {
     margin-top: 5px;
 }
 
-@keyframes floating {
+/* @keyframes floating {
     0% {
         transform: translate(0, 0px);
     }
@@ -76,7 +76,7 @@ li a:hover {
     100% {
         transform: translate(0, -0px);
     }
-}
+} */
 
 .button {
     display: flex;
@@ -121,20 +121,98 @@ li a:hover {
 /* Dispositivos pequenos (celular) */
 @media only screen and (max-width: 600px) {
     ul{
-        font-size: 0.8em;
+        font-size: .6em;
+        display: flex;
+        margin: 0 .5em;
+        gap: 0;
+        text-align: center;
     }
 
-    img{
-        width: 5em;
+    .cover p{
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
     }
+
+    .logo img{
+        width: 6em;
+    }
+
+    .cover p{
+        display:none
+    }
+
+    .img-cover {
+        display: flex;
+        justify-content: center;
+        width: 50%;
+    }
+
+    .img-cover img{
+        width: 18em;
+        justify-content: center;
+
+    }
+
+    .text-cover {
+        display: none;
+    }
+
+    .floating {
+        display: flex;
+        justify-content: center;
+    }
+
+    .footer{
+        font-size: 0.7em;
+        display: flex;
+        justify-content: center;
+        position: 0;
+        margin: 8.8em 0;
+    }
+
+    .footer p {
+        width: 70%;
+        height: 100%;
+
+    }
+
+    .button a{
+        font-size: .9em;
+        width: 10em;
+        height: 3em;
+    }
+
 
 }
 
 /* Dispositivos médios (tablets) */
-@media only screen and (min-width: 768px) {}
-
+@media only screen and (min-width: 768px) {
+    .text-cover{
+        display: none;
+    }
+}
 /* Dispositivos grandes (desktop) */
-@media only screen and (min-width: 992px) {}
+@media only screen and (min-width: 992px) {
+
+    .cover{
+        display: flex;
+        align-items: center;
+        padding-bottom: 1.5em;
+    }
+
+    .cover img {
+        width: 25em;
+    }
+
+    .text-cover{
+        display: block;
+        font-size: 2.5em;
+    }
+
+}
 
 /* Dispositivos extragrandes (desktop) */
-@media only screen and (min-width: 1200px) {}
+@media only screen and (min-width: 1200px) {
+
+}
