@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body{
+    color: #ffff;
+    background-color: black;
+    font-family: 'Poppins';
+    text-decoration: none;
+  
+}
+
+.path-header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin: 2em 0 ;
+    text-decoration: none;
+}
+
+.path {
+    text-decoration: none;
+    color: #fff;
+}
+
+.paths__main {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: space-around;
+}
+
+.path:hover {
+    color: #7A0BC0;
+}
+
+
+
+.login-container {
+    padding: 20px;
+    width: 300px;
+    height: 300px;
+    border-radius: 34px;
+    border: 1px solid #98F9FF;
+    background: radial-gradient(151.92% 127.02% at 15.32% 21.04%, rgba(165, 239, 255, 0.20) 0%, rgba(110, 191, 244, 0.04) 77.08%, rgba(70, 144, 212, 0.00) 100%);
+    margin-left: 37%;
+ 
+}
+
+h2{
+    text-align: center;
+    color: #fff;
+    background-color: none;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 5px;
+    border-radius: 5px;
+    background: rgba(217, 217, 217, 0.40);
+    width: 250px;
+}
+
+button {
+    padding: 10px 30px;
+    background-color: #7A0BC0;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 260px;
+    margin-top: 25px;
+}
+
+
+
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    background-color: #191C1F;
+  }
+
+.footer p {
+    font-size: .9em;
+    font-weight: 200;
+    background-color: #191C1F;
+}
