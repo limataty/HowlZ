@@ -143,11 +143,15 @@ li a {
 /* Dispositivos pequenos (celular) */
 @media only screen and (max-width: 600px) {
     .path{
-        font-size: 1em;
+        font-size: .7em;
         display: flex;
         margin: 0 .5em;
         gap: 1.5em;
         text-align: center;
+    }
+
+    img{
+        width: 10vh;
     }
 
     .cover p{
@@ -192,7 +196,7 @@ li a {
     }
 
     .footer{
-        font-size: 0.7em;
+        font-size: .5em;
         display: flex;
         align-items: center;
         position: 0;
