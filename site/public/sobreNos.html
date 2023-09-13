@@ -67,7 +67,7 @@
     <div class="container">
       <div class="know-services">
         <h2>CURTIU? VENHA CONHECER NOSSOS SERVIÇOS!</h2>
-        <button class="descubra"><span>DESCUBRA</span></button>
+        <button class="descubra"><a class="btnServ" href="nossosServicos.html"><span>DESCUBRA</span></button></a>
       </div>
     </div>
 
@@ -81,12 +81,6 @@
 
 
 <script>
-
-    for(var i = 1; i <= 5; i++){
-      carrosselComFor.innerHTML += `
-      <img class="img${i}" alt="Imagem ${i}" />
-      `;
-    }
 
 const carrosselContainer = document.querySelector(".carrossel-container");
 const imgCount = document.querySelectorAll(".carrossel-container img").length;
@@ -111,7 +105,7 @@ function moverSlide(direction) {
 
 // Adicionar um ouvinte de evento de transição para detectar quando a transição é concluída
 carrosselContainer.addEventListener("transitionend", () => {
-  if (currentIndex === imgCount - 2 || currentIndex == imgCount - 5) {
+  if (currentIndex === imgCount - 5 || currentIndex == imgCount - 7) {
     currentIndex = 0;
     carrosselContainer.style.transition = "none";
     carrosselContainer.style.transform = `translateX(0%)`;
