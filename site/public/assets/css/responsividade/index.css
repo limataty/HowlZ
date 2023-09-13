@@ -134,7 +134,7 @@ li a:hover {
         font-size: .6em;
         display: flex;
         margin: 0 .5em;
-        gap: 0;
+        gap: 1.5em;
         text-align: center;
     }
 
@@ -172,26 +172,25 @@ li a:hover {
         display: flex;
         justify-content: center;
     }
-
-    .footer{
-        font-size: 0.7em;
-        display: flex;
-        justify-content: end;
-        position: 0;
-        margin: 0;
-        background-color: red;
-    }
-
-    .footer p {
-        width: 70%;
-        height: 100%;
-
-    }
-
+    
     .button a{
         font-size: .9em;
         width: 10em;
         height: 3em;
+    }
+
+    .footer{
+        font-size: 0.7em;
+        display: flex;
+        align-items: center;
+        position: 0;
+        margin: 0;
+        padding-bottom: 0.8rem;
+    }
+
+
+    .footer p{
+        width: 85%;
     }
 
 
@@ -199,9 +198,33 @@ li a:hover {
 
 /* Dispositivos médios (tablets) */
 @media only screen and (min-width: 768px) {
+
+    .header{
+        width: 100%;
+        font-size: 0.7em;
+    }
+
     .text-cover{
         display: none;
     }
+
+    .footer{
+        font-size: 0.7em;
+        display: flex;
+        align-items: center;
+        position: 0;
+        margin: 0;
+        padding-bottom: 0.8rem;
+    }
+
+    .footer p{
+        width: 85%;
+    }
+
+    .logo {
+        gap:0;
+    }
+    
 }
 /* Dispositivos grandes (desktop) */
 @media only screen and (min-width: 992px) {
