@@ -1,35 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     color: #ffff;
     background-color: black;
     font-family: 'Poppins';
-    text-decoration: none;
-  
-}
-
-.path-header {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    margin: 2em 0 ;
-}
-
-.path {
-    text-decoration: none;
-    color: #fff;
-}
-
-.paths__main {
-    display: flex;
-    align-items: center;
-    width: 50%;
-    justify-content: space-around;
-}
-
-.path:hover {
-    color: #7A0BC0;
+    text-decoration: none; 
+    margin: 0;
 }
 
 .colunas{
@@ -38,10 +18,13 @@ body{
 }
 
 .cadastro-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
     width: 532px;
-    height: 100%;
-    margin-left: 37%;
+    height: 50%;
     border-radius: 34px;
     border: 1px solid #98F9FF;
     background: radial-gradient(151.92% 127.02% at 15.32% 21.04%, rgba(165, 239, 255, 0.20) 0%, rgba(110, 191, 244, 0.04) 77.08%, rgba(70, 144, 212, 0.00) 100%);
@@ -52,6 +35,12 @@ body{
     margin-top: 20px;
     color: #7A0BC0;
     font-weight: 600;
+    text-decoration: underline;
+    transition: all .2s;
+}
+
+.cadastro-container a:hover{
+    color: #400f5f;
 }
 
 h2{
@@ -83,23 +72,11 @@ button {
     margin-top: 25px;
     font-weight: 700;
     font-size: .9em;
+    transition: all .2s;
+}
+
+button:hover{
+    background-color: #400f5f;
 }
 
 
-
-
-.footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    margin: 0;
-    background-color: #191C1F;
-}
-
-.footer p {
-    font-size: .9em;
-    font-weight: 200;
-    background-color: #191C1F;
-}

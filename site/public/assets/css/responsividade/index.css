@@ -15,12 +15,23 @@ body{
     height: 100vh;
 }
 
-header {
-    width: 100%;
-    padding: 1em 0;
+.path-header {
     display: flex;
+    width: 100%;
     align-items: center;
     justify-content: center;
+    margin: 2em 0 ;
+}
+
+.paths__main {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: space-around;
+}
+
+.path:hover {
+    color: #7A0BC0;
 }
 
 .logo {
@@ -46,7 +57,7 @@ li a {
     text-transform: uppercase;
 }
 
-li a:hover {
+.path a:hover {
     color: #7A0BC0;
 }
 
@@ -121,17 +132,18 @@ li a:hover {
 }
 
 .footer p {
-    font-size: .9em;
+    font-size: 1.3em;
     font-weight: 200;
     background-color: #141619;
+    
 }
 
 
 
 /* Dispositivos pequenos (celular) */
 @media only screen and (max-width: 600px) {
-    ul{
-        font-size: .6em;
+    .path{
+        font-size: 1em;
         display: flex;
         margin: 0 .5em;
         gap: 1.5em;
@@ -197,11 +209,11 @@ li a:hover {
 }
 
 /* Dispositivos médios (tablets) */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 604px) {
 
-    .header{
+    .path-header{
         width: 100%;
-        font-size: 0.7em;
+        font-size: .9em;
     }
 
     .text-cover{
@@ -229,6 +241,10 @@ li a:hover {
 /* Dispositivos grandes (desktop) */
 @media only screen and (min-width: 992px) {
 
+    .paths__main{
+        font-size: 1em;
+    }
+
     .cover{
         display: flex;
         align-items: center;
@@ -248,5 +264,9 @@ li a:hover {
 
 /* Dispositivos extragrandes (desktop) */
 @media only screen and (min-width: 1200px) {
+    
+    .paths__main{
+        font-size: 1.3em;
+    }
 
 }
