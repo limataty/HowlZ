@@ -38,6 +38,8 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0 10%;
+    text-align: center;
 }
 
 .banner-servicos h1 {
@@ -51,7 +53,7 @@ p {
 
 .secao-servicos {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     border-bottom: solid 3px #7A0BC0;   
     padding: 50px 0;
 }
@@ -60,11 +62,11 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    width: 35%;
 }
 
 .secao-servicos .imagem-lateral img {
-    width: 50%;
+    width: 70%;
 }
 
 .dash-img {
@@ -77,7 +79,7 @@ p {
     justify-content: center;
     align-items: center;
     width: 30%;
-    margin: 0 10%;
+    margin: 0 2.5%;
 }
 
 /* Descubra nossos serviços */
@@ -89,6 +91,8 @@ p {
     justify-content: center;
     align-items: center;
     margin-bottom: 2em;
+    margin: 0 10%;
+    text-align: center;
 }
 
 .link-contato{
@@ -120,7 +124,48 @@ p {
     font-weight: 200;
     background-color: #191C1F;
 }
-  
 
+/* Responsividade (De baixo para cima) */
+
+/* Desktop */
+@media only screen and (max-width: 1200px) {
+    
+}
+
+/* Desktop */
+@media only screen and (max-width: 992px) {
+    .secao-servicos {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .secao-servicos .imagem-lateral {
+        width: 50%;
+    }
+    
+    .secao-servicos .texto-lateral {
+        width: 80%;
+    }
+    
+    .secao-servicos .texto-lateral h2 {
+        text-align: center;
+    }
+}
+
+/* Tablet */
+@media only screen and (max-width: 768px) {  
+    .secao-servicos .texto-lateral {
+        font-size: 1.2em;
+    }
+
+    .secao-servicos .imagem-lateral {
+        width: 80%;
+    }
+}
+
+/* Celular */
+@media only screen and (max-width: 600px) {
+
+}
 
 
