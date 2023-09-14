@@ -88,4 +88,58 @@ button:hover{
     background-color: #400f5f
 }
 
+/* Dispositivos pequenos (celular) */
+@media only screen and (max-width: 600px) {
+    .login-container {
+        font-size: .9em;
+        width: 50vw;
+        height: 60%;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        width: 50vw;
+}
+
+    button{
+        width: 50vw;
+    }
+
+}
+
+
+/* Dispositivos médios (tablets) */
+@media only screen and (min-width: 604px) {
+    .login-container {
+        font-size: .9em;
+        width: 50vw;
+        height: 60%;
+    }
+
+
+}
+
+/* Dispositivos grandes (desktop) */
+@media only screen and (min-width: 992px) {
+    .login-container {
+        width: 50vw;
+        height: 60%;
+    }
+
+}
+
+/* Dispositivos extragrandes (desktop) */
+@media only screen and (min-width: 1200px) {
+    .login-container {
+        width: 50vw;
+        height: 60%;
+    }
+
+}
+
+
+
+
+
 
