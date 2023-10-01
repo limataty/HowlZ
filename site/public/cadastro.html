@@ -1,47 +1,144 @@
 <!DOCTYPE html>
 <html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HowlZ | CADASTRO</title>
+    <link rel="stylesheet" href="assets/css/responsividade/cadastro.css" />
+    <link rel="website icon" href="assets/icon/owl.svg" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HowlZ | CADASTRO</title>
-  <link rel="stylesheet" href="assets/css/responsividade/cadastro.css">
-  <link rel="website icon" href="assets/icon/owl.svg">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css"
+    />
 
-<body>
+    <!-- validacao cnpj -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+  </head>
 
-  <div class="cadastro-container">
-        <h2>CADASTRO</h2>
-<div class="colunas">
+  <body>
+    <div class="cadastro-container">
+      <h2>CADASTRO</h2>
+      <div class="colunas">
         <div class="colum1">
-        <label for="username">Nome da Empresa:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="nomeContratante">Nome do Contratante:</label>
-        <input type="text" id="nomeContratante" name="nomeContratante" required>
-        <label for="CNPJ">CNPJ:</label>
-        <input type="text" id="CNPJ" name="CNPJ" required>
+          <label for="username">Nome da Empresa:</label>
+          <input type="text" id="username" name="username" required />
+          <label for="nomeContratante">Nome do Contratante:</label>
+          <input
+            type="text"
+            id="nomeContratante"
+            name="nomeContratante"
+            required
+          />
+          <label for="CNPJ">CNPJ:</label>
+          <input type="text" id="cnpj" name="CNPJ" required />
 
-        <a class="caminho-top" href="index.html">Voltar para o início > </a><br>
-        <a class="caminho-top" href="login.html">Ir para login ></a>
+          <a class="caminho-top" href="index.html">Voltar para o início > </a
+          ><br />
+          <a class="caminho-top" href="login.html">Ir para login ></a>
         </div>
 
         <div class="colum2">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <label for="password">Senha:</label>
-        <input type="password" id="password" name="password" required>
-        <label for="cPassword">Confirme sua senha:</label>
-        <input type="password" id="cPassword" name="password" required>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+          <label for="password">Senha:</label>
+          <input type="password" id="password" name="password" required />
+          <label for="cPassword">Confirme sua senha:</label>
+          <input type="password" id="cPassword" name="password" required />
 
-        <a class="caminho-bottom" href="login.html" >Voltar para o Início ></a>
-        <a class="caminho-bottom" href="login.html" style="
-        margin-top: 0px;">Ir para login ></a>
+          <a class="caminho-bottom" href="login.html">Voltar para o Início ></a>
+          <a class="caminho-bottom" href="login.html" style="margin-top: 0px"
+            >Ir para login ></a
+          >
+        </div>
       </div>
-</div>
-      <button type="submit">CADASTRAR</button>
+      <button type="submit" onclick="CadastrarEmpresa()">CADASTRAR</button>
     </div>
 
-</body>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+  </body>
 </html>
+
+<script>
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  $(document).ready(function () {
+    $("#cnpj").inputmask("99.999.999/9999-99");
+  });
+
+  function CadastrarEmpresa() {
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nome_empresa = username.value.toLowerCase();
+    var nome_contratante = nomeContratante.value;
+    var cnpj_empresa = cnpj.value;
+    var email_empresa = email.value;
+    var senha_empresa = password.value;
+    var confirme_senha = cPassword.value;
+
+    if (senha_empresa != confirme_senha) {
+      Toast.fire({
+        icon: "error",
+        title: "Senhas não coincidem!",
+      });
+      return false;
+    }
+
+    // Enviando o valor da nova input
+    fetch("/usuarios/cadastrarEmpresa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        nomeEmpresa: nome_empresa,
+        nomeContratante: nomeContratante.value,
+        cnpjEmpresa: cnpj_empresa,
+        emailEmpresa: email_empresa,
+        senhaEmpresa: senha_empresa,
+        fkEmpresa: sessionStorage.ID_EMPRESA,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          Toast.fire({
+            icon: "success",
+            title: "Cadastrado com Sucesso!",
+          });
+
+          // setTimeout(() => {
+          //     window.location = "/login";
+          // }, "1000")
+          
+        } else {
+          return resposta.text().then(function (erro) {
+            Toast.fire({
+              icon: "error",
+              title: erro,
+            });
+          });
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
+  }
+
+</script>
