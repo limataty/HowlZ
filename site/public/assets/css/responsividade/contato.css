@@ -126,13 +126,17 @@ body {
 }
 
 @media only screen and (min-width: 1200px){
-    .path-header{
-        font-size: 1.2em;
+    .paths__main{
+        font-size: 1em;
     }
 
-    img{
-        margin-right: 4em;
-        width: 5em;
+    .path-header {
+        font-size: 1em;
+    }
+
+    a img {
+        width: 8em;
+        margin-left: 3em;
     }
 
     .box{

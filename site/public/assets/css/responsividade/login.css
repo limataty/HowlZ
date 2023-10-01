@@ -123,7 +123,7 @@ button:hover{
 /* Dispositivos grandes (desktop) */
 @media only screen and (min-width: 992px) {
     .login-container {
-        width: 50vw;
+        width: 40vw;
         height: 60%;
     }
 
@@ -132,7 +132,7 @@ button:hover{
 /* Dispositivos extragrandes (desktop) */
 @media only screen and (min-width: 1200px) {
     .login-container {
-        width: 50vw;
+        width: 20vw;
         height: 60%;
     }
 
