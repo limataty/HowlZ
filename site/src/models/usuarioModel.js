@@ -32,8 +32,21 @@ function cadastrarRepresentante(nomeRepresentante, empresaID) {
     return database.executar(instrucao);
 }
 
+function entrar(email, senha) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
+    var instrucao = `
+    SELECT representante.*,  empresa.email, empresa.cnpj, empresa.nome AS nomeEmpresa
+    FROM representante
+    LEFT JOIN empresa ON empresa.IdEmpresa = representante.empresaID
+    WHERE empresa.email = '${email}' AND empresa.senha = '${senha}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     cadastrarEmpresa,
     receberIDEmpresa,
     cadastrarRepresentante,
+    entrar,
 };
