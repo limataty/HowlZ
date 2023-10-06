@@ -95,44 +95,38 @@
       return false;
     }
 
-    // Enviando o valor da nova input
-    fetch("/usuarios/cadastrarEmpresa", {
+    fetch("/usuarios/validarCadastro", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
         nomeEmpresa: nome_empresa,
         nomeContratante: nomeContratante.value,
         cnpjEmpresa: cnpj_empresa,
         emailEmpresa: email_empresa,
         senhaEmpresa: senha_empresa,
-        fkEmpresa: sessionStorage.ID_EMPRESA,
       }),
     })
       .then(function (resposta) {
-        console.log("resposta: ", resposta);
+        console.log("resposta XXX: ", resposta);
 
-        if (resposta.ok) {
+        if (resposta.status === 203) {
+          Toast.fire({
+            icon: "error",
+            title: "Cadastro da Empresa já existente!",
+          });
+        } else if (resposta.status === 201) {
           Toast.fire({
             icon: "success",
-            title: "Cadastrado com Sucesso!",
-          });
-
-          // setTimeout(() => {
-          //     window.location = "/login";
-          // }, "1000")
-          
-        } else {
-          return resposta.text().then(function (erro) {
-            Toast.fire({
-              icon: "error",
-              title: erro,
-            });
+            title: "Cadastrado a Empresa com Sucesso!",
           });
         }
+
+        //   // setTimeout(() => {
+        //   //     window.location = "/login";
+        //   // }, "1000")
+
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);

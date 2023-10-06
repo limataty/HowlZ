@@ -1,3 +1,4 @@
+const e = require("express");
 var database = require("../database/config")
 
 function cadastrarEmpresa(nomeEmpresa, cnpjEmpresa, emailEmpresa, senhaEmpresa) {
@@ -5,6 +6,20 @@ function cadastrarEmpresa(nomeEmpresa, cnpjEmpresa, emailEmpresa, senhaEmpresa) 
 
     var instrucao = `
         INSERT INTO empresa (nome, cnpj, email, senha) VALUES ('${nomeEmpresa}', '${cnpjEmpresa}', '${emailEmpresa}', '${senhaEmpresa}');
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function validarCadastro(nomeEmpresa, cnpjEmpresa, emailEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarEmpresa():", nomeEmpresa, cnpjEmpresa, emailEmpresa);
+
+    var instrucao = `
+    SELECT EXISTS (
+        SELECT 1
+        FROM empresa
+        WHERE nome = '${nomeEmpresa}' AND cnpj = '${cnpjEmpresa}' AND email = '${emailEmpresa}'
+    ) AS existe_empresa;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -49,4 +64,5 @@ module.exports = {
     receberIDEmpresa,
     cadastrarRepresentante,
     entrar,
+    validarCadastro,
 };
