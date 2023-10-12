@@ -22,12 +22,94 @@
         <br>
         <input type="password" id="password" name="password" required>
         
-        <button type="submit">ENTRAR</button>
+        <button type="submit" onclick="LoginUsuario()">ENTRAR</button>
         <a href="index.html">Voltar para o início > </a>
         <a href="cadastro.html">Ir para cadastro ></a>
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
 </body>
 
 </html>
+
+<script>
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+
+
+  function LoginUsuario() {
+    var emailVar = username.value;
+    var senhaVar = password.value;
+
+    if (emailVar == "" || senhaVar == "") {
+
+      Toast.fire({
+        icon: 'error',
+        title: 'Preencha todos os campos!'
+      })
+
+      return false;
+    }
+
+    fetch("/usuarios/logar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+      }),
+    })
+      .then(function (resposta) {
+
+        console.log("ESTOU NO THEN DO entrar()!");
+
+        if (resposta.ok) {
+          console.log(resposta);
+
+          resposta.json().then((json) => {
+            console.log(json);
+            console.log(JSON.stringify(json));
+
+              sessionStorage.NOME_EMPRESA = json.nomeEmpresa; // corrected key
+              sessionStorage.EMAIL_EMPRESA = json.email; // corrected key
+              sessionStorage.ID_EMPRESA = json.empresaID; // corrected key
+              sessionStorage.REPRESENTANTE = json.nome; // corrected key
+
+            // setTimeout(function () {
+            //   window.location = `/dashboard`
+            // }, 1000); // apenas para exibir o loading
+          });
+        } else {
+
+          resposta.text().then((texto) => {
+
+            Toast.fire({
+              icon: 'error',
+              title: texto
+            })
+          });
+        }
+      })
+      .catch(function (erro) {
+        console.log(erro);
+      });
+
+    return false;
+
+  }
+
+</script>
