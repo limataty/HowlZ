@@ -15,6 +15,13 @@ body{
     height: 100vh;
 }
 
+.corpo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .path-header {
     display: flex;
     width: 100%;
@@ -65,7 +72,6 @@ li a {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding: 5em 0;
 }
 
 .text-cover {
@@ -100,6 +106,7 @@ li a {
     display: flex;
     justify-content: center;
     transition: all .5s;
+    
 }
 
 .button a {
@@ -121,27 +128,28 @@ li a {
 
 .footer {
     left: 0;
-    height: 100%;
     width: 100%;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    background-color: #141619;
-    padding-bottom: 0.8rem;
+    background-color: #191C1F;
 }
 
 .footer p {
     font-size: 1.3em;
     font-weight: 200;
-    background-color: #191C1F;
-    
+    background-color: transparent;
 }
 
 
 
 /* Dispositivos pequenos (celular) */
 @media only screen and (max-width: 600px) {
+    body{
+        height: 100vh;
+    }
+    
     .path{
         font-size: .7em;
         display: flex;
@@ -164,6 +172,11 @@ li a {
         width: 6em;
     }
 
+    .cover{
+        padding: 100px 0 0;
+        justify-content: center;
+    }
+    
     .cover p{
         display:none
     }
@@ -178,6 +191,10 @@ li a {
         width: 18em;
         justify-content: center;
 
+    }
+
+    .button{
+        padding: 50px 0;
     }
 
     .text-cover {
@@ -200,8 +217,8 @@ li a {
         display: flex;
         align-items: center;
         position: 0;
-        margin: 0;
-        padding-bottom: 0.8rem;
+        margin: 170px 0 0;
+        padding: 14px 0 14px;
     }
 
 
@@ -213,11 +230,15 @@ li a {
 }
 
 /* Dispositivos médios (tablets) */
-@media only screen and (min-width: 604px) {
+@media only screen and (min-width: 602px) {
 
     .path-header{
         width: 100%;
         font-size: .9em;
+    }
+
+    .cover{
+        margin: 50px 0;
     }
 
     .text-cover{
@@ -228,9 +249,8 @@ li a {
         font-size: 0.7em;
         display: flex;
         align-items: center;
-        position: 0;
-        margin: 0;
-        padding-bottom: 0.8rem;
+        margin: 115px 0 0;
+        padding: 14px 0 14px;
     }
 
     .footer p{
@@ -243,7 +263,7 @@ li a {
     
 }
 /* Dispositivos grandes (desktop) */
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 990px) {
 
     .paths__main{
         font-size: 1em;
@@ -252,7 +272,6 @@ li a {
     .cover{
         display: flex;
         align-items: center;
-        padding-bottom: 1.5em;
     }
 
     .cover img {
@@ -262,6 +281,11 @@ li a {
     .text-cover{
         display: block;
         font-size: 2.5em;
+    }
+
+    .footer{
+        margin: 360px 0;
+        padding: 14px 0 14px;
     }
 
 }
