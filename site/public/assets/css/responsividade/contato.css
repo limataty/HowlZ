@@ -55,6 +55,10 @@ body {
     color: #ffffff;
 }
 
+.container p{
+    text-align: center;
+}
+
 /*corpo*/
 .box .container{
     display: flex;
