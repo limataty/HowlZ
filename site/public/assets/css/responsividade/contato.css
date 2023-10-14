@@ -5,6 +5,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-decoration: none;
+    color: #ffff;
 }
 
 body {
@@ -15,30 +17,26 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
 }
 
 .path-header {
     display: flex;
     width: 100%;
-    margin: 2em 0 0;
+    margin: 2em 0;
     align-items: center;
     justify-content: center;
 
 }
 
-.paths {
+.paths__main {
     display: flex;
     align-items: center;
     width: 50%;
     justify-content: space-around;
+    text-decoration: none;
 }
 
-.paths a {
-    text-decoration: none;
-    color: #ffffff;
-    transition: all .2s;
-}
+
 
 .paths a:hover {
     color: #7A0BC0;
@@ -99,13 +97,19 @@ body {
     height: 100%;
 }
 
-@media only screen and (max-width: 380px){
-    .path-header{
-        font-size: 0.8em;
+@media only screen and (max-width: 599px){
+    .path{
+        font-size: .6em;
+        display: flex;
+        margin: 0 .5em;
+        padding: 0 .5em;
+        gap: 1.5em;
+        text-align: center;
     }
 
-    img{
-        width: 5em;
+    .coruja{
+        width: 10vh;
+        margin-right: 10px;
     }
 
     .box{
@@ -118,33 +122,43 @@ body {
     }
 }
 
-@media only screen and (max-width: 500px){
+@media only screen and (min-width: 600px){
     .box{
         font-size: 0.7em;
     }
 
-    .paths{
-        font-size: 0.7em;
-        text-align: center;
-    }
-}
-
-@media only screen and (min-width: 1200px){
-    .paths__main{
-        font-size: 1em;
+    .path-header{
+        font-size: 0.9em;
     }
 
-    .path-header {
-        font-size: 1em;
-    }
-
-    a img {
+    .coruja{
         width: 8em;
         margin-left: 3em;
     }
 
+    .footer{
+        font-size: 0.8em;
+    }
+
+
+}
+
+@media only screen and (min-width: 1200px){
+    .path-header {
+        font-size: 1em;
+    }
+
+    .coruja {
+        width: 8em;
+        margin-left: 3em;
+    }
+
+    .faleConosco{
+        font-size: 1.2em;
+    }
+
     .box{
-        font-size: 1.1em;
+        font-size: 1em;
         text-align: center;
     }
 
@@ -155,22 +169,21 @@ body {
 
 @media only screen and (min-width: 1900px){
     .path-header{
-        font-size: 1em;
+        font-size: 1.8em;
     }
 
-    img{
-        margin-right: 5em;
-        width: 6em;
+    .coruja{
+        width: 8.5em;
+        margin-left: 3em;
     }
 
     .box{
-        font-size: 1em;
+        font-size: 2em;
         text-align: center;
     }
 
     .footer{
-        font-size: .9em;
-        font-weight: 200;
+        font-size: 1.6em;
     }
 
 }

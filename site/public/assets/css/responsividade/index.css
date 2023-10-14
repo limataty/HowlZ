@@ -159,27 +159,46 @@ li a {
     background-color: #400f5f;
 }
 
-.footer {
+/* .footer {
     left: 0;
     width: 100%;
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    background-color: #191C1F;
+    align-items: center;
+} */
+
+.footer{ 
+    background-color: #191C1F;
+    display: flex;
+    padding: 1em 0.5em;
+    text-align: center;
+    font-size: 0.875em;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    margin: auto;
     background-color: #191C1F;
 }
 
-.footer p {
-    font-size: 1.3em;
-    font-weight: 200;
-    background-color: transparent;
+.footer .container{
+    align-items: center; 
+    justify-content: center;
+    height: 100%;
 }
+
+.textoFooter{
+    background-color: #191C1F;
+}
+
 
 
 
 /* Dispositivos pequenos (celular) */
-@media only screen and (max-width: 600px) {
-    
+@media only screen and (max-width: 599px) {
     .path{
         font-size: .6em;
         display: flex;
@@ -189,8 +208,9 @@ li a {
         text-align: center;
     }
 
-    img{
+    .coruja{
         width: 10vh;
+        margin-right: 10px;
     }
 
     .cadastroElogin{
@@ -252,6 +272,7 @@ li a {
         justify-content: center;
         transition: all .5s;   
         gap: 10px; 
+        margin-bottom: 5px;
     }
     
     .cadastroEloginCEL a{
@@ -277,37 +298,30 @@ li a {
     }
 
     .footer{
-        font-size: .5em;
-        display: flex;
-        align-items: center;
-        position: 0;
-        margin: 145px 0 0;
-        padding: 14px 0 14px;
+        font-size: 0.7em;
     }
 
 
-    .footer p{
-        width: 90%;
-    }
+    
 
 
 }
 
 /* Dispositivos médios (tablets) */
-@media only screen and (min-width: 602px) {
+@media only screen and (min-width: 600px) {
 
     .path-header{
-        width: 100%;
-        font-size: .9em;
-        gap: 15px;
+        font-size: 0.9em;
     }
 
-    .paths__main{
-        gap: 15px;
-    }
 
     .cover{
         margin: 50px 0;
+    }
+
+    .coruja{
+        width: 8em;
+        margin-left: 3em;
     }
 
     .text-cover{
@@ -323,6 +337,7 @@ li a {
         justify-content: center;
         transition: all .5s;   
         gap: 10px; 
+        margin-bottom: 5px;
     }
     
     .cadastroEloginCEL a{
@@ -352,15 +367,7 @@ li a {
     }
 
     .footer{
-        font-size: 0.7em;
-        display: flex;
-        align-items: center;
-        margin: 100px 0 0;
-        padding: 14px 0 14px;
-    }
-
-    .footer p{
-        width: 85%;
+        font-size: 0.8em;
     }
 
     .logo {
@@ -370,11 +377,6 @@ li a {
 }
 /* Dispositivos grandes (desktop) */
 @media only screen and (min-width: 990px) {
-
-    .paths__main{
-        font-size: 1em;
-    }
-
     .cover{
         padding: 30px 0 0;
         display: flex;
@@ -391,8 +393,8 @@ li a {
     }
 
     .footer{
-        margin: 230px 0;
-        padding: 14px 0 14px;
+        font-size: 0.8em;
+        margin: 60px 0;
     }
 
     .cadastroEloginCEL{
@@ -407,16 +409,11 @@ li a {
 
 /* Dispositivos extragrandes (desktop) */
 @media only screen and (min-width: 1200px) {
-    
-    .paths__main{
-        font-size: 1em;
-    }
-
     .path-header {
         font-size: 1em;
     }
 
-    a img {
+    .coruja {
         width: 8em;
         margin-left: 3em;
     }
@@ -425,4 +422,29 @@ li a {
         display: none;
     }
 
+    .footer{
+        font-size: 0.9em;
+    }
 }
+
+@media only screen and (min-width: 1900px) {
+    .path-header{
+        font-size: 1.8em;
+    }
+
+    .coruja {
+        width: 8.5em;
+        margin-left: 3em;
+    }
+
+    .corpo{
+        padding: 250px;
+    }
+
+
+    .footer{
+        font-size: 1.6em;
+    }
+
+}
+

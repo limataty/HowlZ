@@ -5,15 +5,16 @@
     background-color: #141619;
     font-family: 'Poppins';
     text-decoration: none;
-  
+    margin: 0;
+    padding: 0;
 }
+
 
 .path-header {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: center;
-    margin: 2em 0 ;
 }
 
 .paths__main {
@@ -111,29 +112,140 @@ p {
 
 /* Footer */
 
-.footer {
-    position: absolute;
-    width: 99.5%;
-    text-align: center;
-    margin: 0;
+.footer{ 
     background-color: #191C1F;
-  }
+    display: flex;
+    padding: 1em 0.5em;
+    text-align: center;
+    font-size: 0.875em;
+}
 
-.footer p {
-    font-size: .9em;
-    font-weight: 200;
+.container {
+    display: flex;
+    width: 80%;
+    margin: auto;
     background-color: #191C1F;
 }
 
-/* Responsividade (De baixo para cima) */
+.footer .container{
+    align-items: center; 
+    justify-content: center;
+    height: 100%;
+}
 
-/* Desktop */
-@media only screen and (max-width: 1200px) {
+.textoFooter{
+    background-color: #191C1F;
+}
+
+/* Responsividade (De cima para baixo) */
+/* Celular */
+@media only screen and (max-width: 599px) {
+    .path{
+        font-size: .6em;
+        display: flex;
+        margin: 0 .5em;
+        padding: 0 .5em;
+        gap: 1.5em;
+        text-align: center;
+    }
+    
+    img{
+        height: 7em;
+        width: 6em;
+    }
+
+    .secao-servicos .imagem-lateral{
+        display: none;
+    }
+
+    .banner-servicos h1 {
+        font-size: 2.2em;
+        text-decoration: underline #7A0BC0 10px;
+    }
+
+    .coruja{
+        width: 10vh;
+        margin-right: 10px;
+    }
+
+    .link-contato{
+        margin-bottom: 5px;
+    }
+
+    .footer{
+        font-size: 0.7em;
+    }
+}
+
+/* Tablet */
+@media only screen and (min-width: 600px) {  
+    .path-header{
+        font-size: 0.9em;
+    }
+
+    .coruja{
+        width: 8em;
+        margin-left: 3em;
+    }
+
+    img{
+        height: 10em;
+        width: 7em;
+    }
+
+    .banner-servicos h1 {
+        font-size: 2.2em;
+        text-decoration: underline #7A0BC0 10px;
+    }
+
+
+    .secao-servicos .texto-lateral {
+        font-size: 1.2em;
+    }
+
+    .footer{
+        font-size: 0.8em;
+    }
     
 }
 
 /* Desktop */
-@media only screen and (max-width: 992px) {
+@media only screen and (min-width: 1200px) {
+    .path-header {
+        font-size: 1em;
+    }
+
+    .coruja {
+        width: 8em;
+        margin-left: 3em;
+    }
+
+    .secao-servicos .imagem-lateral img {
+        width: 12em;
+        height: 10em;
+    }
+
+    .footer{
+        font-size: 0.9em;
+    }
+}
+
+/* Desktop */
+/* @media only screen and (min-width: 992px) {
+    .path-header{
+        font-size: 0.9em;
+    }
+
+    .coruja{
+        width: 8em;
+        margin-left: 3em;
+    }
+
+    img{
+        height: 10em;
+        width: 8em;
+    }
+
     .secao-servicos {
         flex-direction: column;
         align-items: center;
@@ -150,32 +262,51 @@ p {
     .secao-servicos .texto-lateral h2 {
         text-align: center;
     }
-}
 
-/* Tablet */
-@media only screen and (max-width: 700px) {  
-    .secao-servicos .texto-lateral {
-        font-size: 1.2em;
+    .footer{
+        font-size: 0.8em;
     }
+} */
 
-    .secao-servicos .imagem-lateral {
-        width: 80%;
-    }
-
+@media only screen and (min-width: 1900px) {
     .path-header{
-        width: 100%;
-        font-size: .9em;
-        gap: 15px;
+        font-size: 1.8em;
     }
 
-    .paths__main{
-        gap: 15px;
+    .coruja {
+        width: 8.5em;
+        margin-left: 3em;
     }
+
+    .banner-servicos h1 {
+        font-size: 2.6em;
+        text-decoration: underline #7A0BC0 10px;
+    }
+
+    .secao-servicos{
+        font-size: 1.4em;
+    }
+
+    .banner-servicos{
+        font-size: 1.6em;
+    }
+
+    h1{
+        font-size: 2em;
+    }
+
+    .link-contato{
+        font-size: 1.4em;
+        margin-bottom: 5px;
+    }
+
+    .footer{
+        font-size: 1.6em;
+    }
+
 }
 
-/* Celular */
-@media only screen and (max-width: 600px) {
 
-}
+
 
 
