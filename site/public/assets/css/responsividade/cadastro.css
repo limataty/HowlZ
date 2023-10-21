@@ -65,6 +65,10 @@ input[type="email"] {
     margin-bottom: 5%;
 }
 
+input:-moz-placeholder {
+    color: #fff;
+}
+
 button {
     padding: 10px 30px;
     background-color: #7A0BC0;

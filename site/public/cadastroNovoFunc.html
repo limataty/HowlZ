@@ -1,81 +1,260 @@
 <!DOCTYPE html>
 <html lang="pt">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HowlZ | Adicionar</title>
-    <link rel="stylesheet" href="assets/css/responsividade/cadastroNovoFunc.css">
+    <link
+      rel="stylesheet"
+      href="assets/css/responsividade/cadastroNovoFunc.css"
+    />
+
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css"
+  />
+
     <link rel="website icon" href="assets/icon/owl.svg" />
-</head>
+  </head>
 
-<body>
-
+  <body>
     <div class="container" id="container">
-        <div class="form-container new-funcionario-container">
-            <form action="#">
-                <h2>CADASTRAR NOVO FUNCIONÁRIO</h2>
-                <label for="text">Nome do funcionário(a):</label>
-                <input type="text" id="nomeFuncionario" name="nomeFuncionario" required/>
+      <div class="form-container new-funcionario-container">
+        <form action="#">
+          <h2>CADASTRAR NOVO FUNCIONÁRIO</h2>
+          <label for="text">Nome do funcionário(a):</label>
+          <input
+            type="text"
+            id="usernameFuncionario"
+            name="nomeFuncionario"
+            required
+          />
 
-                <label for="email">Email institucional:</label>
-                <input type="email" id="emailEmpresa" name="emailEmpresa" required />
+          <label for="email">Email institucional:</label>
+          <input
+            type="email"
+            id="useremailFuncionario"
+            name="emailFuncionario"
+            required
+          />
 
-                <label for="password">senha:</label>
-                <input type="password" id="password" name="password" required/>
-                
-                <label for="cPassword">Confirmar senha:</label>
-                <input type="cPassword" id="cPassword" name="cPassword" required/>
-                <button>CADASTRAR FUNCIONÁRIO</button>
-            </form>
+          <label for="password">senha:</label>
+          <input
+            type="password"
+            id="userpasswordFuncionario"
+            name="passwordFuncionario"
+            required
+          />
+
+          <label for="cPassword">Confirmar senha:</label>
+          <input
+            type="password"
+            id="usercPasswordFuncionario"
+            name="cPasswordFuncionario"
+            required
+          />
+          <button type="submit" onclick="cadastrarFuncionario()">
+            CADASTRAR FUNCIONÁRIO
+          </button>
+        </form>
+      </div>
+      <div class="form-container sign-in-container">
+        <form action="#">
+          <h2>CADASTRAR NOVO GESTOR</h2>
+          <label for="text">Nome do gestor(a):</label>
+          <input type="text" id="usernameGestor" name="usernameGestor" required/>
+
+          <label for="email">Email institucional:</label>
+          <input type="email" id="useremailGestor" name="useremailGestor" required/>
+
+          <label for="password">senha:</label>
+          <input type="password" id="userpasswordGestor" name="userpasswordGestor" required/>
+
+          <label for="cPassword">Confirmar senha:</label>
+          <input type="password" id="usercPasswordGestor" name="usercPasswordGestor" required/>
+          <button type="submit" onclick="cadastrarGestor()">
+            CADASTRAR GESTOR
+          </button>
+        </form>
+      </div>
+
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h2>DESEJA CADASTRAR NOVO GESTOR?</h2>
+            <p>Esteja no comando do seu próprio caminho de liderança.</p>
+            <button class="ghost" id="cadastroGestor">CLIQUE AQUI</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h2>DESEJA CADASTRAR UM FUNCIONÁRIO?</h2>
+            <p>Adicione novos colaboradores, conecte-se com sua equipe!</p>
+            <button class="ghost" id="cadastroFuncionario">CLIQUE AQUI</button>
+          </div>
         </div>
-        <div class="form-container sign-in-container">
-            <form action="#">
-                <h2>CADASTRAR NOVO GESTOR</h2>
-                <label for="text">Nome do gestor(a):</label>
-                <input type="text" id="nomeFuncionario" name="nomeGestor" required/>
-
-                <label for="email">Email institucional:</label>
-                <input type="email" id="emailEmpresa" name="emailEmpresa" required />
-
-                <label for="password">senha:</label>
-                <input type="password" id="password" name="password" required/>
-                
-                <label for="cPassword">Confirmar senha:</label>
-                <input type="cPassword" id="cPassword" name="cPassword" required/>
-                <button>CADASTRAR GESTOR</button>
-            </form>
-        </div>
-        <div class="overlay-container">
-            <div class="overlay">
-                <div class="overlay-panel overlay-left">
-                    <h2>DESEJA CADASTRAR NOVO GESTOR?</h2>
-                    <p>Esteja no comando do seu próprio caminho de liderança.</p>
-                    <button class="ghost" id="cadastroGestor">CLIQUE AQUI</button>
-                </div>
-                <div class="overlay-panel overlay-right">
-                    <h2>DESEJA CADASTRAR UM FUNCIONÁRIO?</h2>
-                    <p>Adicione novos colaboradores, conecte-se com sua equipe!</p>
-                    <button class="ghost" id="cadastroFuncionario">CLIQUE AQUI</button>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-    <a class="caminho-bottom" href="dashboard/dashboard.html">Voltar para dashboard ></a>
-
+    <a class="caminho-bottom" href="dashboard/dashboard.html"
+      >Voltar para dashboard ></a
+    >
 
     <script>
-        const cadastroFuncionarioButton = document.getElementById('cadastroFuncionario');
-        const cadastroGestorButton = document.getElementById('cadastroGestor');
-        const container = document.getElementById('container');
-        cadastroFuncionarioButton.addEventListener('click', () => {
-            container.classList.add("right-panel-active");
-        });
-        cadastroGestorButton.addEventListener('click', () => {
-            container.classList.remove("right-panel-active");
-        });
+      const cadastroFuncionarioButton = document.getElementById(
+        "cadastroFuncionario"
+      );
+      const cadastroGestorButton = document.getElementById("cadastroGestor");
+      const container = document.getElementById("container");
+      cadastroFuncionarioButton.addEventListener("click", () => {
+        container.classList.add("right-panel-active");
+      });
+      cadastroGestorButton.addEventListener("click", () => {
+        container.classList.remove("right-panel-active");
+      });
     </script>
 
-</body>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+  </body>
 </html>
+
+<script>
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 10000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+
+  function cadastrarGestor() {
+    var nomeGestor = usernameGestor.value;
+    var emailGestor = useremailGestor.value;
+    var senhaGestor = userpasswordGestor.value;
+    var confirmarSenhaGestor = usercPasswordGestor.value;
+
+    if (
+      nomeGestor == "" ||
+      emailGestor == "" ||
+      senhaGestor == "" ||
+      confirmarSenhaGestor == ""
+    ) {
+      Toast.fire({
+        icon: "error",
+        title: "Preencha todos os campos!",
+      });
+      return false;
+    }
+
+    if (senhaGestor != confirmarSenhaGestor) {
+      Toast.fire({
+        icon: "error",
+        title: "Senhas não coincidem!",
+      });
+      return false;
+    }
+
+    fetch("/usuarios/validarGestor", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeGestor: nomeGestor,
+        emailGestor: emailGestor,
+        senhaGestor: senhaGestor,
+        fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
+      }),
+    })
+      .then(function (resposta) {
+        if (resposta.status === 201) {
+          Toast.fire({
+            icon: "success",
+            title: "Gestor cadastrado com sucesso!",
+          });
+          return false;
+        } else if (resposta.status === 203) {
+          Toast.fire({
+            icon: "error",
+            title: "Email já cadastrado!",
+          });
+          return false;
+        } else {
+          Toast.fire({
+            icon: "error",
+            title: "Erro ao cadastrar gestor!",
+          });
+          return false;
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  function cadastrarFuncionario() {
+    var nomeFuncionario = usernameFuncionario.value;
+    var emailFuncionario = useremailFuncionario.value;
+    var senhaFuncionario = userpasswordFuncionario.value;
+    var confirmarSenhaFuncionario = usercPasswordFuncionario.value;
+
+    if (
+      nomeFuncionario == "" ||
+      emailFuncionario == "" ||
+      senhaFuncionario == "" ||
+      confirmarSenhaFuncionario == ""
+    ) {
+      Toast.fire({
+        icon: "error",
+        title: "Preencha todos os campos!",
+      });
+      return false;
+    }
+
+    if (senhaFuncionario != confirmarSenhaFuncionario) {
+      Toast.fire({
+        icon: "error",
+        title: "Senhas não coincidem!",
+      });
+      return false;
+    }
+
+    fetch("/usuarios/validarFuncionario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeFuncionario: nomeFuncionario,
+        emailFuncionario: emailFuncionario,
+        senhaFuncionario: senhaFuncionario,
+        fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
+      }),
+    })
+      .then(function (resposta) {
+        if (resposta.status === 201) {
+          Toast.fire({
+            icon: "success",
+            title: "Funcionario cadastrado com sucesso!",
+          });
+          return false;
+        } else if (resposta.status === 203) {
+          Toast.fire({
+            icon: "error",
+            title: "Email já cadastrado!",
+          });
+          return false;
+        } else {
+          Toast.fire({
+            icon: "error",
+            title: "Erro ao cadastrar Funcionario!",
+          });
+          return false;
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+</script>

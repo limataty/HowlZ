@@ -23,16 +23,17 @@
       <div class="colunas">
         <div class="colum1">
           <label for="username">Nome da Empresa:</label>
-          <input type="text" id="username" name="username" required />
+          <input type="text" id="username" name="username" placeholder="Nome da Empresa" style="placheholder-color: white;" required />
           <label for="nomeContratante">Nome do Contratante:</label>
           <input
             type="text"
             id="nomeContratante"
             name="nomeContratante"
+            placeholder="Nome do Contratante"
             required
           />
           <label for="CNPJ">CNPJ:</label>
-          <input type="text" id="cnpj" name="CNPJ" required />
+          <input type="text" id="cnpj" name="CNPJ" placeholder="99.999.999/9999-99" required />
 
           <a class="caminho-top" href="index.html">Voltar para o início > </a
           ><br />
@@ -43,9 +44,9 @@
           <label for="email">Email:</label>
           <input type="email" id="email" name="email" required />
           <label for="password">Senha:</label>
-          <input type="password" id="password" name="password" required />
+          <input type="password" id="password" name="password" placeholder="********" required />
           <label for="cPassword">Confirme sua senha:</label>
-          <input type="password" id="cPassword" name="password" required />
+          <input type="password" id="cPassword" name="password" placeholder="********" required />
 
           <a class="caminho-bottom" href="index.html">Voltar para o Início ></a>
           <a class="caminho-bottom" href="login.html" style="margin-top: 0px"
@@ -110,7 +111,6 @@
       }),
     })
       .then(function (resposta) {
-        console.log("resposta XXX: ", resposta);
 
         if (resposta.status === 203) {
           Toast.fire({
@@ -124,9 +124,9 @@
           });
         }
 
-        //   // setTimeout(() => {
-        //   //     window.location = "/login";
-        //   // }, "1000")
+          setTimeout(() => {
+              window.location = "/login.html";
+          }, "1000")
 
       })
       .catch(function (resposta) {
