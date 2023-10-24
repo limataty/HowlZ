@@ -1,0 +1,40 @@
+.tabela{
+    padding-left: 30%;
+    padding-top: 10%;
+}
+
+table{
+    background-color: aliceblue;
+}
+
+th{
+    background-color: black;
+    color: aliceblue;
+    width: 250px;
+    padding: 10px;
+}
+
+td{
+   text-align: center;
+   padding: 10px;
+}
+
+
+/*botoes de escolher*/
+.escolher-monitoramento{
+    padding-top: 5%;
+    padding-left: 10%;
+}
+
+.escolher-monitoramento button{
+    background-color: black;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 10px;
+    width: 200px;
+}
+
+.escolher-monitoramento button:hover{
+    background-color: #7A0BC0;
+}

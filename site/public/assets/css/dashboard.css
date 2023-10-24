@@ -178,40 +178,7 @@ button {
     font-size: 16px;
 }
 
-button:hover {
+.maquina button:hover {
     background-color: #270082;
 }
-
-
-/*status com a bolinha*/
-/* .legend {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.legend-item {
-    margin-right: 20px;
-    display: flex;
-    align-items: center;
-}
-
-.legend-color {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-    border-radius: 50%;
-}
-
-.legend-color.active {
-    background-color: green;
-}
-
-.legend-color.inactive {
-    background-color: red;
-}
-
-.legend-color.maintenance {
-    background-color: orange;
-} */
 
