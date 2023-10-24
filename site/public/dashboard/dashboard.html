@@ -11,13 +11,13 @@
 <body>
     <nav class="menu-lateral">
         <div class="logo">
-            <img src="/site/public/assets/icon/logoHowlZ.svg" alt="">
+            <img src="/site/assets/icon/logoHowlZ.svg" alt="">
         </div>
 
         <div class="usuario">
-            <h4>Zenith Creative</h4>
+            <h4 id="nomeDaEmpresa"></h4>
            <img src="../assets/img/usuario.png" alt="">
-            <h4>Jorge Mendes Guimarães</h4>
+            <h4 id="nomeDoUsuario"></h4>
         </div>
 
         <ul>
@@ -48,7 +48,7 @@
             <li class="item-menu">
                 <a href="../login.html">
                 <span class="icone"><i class="bi bi-box-arrow-in-right"></i></span>
-                <span class="texto">Sair</span>
+                <span class="texto" onclick="limparSessao()">Sair</span>
                 </a>
             </li>
 
@@ -101,4 +101,18 @@
 </body>
 </html>
 <script>
+
+    var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
+    document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
+
+    var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
+    document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
+
+    function limparSessao() {
+
+    sessionStorage.clear();
+
+    window.location = "/login";
+    }
+
 </script>

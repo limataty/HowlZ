@@ -23,7 +23,7 @@
       <div class="colunas">
         <div class="colum1">
           <label for="username">Nome da Empresa:</label>
-          <input type="text" id="username" name="username" placeholder="Nome da Empresa" style="placheholder-color: white;" required />
+          <input type="text" id="username" name="username" placeholder="Nome da Empresa" required />
           <label for="nomeContratante">Nome do Contratante:</label>
           <input
             type="text"
@@ -82,7 +82,7 @@
   function CadastrarEmpresa() {
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
-    var nome_empresa = username.value.toLowerCase();
+    var nome_empresa = username.value;
     var nome_contratante = nomeContratante.value;
     var cnpj_empresa = cnpj.value;
     var email_empresa = email.value;
@@ -95,45 +95,75 @@
         title: "Senhas não coincidem!",
       });
       return false;
-    }
-
-    fetch("/usuarios/validarCadastro", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nomeEmpresa: nome_empresa,
-        nomeContratante: nomeContratante.value,
-        cnpjEmpresa: cnpj_empresa,
-        emailEmpresa: email_empresa,
-        senhaEmpresa: senha_empresa,
-      }),
-    })
-      .then(function (resposta) {
-
-        if (resposta.status === 203) {
-          Toast.fire({
-            icon: "error",
-            title: "Cadastro da Empresa já existente!",
-          });
-        } else if (resposta.status === 201) {
-          Toast.fire({
-            icon: "success",
-            title: "Cadastrado a Empresa com Sucesso!",
-          });
-        }
-
-          setTimeout(() => {
-              window.location = "/login.html";
-          }, "1000")
-
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
+    } else if (cnpj_empresa.length < 18 || cnpj_empresa.indexOf("_") != -1) {
+      Toast.fire({
+        icon: "error",
+        title: "CNPJ inválido!",
       });
-
-    return false;
+    } else if (
+    email_empresa.indexOf("@") == -1 ||
+    email_empresa.indexOf(".") == -1
+    ) {
+      Toast.fire({
+        icon: "error",
+        title: "Email inválido, é necessário possuir @ e .",
+      });
+    } else if (senha_empresa.length < 8) {
+      Toast.fire({
+        icon: "error",
+        title: "Senha deve possuir no mínimo 8 caracteres!",
+      });
+    }else if (nome_empresa.length < 3) {
+      Toast.fire({
+        icon: "error",
+        title: "Nome da Empresa deve possuir no mínimo 3 caracteres!",
+      });
+    }else {
+      fetch("/usuarios/validarCadastro", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nomeEmpresa: nome_empresa,
+          nomeContratante: nomeContratante.value,
+          cnpjEmpresa: cnpj_empresa,
+          emailEmpresa: email_empresa,
+          senhaEmpresa: senha_empresa,
+        }),
+      })
+        .then(function (resposta) {
+  
+          if (resposta.status === 203) {
+            Toast.fire({
+              icon: "error",
+              title: "Cadastro da Empresa já existente!",
+            });
+          }else if (resposta.status === 400) {
+            Toast.fire({
+              icon: "error",
+              title: "Preencha todos os campos corretamente!",
+            });
+          } 
+          else if (resposta.status === 201) {
+            Toast.fire({
+              icon: "success",
+              title: "Cadastrado a Empresa com Sucesso!",
+            });
+  
+            setTimeout(() => {
+                window.location = "/login.html";
+            }, "1000")
+  
+          }
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+  
+      return false;
+    }
+    
   }
 
 </script>

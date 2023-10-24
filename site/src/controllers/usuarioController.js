@@ -15,17 +15,6 @@ function cadastrarEmpresa(
     senhaEmpresa == ""
   ) {
     res.status(400).send("Preencha todos os campos");
-  } else if (cnpjEmpresa.length != 18) {
-    res.status(400).send("CNPJ inválido!");
-  } else if (
-    emailEmpresa.indexOf("@") == -1 ||
-    emailEmpresa.indexOf(".") == -1
-  ) {
-    res.status(400).send("Email inválido, é necessário possuir @ e .");
-  } else if (senhaEmpresa.length < 8) {
-    res
-      .status(400)
-      .send("Senha inválida, é necessário possuir 8 ou mais caracteres");
   } else {
     usuarioModel
       .cadastrarEmpresa(nomeEmpresa, cnpjEmpresa, emailEmpresa)
