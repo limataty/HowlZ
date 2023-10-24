@@ -1,64 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HowlZ | LOGIN</title>
+    <link rel="stylesheet" href="assets/css/responsividade/login.css" />
+    <link rel="website icon" href="assets/icon/owl.svg" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HowlZ | LOGIN</title>
-  <link rel="stylesheet" href="assets/css/responsividade/login.css">
-  <link rel="website icon" href="assets/icon/owl.svg">
-</head>
-
-<body>
-
-  <div class="login-container">
-    <div class="content">
+  <body>
+    <div class="login-container">
+      <div class="content">
         <h2>LOGIN</h2>
         <label for="username">Email:</label>
-        <br>
-        <input type="text" id="username" name="username" required>
-         <br>
+        <br />
+        <input type="text" id="username" name="username" required />
+        <br />
         <label for="password">Senha:</label>
-        <br>
-        <input type="password" id="password" name="password" required>
-        
+        <br />
+        <input type="password" id="password" name="password" required />
+
         <button type="submit" onclick="LoginUsuario()">ENTRAR</button>
         <a href="index.html">Voltar para o início > </a>
         <a href="cadastro.html">Ir para cadastro ></a>
+      </div>
     </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
-
-</body>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+  </body>
 </html>
 
 <script>
-
-const Toast = Swal.mixin({
+  const Toast = Swal.mixin({
     toast: true,
-    position: 'top-end',
+    position: "top-end",
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
     didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  })
-
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   function LoginUsuario() {
     var emailVar = username.value;
     var senhaVar = password.value;
 
     if (emailVar == "" || senhaVar == "") {
-
       Toast.fire({
-        icon: 'error',
-        title: 'Preencha todos os campos!'
-      })
+        icon: "error",
+        title: "Preencha todos os campos!",
+      });
 
       return false;
     }
@@ -74,7 +67,6 @@ const Toast = Swal.mixin({
       }),
     })
       .then(function (resposta) {
-
         console.log("ESTOU NO THEN DO entrar()!");
 
         if (resposta.ok) {
@@ -84,26 +76,29 @@ const Toast = Swal.mixin({
             console.log(json);
             console.log(JSON.stringify(json));
 
-              sessionStorage.NOME_EMPRESA = json.nomeEmpresa; // corrected key
-              sessionStorage.EMAIL_EMPRESA = json.email; // corrected key
-              sessionStorage.ID_EMPRESA = json.fkEmpresa; // corrected key
-              sessionStorage.REPRESENTANTE = json.nome; // corrected key
-              sessionStorage.ID_USUARIO = json.id; // corrected key
-              sessionStorage.TIPO_USUARIO = json.tipoUsuario; // corrected key
-              sessionStorage.NOME_USUARIO = json.nome; // corrected key
+            sessionStorage.NOME_EMPRESA = json.nomeEmpresa; // corrected key
+            sessionStorage.EMAIL_EMPRESA = json.email; // corrected key
+            sessionStorage.ID_EMPRESA = json.fkEmpresa; // corrected key
+            sessionStorage.REPRESENTANTE = json.nome; // corrected key
+            sessionStorage.ID_USUARIO = json.id; // corrected key
+            sessionStorage.TIPO_USUARIO = json.tipoUsuario; // corrected key
+            sessionStorage.NOME_USUARIO = json.nome; // corrected key
+
+            Toast.fire({
+              icon: "success",
+              title: "Login efetuado com sucesso!",
+            });
 
             setTimeout(function () {
-              window.location = "../dashboard/dashboard.html"
+              window.location = "../dashboard/dashboard.html";
             }, 1000); // apenas para exibir o loading
           });
         } else {
-
           resposta.text().then((texto) => {
-
             Toast.fire({
-              icon: 'error',
-              title: texto
-            })
+              icon: "error",
+              title: texto,
+            });
           });
         }
       })
@@ -112,7 +107,5 @@ const Toast = Swal.mixin({
       });
 
     return false;
-
   }
-
 </script>
