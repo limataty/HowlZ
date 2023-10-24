@@ -18,9 +18,9 @@
         </div>
 
         <div class="usuario">
-            <h4>Zenith Creative</h4>
+            <h4 id="nomeDaEmpresa"></h4>
            <img src="../assets/img/usuario.png" alt="">
-            <h4>Jorge Mendes Guimarães</h4>
+            <h4 id="nomeDoUsuario"></h4>
         </div>
 
         <ul>
@@ -87,6 +87,20 @@
 </body>
 </html>
 <script>
+
+    var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
+    document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
+
+    var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
+    document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
+
+    function limparSessao() {
+
+    sessionStorage.clear();
+
+    window.location = "/login";
+    }
+
     // dados fictícios para os gráficos
     var timeLabels = ["10:00", "10:15", "10:30", "10:45", "11:00"];
     var cpuData = [20, 25, 30, 22, 18];
@@ -153,5 +167,4 @@
             }]
         },
     });
-</script>
 </script>

@@ -10,9 +10,9 @@
     />
 
     <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css"
-  />
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css"
+    />
 
     <link rel="website icon" href="assets/icon/owl.svg" />
   </head>
@@ -62,16 +62,36 @@
         <form action="#">
           <h2>CADASTRAR NOVO GESTOR</h2>
           <label for="text">Nome do gestor(a):</label>
-          <input type="text" id="usernameGestor" name="usernameGestor" required/>
+          <input
+            type="text"
+            id="usernameGestor"
+            name="usernameGestor"
+            required
+          />
 
           <label for="email">Email institucional:</label>
-          <input type="email" id="useremailGestor" name="useremailGestor" required/>
+          <input
+            type="email"
+            id="useremailGestor"
+            name="useremailGestor"
+            required
+          />
 
           <label for="password">senha:</label>
-          <input type="password" id="userpasswordGestor" name="userpasswordGestor" required/>
+          <input
+            type="password"
+            id="userpasswordGestor"
+            name="userpasswordGestor"
+            required
+          />
 
           <label for="cPassword">Confirmar senha:</label>
-          <input type="password" id="usercPasswordGestor" name="usercPasswordGestor" required/>
+          <input
+            type="password"
+            id="usercPasswordGestor"
+            name="usercPasswordGestor"
+            required
+          />
           <button type="submit" onclick="cadastrarGestor()">
             CADASTRAR GESTOR
           </button>
@@ -118,15 +138,15 @@
 <script>
   const Toast = Swal.mixin({
     toast: true,
-    position: 'top-end',
+    position: "top-end",
     showConfirmButton: false,
     timer: 10000,
     timerProgressBar: true,
     didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  })
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   function cadastrarGestor() {
     var nomeGestor = usernameGestor.value;
@@ -145,52 +165,71 @@
         title: "Preencha todos os campos!",
       });
       return false;
-    }
-
-    if (senhaGestor != confirmarSenhaGestor) {
+    } else if (senhaGestor != confirmarSenhaGestor) {
       Toast.fire({
         icon: "error",
         title: "Senhas não coincidem!",
       });
       return false;
-    }
-
-    fetch("/usuarios/validarGestor", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nomeGestor: nomeGestor,
-        emailGestor: emailGestor,
-        senhaGestor: senhaGestor,
-        fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
-      }),
-    })
-      .then(function (resposta) {
-        if (resposta.status === 201) {
-          Toast.fire({
-            icon: "success",
-            title: "Gestor cadastrado com sucesso!",
-          });
-          return false;
-        } else if (resposta.status === 203) {
-          Toast.fire({
-            icon: "error",
-            title: "Email já cadastrado!",
-          });
-          return false;
-        } else {
-          Toast.fire({
-            icon: "error",
-            title: "Erro ao cadastrar gestor!",
-          });
-          return false;
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
+    } else if (senhaGestor.length < 8) {
+      Toast.fire({
+        icon: "error",
+        title: "Senha deve possuir no mínimo 8 caracteres!",
       });
+      return false;
+    } else if (
+      emailGestor.indexOf("@") == -1 ||
+      emailGestor.indexOf(".") == -1
+    ) {
+      Toast.fire({
+        icon: "error",
+        title: "Email inválido, é necessário possuir @ e .",
+      });
+      return false;
+    } else if (nomeGestor.length < 3) {
+      Toast.fire({
+        icon: "error",
+        title: "Nome do Gestor deve possuir no mínimo 3 caracteres!",
+      });
+      return false;
+    } else {
+      fetch("/usuarios/validarGestor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nomeGestor: nomeGestor,
+          emailGestor: emailGestor,
+          senhaGestor: senhaGestor,
+          fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
+        }),
+      })
+        .then(function (resposta) {
+          if (resposta.status === 201) {
+            Toast.fire({
+              icon: "success",
+              title: "Gestor cadastrado com sucesso!",
+            });
+            return false;
+          } else if (resposta.status === 203) {
+            Toast.fire({
+              icon: "error",
+              title: "Email já cadastrado!",
+            });
+            return false;
+          } else {
+            Toast.fire({
+              icon: "error",
+              title: "Erro ao cadastrar gestor!",
+            });
+            return false;
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   }
 
   function cadastrarFuncionario() {
@@ -210,51 +249,70 @@
         title: "Preencha todos os campos!",
       });
       return false;
-    }
-
-    if (senhaFuncionario != confirmarSenhaFuncionario) {
+    } else if (senhaFuncionario != confirmarSenhaFuncionario) {
       Toast.fire({
         icon: "error",
         title: "Senhas não coincidem!",
       });
       return false;
-    }
-
-    fetch("/usuarios/validarFuncionario", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nomeFuncionario: nomeFuncionario,
-        emailFuncionario: emailFuncionario,
-        senhaFuncionario: senhaFuncionario,
-        fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
-      }),
-    })
-      .then(function (resposta) {
-        if (resposta.status === 201) {
-          Toast.fire({
-            icon: "success",
-            title: "Funcionario cadastrado com sucesso!",
-          });
-          return false;
-        } else if (resposta.status === 203) {
-          Toast.fire({
-            icon: "error",
-            title: "Email já cadastrado!",
-          });
-          return false;
-        } else {
-          Toast.fire({
-            icon: "error",
-            title: "Erro ao cadastrar Funcionario!",
-          });
-          return false;
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
+    } else if (senhaFuncionario.length < 8) {
+      Toast.fire({
+        icon: "error",
+        title: "Senha deve possuir no mínimo 8 caracteres!",
       });
+      return false;
+    } else if (
+      emailFuncionario.indexOf("@") == -1 ||
+      emailFuncionario.indexOf(".") == -1
+    ) {
+      Toast.fire({
+        icon: "error",
+        title: "Email inválido, é necessário possuir @ e .",
+      });
+      return false;
+    } else if (nomeFuncionario.length < 3) {
+      Toast.fire({
+        icon: "error",
+        title: "Nome do Gestor deve possuir no mínimo 3 caracteres!",
+      });
+      return false;
+    } else {
+      fetch("/usuarios/validarFuncionario", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nomeFuncionario: nomeFuncionario,
+          emailFuncionario: emailFuncionario,
+          senhaFuncionario: senhaFuncionario,
+          fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
+        }),
+      })
+        .then(function (resposta) {
+          if (resposta.status === 201) {
+            Toast.fire({
+              icon: "success",
+              title: "Funcionario cadastrado com sucesso!",
+            });
+            return false;
+          } else if (resposta.status === 203) {
+            Toast.fire({
+              icon: "error",
+              title: "Email já cadastrado!",
+            });
+            return false;
+          } else {
+            Toast.fire({
+              icon: "error",
+              title: "Erro ao cadastrar Funcionario!",
+            });
+            return false;
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   }
 </script>

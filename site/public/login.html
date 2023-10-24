@@ -88,6 +88,9 @@ const Toast = Swal.mixin({
               sessionStorage.EMAIL_EMPRESA = json.email; // corrected key
               sessionStorage.ID_EMPRESA = json.fkEmpresa; // corrected key
               sessionStorage.REPRESENTANTE = json.nome; // corrected key
+              sessionStorage.ID_USUARIO = json.id; // corrected key
+              sessionStorage.TIPO_USUARIO = json.tipoUsuario; // corrected key
+              sessionStorage.NOME_USUARIO = json.nome; // corrected key
 
             setTimeout(function () {
               window.location = "../dashboard/dashboard.html"

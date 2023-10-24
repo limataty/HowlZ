@@ -1,83 +1,107 @@
 create database howlz;
 use howlz;
 
-create table empresa(
-idEmpresa int primary key auto_increment,
-nome varchar(50),
-cnpj varchar(18),
-email varchar(30) constraint chkEmpresa check (email like "%@%"),
-senha varchar(30)
+CREATE TABLE Empresa (
+  idEmpresa INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  Nome VARCHAR(50) NULL,
+  cnpj CHAR(18) NULL,
+  email VARCHAR(45) NULL
+  /*telefone CHAR(11) NULL*/
+);
+
+CREATE TABLE Usuario (
+  idUsuario INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(45) NULL,
+  cargo VARCHAR(45),
+  email VARCHAR(45) NULL,
+  senha VARCHAR(45) NULL,
+  tipo ENUM('Representante', 'Gestor', 'Funcionario') NULL,
+  dataCadastro DATETIME default current_timestamp,
+  fkEmpresa INT NOT NULL,
+  CONSTRAINT fk_FuncionarioHomeOffice_Empresa1
+    FOREIGN KEY (fkEmpresa)
+    REFERENCES Empresa (idEmpresa)
 );
 
 
-create table representante(
-idRepresentante int primary key auto_increment,
-nome varchar(50),
-empresaID int,
-foreign key (empresaID) references empresa(idEmpresa)
+CREATE TABLE Computador (
+  idComputador INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(45) NULL,
+  sistemaOperacional VARCHAR(45) NULL,
+  numeroSerial VARCHAR(45) NULL,
+  codigo VARCHAR(45) NULL,
+  stts ENUM('LIGADO', 'DESLIGADO', 'MANUTENCAO') NULL,
+  fkEmpresa INT NOT NULL,
+  CONSTRAINT fk_Maquina_Empresa1
+    FOREIGN KEY (fkEmpresa)
+    REFERENCES Empresa (idEmpresa)
 );
 
 
-create table gestor (
-idGestor int primary key auto_increment,
-nome varchar(50),
-cargo varchar(50),
-email varchar(30) CONSTRAINT CHK_Empresa CHECK (email like "%@%" and "%.com%"),
-senha varchar(30),
-empresaID int,
-foreign key (empresaID) references empresa(idEmpresa)
+CREATE TABLE Manutencao (
+  idhistoricoManutencao INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  dataDeManutencao DATE NULL,
+  atualizacaoRealizada VARCHAR(45) NULL,
+  reparos VARCHAR(45) NULL,
+  fkComputador INT NOT NULL,
+  CONSTRAINT fk_historicoManutencao_Maquina1
+    FOREIGN KEY (fkComputador)
+    REFERENCES Computador (idComputador)
 );
 
 
-create table funcionarioHomeOffice (
-idFuncionario int primary key auto_increment,
-nome varchar(50),
-empresaID int,
-foreign key (empresaID) references empresa(idEmpresa)
+CREATE TABLE Componente (
+  idComponente INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  tipo ENUM('CPU', 'RAM', 'DISCO', 'GPU') NULL,
+  modelo VARCHAR(100) NULL,
+  fkComputador INT NOT NULL,
+  CONSTRAINT fk_Componente_Maquina1
+    FOREIGN KEY (fkComputador)
+    REFERENCES Computador (idComputador)
 );
 
 
-create table monitoramento (
-idMonitoramento int primary key auto_increment,
-dataHora datetime,
-usoCPU decimal(5,2),
-usoMemoria decimal(5,2),
-usoDisco decimal(5,2)
+CREATE TABLE Monitoramento (
+  idMonitoramento INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  dataHora DATETIME NULL default current_timestamp,
+  valor DECIMAL(5,2) NULL,
+  tipo ENUM('PORCENTAGEMUSO', 'FREQUENCIA', 'GBUSO', 'GBDISPONIVEL') NULL,
+  fkComponente INT NOT NULL,
+  CONSTRAINT fk_Monitoramento_Componente1
+    FOREIGN KEY (fkComponente)
+    REFERENCES Componente (idComponente)
 );
 
 
-create table historicoManutencao (
-idManutencao int primary key auto_increment,
-dataDeManutencao datetime,
-atualizacaoRealizada varchar(45),
-reparos varchar(45)
+CREATE TABLE AssociacaoComputadorUsuario (
+  idAssociacao INT NOT NULL,
+  fkUsuario INT NOT NULL,
+  fkComputador INT NOT NULL,
+  dataAssociacao DATETIME NULL,
+  dataDesassociacao DATETIME NULL,
+  PRIMARY KEY (idAssociacao, fkUsuario, fkComputador),
+  CONSTRAINT fk_FuncionarioHomeOffice_has_Maquina_FuncionarioHomeOffice1
+    FOREIGN KEY (fkUsuario)
+    REFERENCES Usuario (idUsuario),
+  CONSTRAINT fk_FuncionarioHomeOffice_has_Maquina_Maquina1
+    FOREIGN KEY (fkComputador)
+    REFERENCES Computador (idComputador)
 );
 
 
-create table maquina(
-idMaquina int primary key auto_increment,
-nome varchar(50),
-sistemaOperacional varchar(20),
-enderecoIP varchar(45),
-statusMaquina varchar(45),
-empresaID int,
-historicoManutencaoID int,
-monitoramentoID int,
-foreign key (empresaID) references empresa(idEmpresa),
-foreign key (historicoManutencaoID) references historicoManutencao(idManutencao),
-foreign key (monitoramentoID) references monitoramento(idMonitoramento)
+CREATE TABLE Janela (
+  idJanela INT PRIMARY KEY AUTO_INCREMENT
 );
 
 
-create table associacaoMaquinaFuncionario(
-funcionarioID int,
-maquinaID int,
-idAssociacao int,
-dataAssociacao datetime,
-dataDesassociacao datetime,
-foreign key (funcionarioID) references funcionarioHomeOffice(idFuncionario),
-foreign key (maquinaID) references maquina(idMaquina),
-primary key (idAssociacao)
+CREATE TABLE Processo (
+  idProcesso INT PRIMARY KEY AUTO_INCREMENT,
+  fkComponente INT NOT NULL,
+  fkJanela INT NULL,
+  CONSTRAINT fk_Processo_Componente1
+    FOREIGN KEY (fkComponente)
+    REFERENCES Componente (idComponente),
+  CONSTRAINT fk_Processo_Janela1
+    FOREIGN KEY (fkJanela)
+    REFERENCES Janela (idJanela)
 );
-
-show tables;
