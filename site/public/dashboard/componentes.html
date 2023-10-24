@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link rel="stylesheet" href="../assets/css/componentes.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="website icon" href="../assets/icon/owl.svg">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <title>Maquina 1 | Howlz</title>
@@ -24,12 +25,6 @@
         </div>
 
         <ul>
-            <li class="item-menu">
-                 <a href="../index.html">
-                    <span class="icone"><i class="bi bi-house-heart"></i></span>
-                    <span class="texto">Home</span>
-                 </a>
-            </li>
             <li class="item-menu">
                 <a href="../dashboard/dashboard.html">
                    <span class="icone"><i class="bi bi-bar-chart-fill"></i></span>
@@ -65,24 +60,29 @@
     </div> 
     </div>
     
-    <!-- graficos -->
-    <div class="graficos">
-         <div class="grafico-container">
-            <canvas id="gpuChart"></canvas>
-        </div>
-    </div>
-
-    <div class="graficos">
-        <div class="grafico-container">
-            <canvas id="cpuChart"></canvas>
-        </div>
-        <div class="grafico-container">
-            <canvas id="memChart"></canvas>
-        </div>
-        <div class="grafico-container">
-            <canvas id="diskChart"></canvas>
-        </div>
-    </div>
+        <!-- graficos -->
+        <div class="graficos">
+            <div class="grafico-container">
+               <canvas id="gpuChart"></canvas>
+               <button class="amarelo">Alerta</button>
+           </div>
+            <div class="grafico-container">
+               <canvas id="cpuChart"></canvas>
+               <button class="verde">Normal</button>
+           </div>
+       </div>
+   
+       <div class="graficos">
+           <div class="grafico-container">
+               <canvas id="memChart"></canvas>
+               <button class="verde">Normal</button>
+           </div>
+           <div class="grafico-container">
+               <canvas id="diskChart"></canvas>
+               <button class="verde">Normal</button>
+           </div>
+       </div>
+   
 
 </body>
 </html>
@@ -100,6 +100,9 @@
 
     window.location = "/login";
     }
+
+    Chart.defaults.borderColor = '#7A0BC0';
+    Chart.defaults.color = '#fff';
 
     // dados fictícios para os gráficos
     var timeLabels = ["10:00", "10:15", "10:30", "10:45", "11:00"];
