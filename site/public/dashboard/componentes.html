@@ -59,9 +59,16 @@
        </div>   
     </div> 
     </div>
-    
+
+         <div class="escolher-monitoramento">
+            <a href="../dashboard/logs.html"><button>Logs</button></a>
+            <a href="../dashboard/janelas.html"><button>Janelas</button></a>
+            <a href="../dashboard/componentes.html"><button>Componentes</button></a>  
+         </div>
+
+
         <!-- graficos -->
-        <div class="graficos">
+        <!-- <div class="graficos">
             <div class="grafico-container">
                <canvas id="gpuChart"></canvas>
                <button class="amarelo">Alerta</button>
@@ -81,7 +88,32 @@
                <canvas id="diskChart"></canvas>
                <button class="verde">Normal</button>
            </div>
+       </div> -->
+
+         <div class="botoesComponentes">
+       <button onclick="showChart('cpu')">CPU</button>
+       <button onclick="showChart('gpu')">GPU</button>
+       <button onclick="showChart('memory')">Memória</button>
+       <button onclick="showChart('disk')">Disco</button>
+        </div>
+       
+        <div class="graficos">
+            <div class="grafico-container" id="cpuChartContainer">
+           <canvas id="cpuChart"></canvas>
        </div>
+       <div class="grafico-container" id="gpuChartContainer">
+           <canvas id="gpuChart"></canvas>
+       </div>
+       <div class="grafico-container" id="memoryChartContainer">
+           <canvas id="memoryChart"></canvas>
+       </div>
+       <div class="grafico-container" id="diskChartContainer">
+           <canvas id="diskChart"></canvas>
+       </div>
+        </div>
+       
+
+   
    
 
 </body>
@@ -104,70 +136,46 @@
     Chart.defaults.borderColor = '#7A0BC0';
     Chart.defaults.color = '#fff';
 
-    // dados fictícios para os gráficos
-    var timeLabels = ["10:00", "10:15", "10:30", "10:45", "11:00"];
-    var cpuData = [20, 25, 30, 22, 18];
-    var memData = [68,75, 75, 79, 79];
-    var diskData = [40, 45, 38, 42, 48];
-    var gpuData = [70, 75, 80, 78, 72];
+    let currentChart = null;
+    function showChart(chartType) {
+        // Esconde o gráfico atual, se houver um
+        if (currentChart) {
+            currentChart.style.display = 'none';
+        }
 
-    // CPU
-    var ctxCpu = document.getElementById('cpuChart').getContext('2d');
-    var cpuChart = new Chart(ctxCpu, {
-        type: 'line',
-        data: {
-            labels: timeLabels,
+        // Mostra o novo gráfico
+        let selectedChartContainer = document.getElementById(chartType + 'ChartContainer');
+        if (selectedChartContainer) {
+            selectedChartContainer.style.display = 'block';
+            drawChart(chartType);
+            currentChart = selectedChartContainer;
+        }
+    }
+
+    function drawChart(chartType) {
+        var ctx = document.getElementById(chartType + 'Chart').getContext('2d');
+        var data = {
+            labels: ['10:00', '10:15', '10:30', '10:45', '11:00', '11:15'],
             datasets: [{
-                label: 'CPU Usage',
-                data: cpuData,
+                label: chartType,
+                data: [50, 30, 20, 40, 60],
+                fill: false,
                 borderColor: 'red',
-                fill: false,
+                borderWidth: 2
             }]
-        },
-    });
+        };
 
-    // Memória 
-    var ctxMem = document.getElementById('memChart').getContext('2d');
-    var memChart = new Chart(ctxMem, {
-        type: 'line',
-        data: {
-            labels: timeLabels,
-            datasets: [{
-                label: 'Memory Usage',
-                data: memData,
-                borderColor: 'blue',
-                fill: false,
-            }]
-        },
-    });
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+    </script>
 
-    // Disco 
-    var ctxDisk = document.getElementById('diskChart').getContext('2d');
-    var diskChart = new Chart(ctxDisk, {
-        type: 'line',
-        data: {
-            labels: timeLabels,
-            datasets: [{
-                label: 'Disk Usage',
-                data: diskData,
-                borderColor: 'green',
-                fill: false,
-            }]
-        },
-    });
-
-    // GPU 
-    var ctxGpu = document.getElementById('gpuChart').getContext('2d');
-    var gpuChart = new Chart(ctxGpu, {
-        type: 'line',
-        data: {
-            labels: timeLabels,
-            datasets: [{
-                label: 'GPU Usage',
-                data: gpuData,
-                borderColor: 'orange',
-                fill: false,
-            }]
-        },
-    });
-</script>

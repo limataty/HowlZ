@@ -24,17 +24,18 @@
 }
 
 /* graficos */
-.graficos {
-    display: flex;
+ .graficos {
+    /* display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    padding-left: 15%;
-    padding-top: 3%;
+    justify-content: center; */
+    padding-left: 35%;
+    padding-top: 2%;
 }
 
+
 .grafico-container {
-    width: 350px;
-    margin: 15px;
+    width: 500px;
+    /* margin: 15px; */
 }
 
 
@@ -65,4 +66,37 @@
     background-color: red;
     color: white;
     border-radius: 10px;
+}
+
+/*botoes de escolher*/
+.escolher-monitoramento{
+    padding-top: 5%;
+    padding-left: 10%;
+}
+
+.escolher-monitoramento button{
+    background-color: black;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 10px;
+    width: 200px;
+}
+
+.escolher-monitoramento button:hover{
+    background-color: #7A0BC0;
+}
+
+
+.botoesComponentes button{
+     width: 200px;
+     margin: 10px;
+}
+
+.botoesComponentes{
+    padding-left: 5%;
+}
+
+.botoesComponentes button:hover{
+    background-color: blue;
 }
