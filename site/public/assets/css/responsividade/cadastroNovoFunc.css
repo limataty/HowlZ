@@ -24,10 +24,12 @@ h1 {
 }
 
 h2 {
+	color: #fff;
 	text-align: center;
 }
 
 p {
+	color: #fff;
 	font-size: 1em;
 	font-weight: 200;
 	/* line-height: 20px;
@@ -105,6 +107,7 @@ form {
 }
 
 label{
+	color: #fff;
 	font-size: .9em;
 	display: flex;
 	justify-content: flex-start;
