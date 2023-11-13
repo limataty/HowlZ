@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../assets/css/maquina.css">
+    <link rel="website icon" href="../assets/icon/owl.svg" />
+</head>
+
+<body>
+    <nav class="menu-lateral" id="menuLateral">
+        <div class="botao-menu" onclick="botaoMenu()">
+            <img src="../assets/img/menu-hamburguer.png" alt="">
+        </div>
+
+        <div class="usuario">
+            <h4 id="nomeDaEmpresa"></h4>
+            <img src="../assets/img/usuario.png" alt="">
+            <h4 id="nomeDoUsuario"></h4>
+        </div>
+
+        <ul>
+            <li class="item-menu">
+                <a href="./dashboard.html">
+                    <span class="icone"><i class="bi bi-bar-chart-fill"></i></span>
+                    <span class="texto">Computadores</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="../cadastroNovoFunc.html">
+                    <span class="icone"><i class="bi bi-person-add"></i></span>
+                    <span class="texto">Configuração</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="https://howlz.atlassian.net/servicedesk/customer/portal/1">
+                    <span class="icone"><i class="bi bi-person-gear"></i></span>
+                    <span class="texto">Suporte</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="../login.html">
+                    <span class="icone"><i class="bi bi-box-arrow-in-right"></i></span>
+                    <span class="texto" onclick="limparSessao()">Sair</span>
+                </a>
+            </li>
+
+        </ul>
+
+        
+    </nav>
+    
+    <div class="conteudo">
+        <div class="titulo">
+            <h2>Máquina</h2>
+        </div>
+        <div class="paths">
+            <span class="path">Dashboard</span>
+            <span class="path">Janelas</span>
+            <span class="path">Logs</span>
+        </div>
+    </div>
+    <script>
+
+        function botaoMenu() {
+            var menuLateral = document.getElementById("menuLateral");
+            var botaoMenuImg = document.getElementById("botaoMenuImg");
+
+            menuLateral.classList.toggle("ver-menu");
+            botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu") ? "none" : "block";
+
+            var content = document.querySelector(".content");
+            content.classList.toggle("content-shift");
+        }
+
+        function limparSessao() {
+
+            sessionStorage.clear();
+
+            window.location = "/login";
+        }
+
+    </script>
+</body>
+
+</html>

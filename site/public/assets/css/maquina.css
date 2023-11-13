@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    font-family: 'Poppins';
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #141619;
+}
+
+/* Estilos para o ícone do menu hamburguer */
+
+
+
+.botao-menu {
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.botao-menu img{
+    width: 50px;
+}
+
+.bar {
+    width: 30px;
+    height: 3px;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.texto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #ffffff1c;
+    height: 50px;
+    width: 150px;
+	transition: all .3s ease-in-out;
+}
+
+.texto:hover{
+    background-color: #ffffff46;
+}
+
+
+ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px 0 0;
+}
+
+/* Estilos para o menu lateral */
+.menu-lateral {
+    position: fixed;
+    top: 0;
+    left: -260px; /* Inicialmente, o menu fica completamente fora da tela */
+    width: 300px;
+    height: 100%;
+    background-color: #202225;
+    border-radius: 10px;
+    color: #fff;
+    padding: 20px;
+    transition: 0.3s;
+    z-index: 900;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.075);
+}
+
+.usuario{
+    color: #fff;
+    text-align: center;
+    padding: 80px 0 0;
+}
+
+.usuario img{
+    width: 85px;
+}
+
+
+/* Estilos para mostrar o menu quando o ícone do hamburguer é clicado */
+.ver-menu {
+    left: 0;
+}
+
+.menu-lateral ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu-lateral li {
+    margin: 10px 0;
+}
+
+.menu-lateral a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+}
+
+.ver-menu {
+    left: 0;
+}
+
+.conteudo{
+    display: flex;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.titulo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    color: #fff;
+    width: 200px;
+    height: 60px;
+    background-color: #7A0BC0;
+}
+
