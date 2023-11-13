@@ -1,111 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <title>Dashboard | Howlz</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/dashboard.css">
+    <link rel="website icon" href="../assets/icon/owl.svg" />
 </head>
+
 <body>
-    <nav class="menu-lateral">
-        <div class="logo">
-            <img src="../assets/icon/logoHowlZ (1).svg" alt="">
+    <nav class="menu-lateral" id="menuLateral">
+        <div class="botao-menu" onclick="botaoMenu()">
+            <img src="../assets/img/menu-hamburguer.png" alt="">
         </div>
 
         <div class="usuario">
             <h4 id="nomeDaEmpresa"></h4>
-           <img src="../assets/img/usuario.png" alt="">
+            <img src="../assets/img/usuario.png" alt="">
             <h4 id="nomeDoUsuario"></h4>
         </div>
 
         <ul>
             <li class="item-menu">
                 <a href="./dashboard.html">
-                   <span class="icone"><i class="bi bi-bar-chart-fill"></i></span>
-                   <span class="texto">Dashboard</span>
+                    <span class="icone"><i class="bi bi-bar-chart-fill"></i></span>
+                    <span class="texto">Computadores</span>
                 </a>
-           </li>
-           <li class="item-menu">
-            <a href="../cadastroNovoFunc.html">
-               <span class="icone"><i class="bi bi-person-add"></i></span>
-               <span class="texto">Configuração</span>
-            </a>
             </li>
             <li class="item-menu">
-               <a href="https://howlz.atlassian.net/servicedesk/customer/portal/1">
-               <span class="icone"><i class="bi bi-person-gear"></i></span>
-               <span class="texto">Suporte</span>
-               </a>
+                <a href="../cadastroNovoFunc.html">
+                    <span class="icone"><i class="bi bi-person-add"></i></span>
+                    <span class="texto">Configuração</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="https://howlz.atlassian.net/servicedesk/customer/portal/1">
+                    <span class="icone"><i class="bi bi-person-gear"></i></span>
+                    <span class="texto">Suporte</span>
+                </a>
             </li>
             <li class="item-menu">
                 <a href="../login.html">
-                <span class="icone"><i class="bi bi-box-arrow-in-right"></i></span>
-                <span class="texto" onclick="limparSessao()">Sair</span>
+                    <span class="icone"><i class="bi bi-box-arrow-in-right"></i></span>
+                    <span class="texto" onclick="limparSessao()">Sair</span>
                 </a>
             </li>
 
         </ul>
+
     </nav>
-   
-    <div class="titulo"><h2>Máquinas Monitoradas</h2></div>
-    <div class="container">
-        <div class="maquina">
-            <h4>Máquina 1</h4>
-            <p class="status ativa">Status: Ativa</p>
-            <p>Uso de CPU: 50%</p>
-            <p>Memória RAM: 70%</p>
-            <p>Espaço em Disco: 80%</p>
-            <a href="../dashboard/maquina1.html"><button>Monitorar</button></a>
-        </div>
-        <div class="maquina">
-            <h4>Máquina 2</h4>
-            <p class="status ativa">Status: Ativa</p>
-            <p>Uso de CPU: 50%</p>
-            <p>Memória RAM: 70%</p>
-            <p>Espaço em Disco: 80%</p>
-            <button>Monitorar</button>
-        </div>
-        <div class="maquina">
-            <h4>Máquina 3</h4>
-            <p class="status ativa">Status: Ativa</p>
-            <p>Uso de CPU: 50%</p>
-            <p>Memória RAM: 70%</p>
-            <p>Espaço em Disco: 80%</p>
-            <button>Monitorar</button>
-        </div>
-        <div class="maquina">
-            <h4>Máquina 4</h4>
-            <p class="status ativa">Status: Ativa</p>
-            <p>Uso de CPU: 50%</p>
-            <p>Memória RAM: 70%</p>
-            <p>Espaço em Disco: 80%</p>
-            <button>Monitorar</button>
-        </div>
-        <div class="maquina">
-            <h4>Máquina 5</h4>
-            <p class="status ativa">Status: Ativa</p>
-            <p>Uso de CPU: 50%</p>
-            <p>Memória RAM: 70%</p>
-            <p>Espaço em Disco: 80%</p>
-            <button>Monitorar</button>
+    <div class="content">
+        <h2>Máquinas Monitoradas</h2>
+        <div class="container">
+            <div class="maquina">
+                <h3>Máquina 1</h3>
+                <p class="status ativa">Status: Ativa</p>
+                <p>Uso de CPU: </p>
+                <p>Memória RAM: </p>
+                <p>Espaço em Disco: </p>
+                <a href="../dashboard/maquina.html"><button>Monitorar</button></a>
+            </div>
         </div>
     </div>
+    <script>
+
+//função para quebrar linha das maquinas
+        for (let i = 0; i < array.length; i++) {
+            const element = array[i];
+            if (i % 5 == 0){
+                
+            }
+        }
+
+        function botaoMenu() {
+            var menuLateral = document.getElementById("menuLateral");
+            var botaoMenuImg = document.getElementById("botaoMenuImg");
+
+            menuLateral.classList.toggle("ver-menu");
+            botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu") ? "none" : "block";
+
+            var content = document.querySelector(".content");
+            content.classList.toggle("content-shift");
+        }
+
+        var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
+        document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
+
+        var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
+        document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
+
+        function limparSessao() {
+
+            sessionStorage.clear();
+
+            window.location = "/login";
+        }
+
+    </script>
 </body>
+
 </html>
-<script>
-    var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
-    document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
-
-    var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
-    document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
-
-    function limparSessao() {
-
-    sessionStorage.clear();
-
-    window.location = "/login";
-    }
-
-</script>
