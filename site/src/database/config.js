@@ -3,24 +3,23 @@ var sql = require('mssql');
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
-    server: "32.206.56.159",
+    server: "localhost",
     database: "howlz",
     user: "sa",
     password: "urubu100",
-    pool: {
-        max: 10,
-        min: 0,
-        idleTimeoutMillis: 30000
-    },
+	options: {
+	    trustServerCertificate: true,
+	    
+	}
 }
 
 // CONEXÃO DO MYSQL WORKBENCH
-var mySqlConfig = {
-    host: "localhost",
-    database: "howlz",
-    user: "admin",
-    password: "admin",
-};
+// var mySqlConfig = {
+//    host: "localhost",
+//    database: "howlz",
+//    user: "admin",
+//    password: "admin",
+//};
 
 function executar(instrucao) {
     // VERIFICA A VARIÁVEL DE AMBIENTE SETADA EM app.js
