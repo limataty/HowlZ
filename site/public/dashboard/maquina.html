@@ -48,40 +48,45 @@
 
         </ul>
 
-        
+
     </nav>
-    
+
     <div class="conteudo">
         <div class="titulo">
             <h2>Máquina</h2>
         </div>
         <div class="paths">
-            <span class="path">Dashboard</span>
-            <span class="path">Janelas</span>
-            <span class="path">Logs</span>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="janelas.html">Janelas</a>
+            <a href="logs.html">Logs</a>
         </div>
-    </div>
-    <script>
+        </div>
+            <script>
 
-        function botaoMenu() {
-            var menuLateral = document.getElementById("menuLateral");
-            var botaoMenuImg = document.getElementById("botaoMenuImg");
+                function botaoMenu() {
+                    var menuLateral = document.getElementById("menuLateral");
+                    var botaoMenuImg = document.getElementById("botaoMenuImg");
 
-            menuLateral.classList.toggle("ver-menu");
-            botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu") ? "none" : "block";
+                    menuLateral.classList.toggle("ver-menu");
+                    botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu") ? "none" : "block";
 
-            var content = document.querySelector(".content");
-            content.classList.toggle("content-shift");
-        }
+                    var content = document.querySelector(".content");
+                    content.classList.toggle("content-shift");
+                }
+                var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
+                document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
 
-        function limparSessao() {
+                var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
+                document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
 
-            sessionStorage.clear();
+                function limparSessao() {
 
-            window.location = "/login";
-        }
+                    sessionStorage.clear();
 
-    </script>
+                    window.location = "/login";
+                }
+
+            </script>
 </body>
 
 </html>

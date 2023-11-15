@@ -12,7 +12,10 @@ body{
 
 /* Estilos para o ícone do menu hamburguer */
 
-
+a{
+    text-decoration: none;
+    color: #fff;
+}
 
 .botao-menu {
     display: flex;
@@ -125,4 +128,36 @@ ul{
     height: 60px;
     background-color: #7A0BC0;
 }
+.paths{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.paths a{
+    display: flex;
+    margin: 0 70px;
+    background-color: #4b0975;
+    width: 180px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    transition: all .2s;
+}
+
+.paths a:hover{
+    background-color: #3a0859;
+
+}
+
+.conteudo{
+    display: flex;
+    gap: 70px;
+}
+
+.titulo{
+    margin: 50px 0 0;
+}
+
 
