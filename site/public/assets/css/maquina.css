@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-*{
+* {
     font-family: 'Poppins';
     margin: 0;
     padding: 0;
 }
 
-body{
+body {
     background-color: #141619;
 }
 
 /* Estilos para o ícone do menu hamburguer */
 
-a{
+a {
     text-decoration: none;
     color: #fff;
 }
@@ -24,7 +24,7 @@ a{
     z-index: 1000;
 }
 
-.botao-menu img{
+.botao-menu img {
     width: 50px;
 }
 
@@ -35,7 +35,7 @@ a{
     transition: 0.4s;
 }
 
-.texto{
+.texto {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,15 +43,15 @@ a{
     background-color: #ffffff1c;
     height: 50px;
     width: 150px;
-	transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
 }
 
-.texto:hover{
+.texto:hover {
     background-color: #ffffff46;
 }
 
 
-ul{
+ul {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,7 +63,8 @@ ul{
 .menu-lateral {
     position: fixed;
     top: 0;
-    left: -260px; /* Inicialmente, o menu fica completamente fora da tela */
+    left: -260px;
+    /* Inicialmente, o menu fica completamente fora da tela */
     width: 300px;
     height: 100%;
     background-color: #202225;
@@ -75,13 +76,13 @@ ul{
     box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.075);
 }
 
-.usuario{
+.usuario {
     color: #fff;
     text-align: center;
     padding: 80px 0 0;
 }
 
-.usuario img{
+.usuario img {
     width: 85px;
 }
 
@@ -110,7 +111,7 @@ ul{
     left: 0;
 }
 
-.conteudo{
+.conteudo {
     display: flex;
     color: #fff;
     justify-content: center;
@@ -118,7 +119,7 @@ ul{
     flex-direction: column;
 }
 
-.titulo{
+.titulo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -126,18 +127,20 @@ ul{
     color: #fff;
     width: 200px;
     height: 60px;
-    background-color: #7A0BC0;
+    background-color: #7a0bc0;
 }
-.paths{
+
+.paths {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.paths a{
+.paths a {
     display: flex;
     margin: 0 70px;
     background-color: #4b0975;
+    background-color: #ffffff22;
     width: 180px;
     height: 50px;
     align-items: center;
@@ -146,18 +149,67 @@ ul{
     transition: all .2s;
 }
 
-.paths a:hover{
+.paths a:hover {
     background-color: #3a0859;
 
 }
 
-.conteudo{
+.conteudo {
     display: flex;
     gap: 70px;
 }
 
-.titulo{
+.titulo {
     margin: 50px 0 0;
 }
 
+.botoesGraph{
+    display: flex;
+    flex-direction: row;
+}
 
+.botoes{
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard{
+    display: flex;
+    flex-direction: row;
+    height: 50%;
+}
+
+.CPU {
+    display: flex;
+    justify-content: end;
+    background-color: #ffffff08;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.elementoRAM,
+.elementoDisco,
+.elementoGPU {
+    display: none;
+}
+
+.botoes{
+    gap: 10px;
+}
+
+.botoes button{
+    background-color: #4b0975;
+    color: #fff;
+    border: none;
+    height: 100px;
+    width: 150px;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.botoes button:hover{
+    filter: brightness(70%);
+    transform: scale(.9);
+    border-radius: 10px;
+}

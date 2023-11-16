@@ -60,33 +60,130 @@
             <a href="janelas.html">Janelas</a>
             <a href="logs.html">Logs</a>
         </div>
+
+        <div class="dashboard">
+
+            <div class="botoesGraph">
+
+                <div class="CPU" id="elementoCPU">
+                    <canvas id="chartCPU" width="600" height="300"></canvas>
+                </div>
+
+                <div id="RAM" class="elementoRAM">
+                    <h1>Elemento 1</h1>
+                    <p>Conteúdo do Elemento 1</p>
+                </div>
+
+                <div id="Disco" class="elementoDisco">
+                    <h1>Elemento 2</h1>
+                    <p>Conteúdo do Elemento 2</p>
+                </div>
+
+                <div id="GPU" class="elementoGPU">
+                    <h1>Elemento 3</h1>
+                    <p>Conteúdo do Elemento 3 </p>
+                </div>
+                <div class="botoes">
+                    <button onclick="mostrarElemento('elementoCPU')">CPU</button>
+                    <button onclick="mostrarElemento('RAM')">RAM</button>
+                    <button onclick="mostrarElemento('Disco')">Disco</button>
+                    <button onclick="mostrarElemento('GPU')">GPU</button>
+                </div>
+            </div>
         </div>
-            <script>
 
-                function botaoMenu() {
-                    var menuLateral = document.getElementById("menuLateral");
-                    var botaoMenuImg = document.getElementById("botaoMenuImg");
+    </div>
 
-                    menuLateral.classList.toggle("ver-menu");
-                    botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu") ? "none" : "block";
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-                    var content = document.querySelector(".content");
-                    content.classList.toggle("content-shift");
+    <script>
+
+
+        //PARA OS GRAFICOS
+        var ctx = document.getElementById('chartCPU').getContext('2d');
+
+        var data = {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril'], //dados de horario
+            datasets: [{
+                label: 'CPU',
+                data: [7, 6, 7, 5], //dados de %
+                backgroundColor: 'rgba(123, 11, 192, 0.514)',
+                borderColor: 'rgb(122, 11, 192)',
+                fill: true,
+                hoverBorderWidth: 10,
+                borderWidth: 3
+            }]
+        };
+
+        var options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+                text: 'Gráfico de Vendas Mensais'
+
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            family: 'Poppins'
+                        }
+                    }
                 }
-                var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
-                document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
+            },
+            defaultFontFamily: 'Poppins'
+        };
 
-                var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
-                document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: options
+        });
 
-                function limparSessao() {
+        //PARA FAZER MENU HAMBURGUER
+        function botaoMenu() {
+            var menuLateral = document.getElementById("menuLateral");
+            var botaoMenuImg = document.getElementById("botaoMenuImg");
 
-                    sessionStorage.clear();
+            menuLateral.classList.toggle("ver-menu");
+            botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu") ? "none" : "block";
 
-                    window.location = "/login";
+            var content = document.querySelector(".content");
+            content.classList.toggle("content-shift");
+        }
+
+        //PARA PUXAR DADO DO USUARIO
+        var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
+        document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
+
+        var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
+        document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
+
+        function limparSessao() {
+
+            sessionStorage.clear();
+
+            window.location = "/login";
+        }
+
+        //PARA MUDAR OS ELEMENTOS
+        function mostrarElemento(elementoID) {
+            var elementos = ["elementoCPU", "RAM", "Disco", "GPU"];
+            elementos.forEach(function (elemento) {
+                var elementoAtual = document.getElementById(elemento);
+                if (elementoAtual) {
+                    elementoAtual.style.display = 'none';
                 }
+            });
 
-            </script>
+            var elementoSelecionado = document.getElementById(elementoID);
+            if (elementoSelecionado) {
+                elementoSelecionado.style.display = 'block';
+            }
+        }
+
+    </script>
 </body>
 
 </html>
