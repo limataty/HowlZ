@@ -178,7 +178,7 @@ ul {
     height: 50%;
 }
 
-.CPU, .RAM, .Disco, .GPU, .Memoria  {
+.CPU, .elementoRAM, .elementoDisco, .elementoGPU{
     display: flex;
     justify-content: end;
     background-color: #ffffff08;

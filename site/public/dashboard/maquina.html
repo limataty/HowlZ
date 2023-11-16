@@ -74,25 +74,19 @@
                 </div>
 
                 <div id="Disco" class="elementoDisco">
-                    <h1>Elemento 2</h1>
-                    <p>Conteúdo do Elemento 2</p>
+                    <canvas id="2" width="600" height="300"></canvas>
                 </div>
 
                 <div id="GPU" class="elementoGPU">
-                    <h1>Elemento 3</h1>
-                    <p>Conteúdo do Elemento 3 </p>
+                    <canvas id="3" width="600" height="300"></canvas>
                 </div>
 
-                <div id="Memoria" class="elementoMemoria">
-                    <h1>Elemento 4</h1>
-                    <p>Conteúdo do Elemento 4 </p>
-                </div>
+
                 <div class="botoes">
                     <button onclick="mostrarElemento('elementoCPU')">CPU</button>
                     <button onclick="mostrarElemento('RAM')">RAM</button>
                     <button onclick="mostrarElemento('Disco')">Disco</button>
                     <button onclick="mostrarElemento('GPU')">GPU</button>
-                    <button onclick="mostrarElemento('Memoria')">Memória</button>
                 </div>
             </div>
         </div>
@@ -185,6 +179,89 @@
             options: optionsRAM
         });
 
+
+        //GRAFICO DO DISCO
+        var ctxDisco = document.getElementById('2').getContext('2d');
+
+        var dataDisco = {
+            labels: [], //dados de horário
+            datasets: [{
+                label: 'Disco',
+                data: [], //dados de %
+                backgroundColor: 'rgba(123, 11, 192, 0.514)',
+                borderColor: 'rgb(122, 11, 192)',
+                fill: true,
+                hoverBorderWidth: 10,
+                borderWidth: 3
+            }]
+        };
+
+        var optionsDisco = {
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            family: 'Poppins'
+                        }
+                    }
+                }
+            },
+            defaultFontFamily: 'Poppins'
+        };
+
+        var myLineChartDisco = new Chart(ctxDisco, {
+            type: 'line',
+            data: dataDisco,
+            options: optionsDisco
+        });
+
+
+        //GRAFICO DA GPU
+        var ctxGPU = document.getElementById('3').getContext('2d');
+
+        var dataGPU = {
+            labels: [], //dados de horário
+            datasets: [{
+                label: 'GPU',
+                data: [], //dados de %
+                backgroundColor: 'rgba(123, 11, 192, 0.514)',
+                borderColor: 'rgb(122, 11, 192)',
+                fill: true,
+                hoverBorderWidth: 10,
+                borderWidth: 3
+            }]
+        };
+
+        var optionsGPU = {
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            family: 'Poppins'
+                        }
+                    }
+                }
+            },
+            defaultFontFamily: 'Poppins'
+        };
+
+        var myLineChartGPU = new Chart(ctxGPU, {
+            type: 'line',
+            data: dataGPU,
+            options: optionsGPU
+        });
+
+
         //PARA FAZER MENU HAMBURGUER
         function botaoMenu() {
             var menuLateral = document.getElementById("menuLateral");
@@ -213,7 +290,7 @@
 
         //PARA MUDAR OS ELEMENTOS
         function mostrarElemento(elementoID) {
-            var elementos = ["elementoCPU", "RAM", "Disco", "GPU", "Memoria"];
+            var elementos = ["elementoCPU", "RAM", "Disco", "GPU"];
             elementos.forEach(function (elemento) {
                 var elementoAtual = document.getElementById(elemento);
                 if (elementoAtual) {
