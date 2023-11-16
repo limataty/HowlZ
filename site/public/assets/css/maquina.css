@@ -139,7 +139,6 @@ ul {
 .paths a {
     display: flex;
     margin: 0 70px;
-    background-color: #4b0975;
     background-color: #ffffff22;
     width: 180px;
     height: 50px;
@@ -179,7 +178,7 @@ ul {
     height: 50%;
 }
 
-.CPU {
+.CPU, .RAM, .Disco, .GPU, .Memoria  {
     display: flex;
     justify-content: end;
     background-color: #ffffff08;
@@ -187,12 +186,12 @@ ul {
     padding: 15px;
 }
 
-.elementoMemoria,
+/* .elementoMemoria,
 .elementoRAM,
 .elementoDisco,
 .elementoGPU {
     display: none;
-}
+} */
 
 .botoes{
     gap: 10px;
