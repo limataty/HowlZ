@@ -83,11 +83,30 @@
 
 
                 <div class="botoes">
-                    <button onclick="mostrarElemento('elementoCPU')">CPU</button>
-                    <button onclick="mostrarElemento('RAM')">RAM</button>
-                    <button onclick="mostrarElemento('Disco')">Disco</button>
-                    <button onclick="mostrarElemento('GPU')">GPU</button>
+                    <button onclick="mostrarElemento('GPU')">
+                        GPU
+                        <div id="performance">60% | Médio</div>
+                    </button>
+                    <button onclick="mostrarElemento('RAM')">
+                        RAM
+                        <div id="performance">95% | Ruim</div>
+                    </button>
+                    <button onclick="mostrarElemento('elementoCPU')">
+                        CPU
+                        <div id="performance">15% | Bom</div>
+                    </button>
+                    <button onclick="mostrarElemento('Disco')">
+                        Disco
+                        <div id="performance">90% | Ruim</div>
+                    </button>
                 </div>
+
+                <div class="legendas">
+                    <div class="Bom">
+
+                    </div>
+                </div>
+
             </div>
         </div>
 
