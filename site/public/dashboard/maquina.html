@@ -66,12 +66,11 @@
             <div class="botoesGraph">
 
                 <div class="CPU" id="elementoCPU">
-                    <canvas id="chartCPU" width="600" height="300"></canvas>
+                    <canvas id="0" width="600" height="300"></canvas>
                 </div>
 
                 <div id="RAM" class="elementoRAM">
-                    <h1>Elemento 1</h1>
-                    <p>Conteúdo do Elemento 1</p>
+                    <canvas id="1" width="600" height="300"></canvas>
                 </div>
 
                 <div id="Disco" class="elementoDisco">
@@ -83,11 +82,17 @@
                     <h1>Elemento 3</h1>
                     <p>Conteúdo do Elemento 3 </p>
                 </div>
+
+                <div id="Memoria" class="elementoMemoria">
+                    <h1>Elemento 4</h1>
+                    <p>Conteúdo do Elemento 4 </p>
+                </div>
                 <div class="botoes">
                     <button onclick="mostrarElemento('elementoCPU')">CPU</button>
                     <button onclick="mostrarElemento('RAM')">RAM</button>
                     <button onclick="mostrarElemento('Disco')">Disco</button>
                     <button onclick="mostrarElemento('GPU')">GPU</button>
+                    <button onclick="mostrarElemento('Memoria')">Memória</button>
                 </div>
             </div>
         </div>
@@ -99,14 +104,14 @@
     <script>
 
 
-        //PARA OS GRAFICOS
-        var ctx = document.getElementById('chartCPU').getContext('2d');
+        //PARA OS GRAFICOS CPU
+        var ctx = document.getElementById('0').getContext('2d');
 
         var data = {
-            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril'], //dados de horario
+            labels: [], //dados de horario
             datasets: [{
                 label: 'CPU',
-                data: [7, 6, 7, 5], //dados de %
+                data: [], //dados de %
                 backgroundColor: 'rgba(123, 11, 192, 0.514)',
                 borderColor: 'rgb(122, 11, 192)',
                 fill: true,
@@ -120,8 +125,6 @@
             maintainAspectRatio: false,
             title: {
                 display: true,
-                text: 'Gráfico de Vendas Mensais'
-
             },
             plugins: {
                 legend: {
@@ -139,6 +142,47 @@
             type: 'line',
             data: data,
             options: options
+        });
+
+        //GRAFICO DA RAM
+
+        var ctxRAM = document.getElementById('1').getContext('2d');
+
+        var dataRAM = {
+            labels: [], //dados de horário
+            datasets: [{
+                label: 'RAM',
+                data: [], //dados de %
+                backgroundColor: 'rgba(123, 11, 192, 0.514)',
+                borderColor: 'rgb(122, 11, 192)',
+                fill: true,
+                hoverBorderWidth: 10,
+                borderWidth: 3
+            }]
+        };
+
+        var optionsRAM = {
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            family: 'Poppins'
+                        }
+                    }
+                }
+            },
+            defaultFontFamily: 'Poppins'
+        };
+
+        var myLineChartRAM = new Chart(ctxRAM, {
+            type: 'line',
+            data: dataRAM,
+            options: optionsRAM
         });
 
         //PARA FAZER MENU HAMBURGUER
@@ -169,7 +213,7 @@
 
         //PARA MUDAR OS ELEMENTOS
         function mostrarElemento(elementoID) {
-            var elementos = ["elementoCPU", "RAM", "Disco", "GPU"];
+            var elementos = ["elementoCPU", "RAM", "Disco", "GPU", "Memoria"];
             elementos.forEach(function (elemento) {
                 var elementoAtual = document.getElementById(elemento);
                 if (elementoAtual) {

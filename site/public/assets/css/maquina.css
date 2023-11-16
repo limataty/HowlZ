@@ -156,7 +156,7 @@ ul {
 
 .conteudo {
     display: flex;
-    gap: 70px;
+    gap: 50px;
 }
 
 .titulo {
@@ -187,6 +187,7 @@ ul {
     padding: 15px;
 }
 
+.elementoMemoria,
 .elementoRAM,
 .elementoDisco,
 .elementoGPU {
