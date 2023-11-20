@@ -51,26 +51,26 @@
     </nav>
     <div class="content">
         <h2>Máquinas Monitoradas</h2>
-        <div class="container">
-            <div class="maquina">
+        <div class="container" id="maquinas" style="gap: 10px;">
+            <!-- <div class="maquina">
                 <h3>Máquina 1</h3>
                 <p class="status ativa">Status: Ativa</p>
                 <p>Uso de CPU: </p>
                 <p>Memória RAM: </p>
                 <p>Espaço em Disco: </p>
                 <a href="../dashboard/maquina.html"><button>Monitorar</button></a>
-            </div>
+            </div> -->
         </div>
     </div>
     <script>
 
 //função para quebrar linha das maquinas
-        for (let i = 0; i < array.length; i++) {
-            const element = array[i];
-            if (i % 5 == 0){
+        // for (let i = 0; i < array.length; i++) {
+        //     const element = array[i];
+        //     if (i % 5 == 0){
                 
-            }
-        }
+        //     }
+        // }
 
         function botaoMenu() {
             var menuLateral = document.getElementById("menuLateral");
@@ -95,6 +95,89 @@
 
             window.location = "/login";
         }
+
+    fetch("/usuarios/contar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
+      }),
+    })
+      .then(function (resposta) {
+
+        if (resposta.ok) {
+          console.log(resposta);
+
+          resposta.json().then((json) => {
+            console.log(json);
+            console.log(JSON.stringify(json));
+
+          for (let i = 0; i < json; i++) {
+            const element = json[i];
+
+            if (i % 5 == 0){
+               maquinas.innerHTML += `<br>`; 
+              }
+
+            maquinas.innerHTML += `
+                    <div class="maquina">
+                        <h3>Máquina ${i + 1}</h3>
+                        <p class="status ativa">Status: Ativa</p>
+                        <p>Uso de CPU: 1</p>
+                        <p>Memória RAM: 1</p>
+                        <p>Espaço em Disco: 1</p>
+                        <a href="../dashboard/maquina.html"><button>Monitorar</button></a>
+                    </div>
+                        `;
+          }});
+
+          //   fetch("/usuarios/maquinas", {
+          //     method: "POST",
+          //     headers: {
+          //       "Content-Type": "application/json",
+          //     },
+          //     body: JSON.stringify({
+          //       id: element.id,
+          //     }),
+          //   })
+          //     .then(function (volta) {
+          //       if (volta.ok) {
+          //           volta.json().then((json) => {
+
+          //               maquinas.innerHTML = `
+          //           <div class="maquina">
+          //               <h3>Máquina ${volta[i].idMaquina}</h3>
+          //               <p class="status ativa">Status: Ativa</p>
+          //               <p>Uso de CPU: ${volta[i].UsoCPU}</p>
+          //               <p>Memória RAM: ${volta[i].MemRam}</p>
+          //               <p>Espaço em Disco: ${volta[i].EspacoDisco}</p>
+          //               <a href="../dashboard/maquina.html"><button>Monitorar</button></a>
+          //           </div>
+          //               `;
+                    
+          //           console.log(json);
+          //           console.log(JSON.stringify(json));
+          //         });
+          //       } else {
+          //         resposta.text().then((texto) => {
+          //           console.log(texto);
+          //         });
+          //       }
+          //     })
+          //     .catch(function (erro) {
+          //       console.log(erro);
+          //     });
+        //  }
+        // } else {
+          
+        // }
+      }})
+      .catch(function (erro) {
+        console.log(erro);
+      });
+    
 
     </script>
 </body>

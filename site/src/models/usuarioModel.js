@@ -81,6 +81,16 @@ function validarFuncionario(nomeFuncionario, emailFuncionario) {
     return database.executar(instrucao);
 }
 
+function contarMaquinas(fkGestor) {
+    var instrucao = `
+        SELECT COUNT(*) as maquinas
+        FROM Usuario
+        WHERE fkGestor = ${fkGestor};
+    `;
+    return database.executar(instrucao);
+
+}
+
 module.exports = {
     cadastrarEmpresa,
     receberIDEmpresa,
@@ -91,4 +101,5 @@ module.exports = {
     cadastrarFuncionario,
     validarGestor,
     validarFuncionario,
+    contarMaquinas,
 };

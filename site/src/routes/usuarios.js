@@ -25,5 +25,9 @@ router.post("/validarFuncionario", function (req, res) {
     usuarioController.validarFuncionario(req, res);
 });
 
+router.post("/contar", function (req, res) {
+    usuarioController.contarMaquinas(req, res);
+});
+
 
 module.exports = router;

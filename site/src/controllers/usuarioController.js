@@ -300,6 +300,25 @@ function validarFuncionario(req, res) {
   }
 }
 
+function contarMaquinas(req, res){ 
+  var fkGestor = req.body.fkGestorServer; 
+
+  usuarioModel
+    .contarMaquinas(fkGestor)
+    .then(function (resultado) {
+      console.log("resultado: " + resultado[0].maquinas);
+      res.json(resultado[0].maquinas);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log(
+        "\nHouve um erro ao realizar a validação! Erro: ",
+        erro.sqlMessage
+      );
+      res.status(500).send(erro.sqlMessage);
+    });
+}
+
 module.exports = {
   cadastrarEmpresa,
   entrar,
@@ -308,4 +327,5 @@ module.exports = {
   cadastrarFuncionario,
   validarGestor,
   validarFuncionario,
+  contarMaquinas,
 };

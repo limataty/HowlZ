@@ -2,21 +2,21 @@
 <html lang="pt">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../assets/css/maquina.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/maquina.css" />
     <link rel="website icon" href="../assets/icon/owl.svg" />
 </head>
 
 <body onload="mostrarElemento('elementoCPU')">
     <nav class="menu-lateral" id="menuLateral">
         <div class="botao-menu" onclick="botaoMenu()">
-            <img src="../assets/img/menu-hamburguer.png" alt="">
+            <img src="../assets/img/menu-hamburguer.png" alt="" />
         </div>
 
         <div class="usuario">
             <h4 id="nomeDaEmpresa"></h4>
-            <img src="../assets/img/usuario.png" alt="">
+            <img src="../assets/img/usuario.png" alt="" />
             <h4 id="nomeDoUsuario"></h4>
         </div>
 
@@ -45,10 +45,7 @@
                     <span class="texto" onclick="limparSessao()">Sair</span>
                 </a>
             </li>
-
         </ul>
-
-
     </nav>
 
     <div class="conteudo">
@@ -62,25 +59,22 @@
         </div>
 
         <div class="dashboard">
-
             <div class="botoesGraph">
-
-                <div class="CPU" id="elementoCPU">
-                    <canvas id="0" width="600" height="300"></canvas>
+                <div class="CPU grafico" id="elementoCPU">
+                    <canvas id="CPU" width="600" height="300"></canvas>
                 </div>
 
-                <div id="RAM" class="elementoRAM">
-                    <canvas id="1" width="600" height="300"></canvas>
+                <div id="RAM" class="elementoRAM grafico" style="display: none;">
+                    <canvas id="RAM" width="600" height="300"></canvas>
                 </div>
 
-                <div id="Disco" class="elementoDisco">
-                    <canvas id="2" width="600" height="300"></canvas>
+                <div id="Disco" class="elementoDisco grafico" style="display: none;">
+                    <canvas id="DISCO" width="600" height="300"></canvas>
                 </div>
 
-                <div id="GPU" class="elementoGPU">
-                    <canvas id="3" width="600" height="300"></canvas>
+                <div id="GPU" class="elementoGPU grafico" style="display: none;">
+                    <canvas id="GPU" width="600" height="300"></canvas>
                 </div>
-
 
                 <div class="botoes">
                     <button onclick="mostrarElemento('GPU')">
@@ -103,227 +97,440 @@
 
                 <div class="legendas">
                     <div class="Bom">
-
                     </div>
                 </div>
-
             </div>
         </div>
 
-    </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            //PARA OS GRAFICOS CPU
+            var ctx = document.getElementById("0").getContext("2d");
 
-    <script>
+            var data = {
+                labels: [], //dados de horario
+                datasets: [
+                    {
+                        label: "CPU",
+                        data: [], //dados de %
+                        backgroundColor: "rgba(123, 11, 192, 0.514)",
+                        borderColor: "rgb(122, 11, 192)",
+                        fill: true,
+                        hoverBorderWidth: 10,
+                        borderWidth: 3,
+                    },
+                ],
+            };
 
+            var options = {
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: true,
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                family: "Poppins",
+                            },
+                        },
+                    },
+                },
+                defaultFontFamily: "Poppins",
+            };
 
-        //PARA OS GRAFICOS CPU
-        var ctx = document.getElementById('0').getContext('2d');
-
-        var data = {
-            labels: [], //dados de horario
-            datasets: [{
-                label: 'CPU',
-                data: [], //dados de %
-                backgroundColor: 'rgba(123, 11, 192, 0.514)',
-                borderColor: 'rgb(122, 11, 192)',
-                fill: true,
-                hoverBorderWidth: 10,
-                borderWidth: 3
-            }]
-        };
-
-        var options = {
-            responsive: true,
-            maintainAspectRatio: false,
-            title: {
-                display: true,
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            family: 'Poppins'
-                        }
-                    }
-                }
-            },
-            defaultFontFamily: 'Poppins'
-        };
-
-        var myLineChart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: options
-        });
-
-        //GRAFICO DA RAM
-
-        var ctxRAM = document.getElementById('1').getContext('2d');
-
-        var dataRAM = {
-            labels: [], //dados de horário
-            datasets: [{
-                label: 'RAM',
-                data: [], //dados de %
-                backgroundColor: 'rgba(123, 11, 192, 0.514)',
-                borderColor: 'rgb(122, 11, 192)',
-                fill: true,
-                hoverBorderWidth: 10,
-                borderWidth: 3
-            }]
-        };
-
-        var optionsRAM = {
-            responsive: true,
-            maintainAspectRatio: false,
-            title: {
-                display: true,
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            family: 'Poppins'
-                        }
-                    }
-                }
-            },
-            defaultFontFamily: 'Poppins'
-        };
-
-        var myLineChartRAM = new Chart(ctxRAM, {
-            type: 'line',
-            data: dataRAM,
-            options: optionsRAM
-        });
-
-
-        //GRAFICO DO DISCO
-        var ctxDisco = document.getElementById('2').getContext('2d');
-
-        var dataDisco = {
-            labels: [], //dados de horário
-            datasets: [{
-                label: 'Disco',
-                data: [], //dados de %
-                backgroundColor: 'rgba(123, 11, 192, 0.514)',
-                borderColor: 'rgb(122, 11, 192)',
-                fill: true,
-                hoverBorderWidth: 10,
-                borderWidth: 3
-            }]
-        };
-
-        var optionsDisco = {
-            responsive: true,
-            maintainAspectRatio: false,
-            title: {
-                display: true,
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            family: 'Poppins'
-                        }
-                    }
-                }
-            },
-            defaultFontFamily: 'Poppins'
-        };
-
-        var myLineChartDisco = new Chart(ctxDisco, {
-            type: 'line',
-            data: dataDisco,
-            options: optionsDisco
-        });
-
-
-        //GRAFICO DA GPU
-        var ctxGPU = document.getElementById('3').getContext('2d');
-
-        var dataGPU = {
-            labels: [], //dados de horário
-            datasets: [{
-                label: 'GPU',
-                data: [], //dados de %
-                backgroundColor: 'rgba(123, 11, 192, 0.514)',
-                borderColor: 'rgb(122, 11, 192)',
-                fill: true,
-                hoverBorderWidth: 10,
-                borderWidth: 3
-            }]
-        };
-
-        var optionsGPU = {
-            responsive: true,
-            maintainAspectRatio: false,
-            title: {
-                display: true,
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            family: 'Poppins'
-                        }
-                    }
-                }
-            },
-            defaultFontFamily: 'Poppins'
-        };
-
-        var myLineChartGPU = new Chart(ctxGPU, {
-            type: 'line',
-            data: dataGPU,
-            options: optionsGPU
-        });
-
-
-        //PARA FAZER MENU HAMBURGUER
-        function botaoMenu() {
-            var menuLateral = document.getElementById("menuLateral");
-            var botaoMenuImg = document.getElementById("botaoMenuImg");
-
-            menuLateral.classList.toggle("ver-menu");
-            botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu") ? "none" : "block";
-
-            var content = document.querySelector(".content");
-            content.classList.toggle("content-shift");
-        }
-
-        //PARA PUXAR DADO DO USUARIO
-        var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
-        document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
-
-        var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
-        document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
-
-        function limparSessao() {
-
-            sessionStorage.clear();
-
-            window.location = "/login";
-        }
-
-        //PARA MUDAR OS ELEMENTOS
-        function mostrarElemento(elementoID) {
-            var elementos = ["elementoCPU", "RAM", "Disco", "GPU"];
-            elementos.forEach(function (elemento) {
-                var elementoAtual = document.getElementById(elemento);
-                if (elementoAtual) {
-                    elementoAtual.style.display = 'none';
-                }
+            var myLineChart = new Chart(ctx, {
+                type: "line",
+                data: data,
+                options: options,
             });
 
-            var elementoSelecionado = document.getElementById(elementoID);
-            if (elementoSelecionado) {
-                elementoSelecionado.style.display = 'block';
-            }
-        }
+            //GRAFICO DA RAM
 
-    </script>
+            var ctxRAM = document.getElementById("1").getContext("2d");
+
+            var dataRAM = {
+                labels: [], //dados de horário
+                datasets: [
+                    {
+                        label: "RAM",
+                        data: [], //dados de %
+                        backgroundColor: "rgba(123, 11, 192, 0.514)",
+                        borderColor: "rgb(122, 11, 192)",
+                        fill: true,
+                        hoverBorderWidth: 10,
+                        borderWidth: 3,
+                    },
+                ],
+            };
+
+            var optionsRAM = {
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: true,
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                family: "Poppins",
+                            },
+                        },
+                    },
+                },
+                defaultFontFamily: "Poppins",
+            };
+
+            var myLineChartRAM = new Chart(ctxRAM, {
+                type: "line",
+                data: dataRAM,
+                options: optionsRAM,
+            });
+
+            //GRAFICO DO DISCO
+            var ctxDisco = document.getElementById("2").getContext("2d");
+
+            var dataDisco = {
+                labels: [], //dados de horário
+                datasets: [
+                    {
+                        label: "Disco",
+                        data: [], //dados de %
+                        backgroundColor: "rgba(123, 11, 192, 0.514)",
+                        borderColor: "rgb(122, 11, 192)",
+                        fill: true,
+                        hoverBorderWidth: 10,
+                        borderWidth: 3,
+                    },
+                ],
+            };
+
+            var optionsDisco = {
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: true,
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                family: "Poppins",
+                            },
+                        },
+                    },
+                },
+                defaultFontFamily: "Poppins",
+            };
+
+            var myLineChartDisco = new Chart(ctxDisco, {
+                type: "line",
+                data: dataDisco,
+                options: optionsDisco,
+            });
+
+            //GRAFICO DA GPU
+            var ctxGPU = document.getElementById("3").getContext("2d");
+
+            var dataGPU = {
+                labels: [], //dados de horário
+                datasets: [
+                    {
+                        label: "GPU",
+                        data: [], //dados de %
+                        backgroundColor: "rgba(123, 11, 192, 0.514)",
+                        borderColor: "rgb(122, 11, 192)",
+                        fill: true,
+                        hoverBorderWidth: 10,
+                        borderWidth: 3,
+                    },
+                ],
+            };
+
+            var optionsGPU = {
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: true,
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                family: "Poppins",
+                            },
+                        },
+                    },
+                },
+                defaultFontFamily: "Poppins",
+            };
+
+            var myLineChartGPU = new Chart(ctxGPU, {
+                type: "line",
+                data: dataGPU,
+                options: optionsGPU,
+            });
+
+            //PARA FAZER MENU HAMBURGUER
+            function botaoMenu() {
+                var menuLateral = document.getElementById("menuLateral");
+                var botaoMenuImg = document.getElementById("botaoMenuImg");
+
+                menuLateral.classList.toggle("ver-menu");
+                botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu")
+                    ? "none"
+                    : "block";
+
+                var content = document.querySelector(".content");
+                content.classList.toggle("content-shift");
+            }
+
+            //PARA PUXAR DADO DO USUARIO
+            var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
+            document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
+
+            var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
+            document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
+
+            function limparSessao() {
+                sessionStorage.clear();
+
+                window.location = "/login";
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var graficos = document.querySelectorAll(".grafico");
+                graficos.forEach(function (grafico) {
+                    grafico.style.display = "none";
+                });
+
+                var elementoCPU = document.getElementById("elementoCPU");
+                if (elementoCPU) {
+                    elementoCPU.style.display = "block";
+                }
+
+                var botoes = document.querySelectorAll(".botoes button");
+                botoes.forEach(function (botao) {
+                    botao.addEventListener("click", function () {
+                        var elementoID = botao.getAttribute("data-elemento");
+                        mostrarElemento(elementoID);
+                    });
+                });
+            });
+
+            function mostrarElemento(elementoID) {
+                var elementos = document.querySelectorAll(".grafico");
+                elementos.forEach(function (elemento) {
+                    elemento.style.display = "none";
+
+                });
+
+                var elementoSelecionado = document.getElementById(elementoID);
+                if (elementoSelecionado) {
+                    elementoSelecionado.style.display = "block";
+                }
+            }
+        </script>
 </body>
 
 </html>
+
+<script>
+    console.log("Cheguei!");
+
+    var testefk = 1;
+    let proximaAtualizacao;
+
+    window.onload = obterDadosGraficos;
+
+    function obterDadosGraficos() {
+
+        // if (document.getElementById("elementoCPU").style.display === "block") {
+        //     obterDadosGrafico(testefk, 'CPU', 'CPU');
+        // } else if (document.getElementById("elementoRAM").style.display === "block") {
+        //     obterDadosGrafico(testefk, 'RAM', 'RAM');
+        // } else if (document.getElementById("elementoDisco").style.display === "block") {
+        //     obterDadosGrafico(testefk, 'Disco', 'DISCO');
+        // } else if (document.getElementById("elementoGPU").style.display === "block") {
+        //     obterDadosGrafico(testefk, 'GPU', 'GPU');
+        // }
+
+        obterDadosGrafico(testefk, 'CPU', 'CPU');
+        obterDadosGrafico(testefk, 'RAM', 'RAM');
+        obterDadosGrafico(testefk, 'Disco', 'DISCO');
+        obterDadosGrafico(testefk, 'GPU', 'GPU');
+    }
+
+    function obterDadosGrafico(testefk, tipoGrafico, idCanvas) {
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/ultimas/${testefk}?tipo=${tipoGrafico}`, {
+            cache: "no-store",
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos para ${tipoGrafico}: ${JSON.stringify(resposta)}`);
+                        resposta.reverse();
+
+                        plotarGrafico(resposta, tipoGrafico, idCanvas);
+                    });
+                } else {
+                    console.error(`Nenhum dado encontrado ou erro na API para ${tipoGrafico}`);
+                }
+            })
+            .catch(function (error) {
+                console.error(
+                    `Erro na obtenção dos dados para ${tipoGrafico}: ${error.message}`
+                );
+            });
+    }
+
+    function plotarGrafico(resposta, tipoGrafico, idCanvas) {
+        console.log(`Iniciando plotagem do gráfico ${tipoGrafico}...`);
+
+        let labels = [];
+        let dados = {
+            labels: labels,
+            datasets: [
+                {
+                    label: idCanvas,
+                    data: [],
+                    backgroundColor: "rgba(123, 11, 192, 0.514)",
+                    borderColor: "rgb(122, 11, 192)",
+                    fill: true,
+                    hoverBorderWidth: 10,
+                    borderWidth: 3,
+                },
+            ],
+        };
+
+        labels = resposta.map((registro) => registro.momento_grafico);
+        dados.datasets[0].data = resposta.map(
+            (registro) => registro.totalCaptacao
+        );
+
+        const config = {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: tipoGrafico,
+                        data: dados.datasets[0].data,
+                        backgroundColor: dados.datasets[0].backgroundColor,
+                        borderColor: dados.datasets[0].borderColor,
+                        fill: dados.datasets[0].fill,
+                        hoverBorderWidth: dados.datasets[0].hoverBorderWidth,
+                        borderWidth: dados.datasets[0].borderWidth,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                tooltips: {
+                    bodyFontStyle: "bold",
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            var value =
+                                data.datasets[tooltipItem.datasetIndex].data[
+                                tooltipItem.index
+                                ];
+                            var label = data.labels[tooltipItem.index];
+
+                            return `Hora ${label}: Valor de ${value}`;
+                        },
+                    },
+                },
+                legend: {
+                    labels: {
+                        fontColor: "white",
+                    },
+                },
+            },
+        };
+
+        let canvas = document.getElementById(tipoGrafico);
+        let ctx = canvas?.getContext?.("2d");
+
+        if (ctx) {
+            let myChart = new Chart(ctx, config);
+            setTimeout(() => atualizarGrafico(testefk, dados, myChart, idCanvas, tipoGrafico), 2000);
+        } else {
+            console.error(`Erro ao obter contexto do gráfico ${tipoGrafico}.`);
+        }
+    }
+
+    function atualizarGrafico(testefk, dados, myChart, idCanvas, tipoGrafico) {
+        fetch(`/medidas/tempo-real/${testefk}?tipo=${tipoGrafico}`, {
+            cache: "no-store",
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (novoRegistro) {
+                        console.log(`Dados recebidos para ${tipoGrafico}: ${JSON.stringify(novoRegistro)}`);
+
+                        console.log(`Dados atuais do gráfico ${tipoGrafico}:`);
+                        console.log(dados);
+
+                        let avisoCaptura = document.getElementById(`avisoCaptura`);
+
+                        if (
+                            novoRegistro[0].momento_grafico ==
+                            dados.labels[dados.labels.length - 1]
+                        ) {
+                            console.log(
+                                "---------------------------------------------------------------"
+                            );
+                            console.log(
+                                `Como não há dados novos para ${tipoGrafico}, o gráfico não será atualizado.`
+                            );
+
+                            console.log("Horário do novo dado capturado:");
+                            console.log(novoRegistro[0].momento_grafico);
+                            console.log("Horário do último dado capturado:");
+                            console.log(dados.labels[dados.labels.length - 1]);
+                            console.log(
+                                "---------------------------------------------------------------"
+                            );
+                        } else {
+                            // Atualizar valores do gráfico
+                            dados.labels.shift();
+                            dados.labels.push(novoRegistro[0].momento_grafico);
+
+                            dados.datasets[0].data.shift();
+
+                            // Simulação de um novo dado (substitua pela lógica real)
+                            var novoDado = Math.random() * 100; // exemplo: substitua pelo seu novo dado
+                            dados.datasets[0].data.push(novoDado);
+
+                            myChart.update();
+                        }
+
+                        proximaAtualizacao = setTimeout(
+                            () => atualizarGrafico(testefk, dados, myChart, idCanvas, tipoGrafico),
+                            5000
+                        );
+                    });
+                } else {
+                    console.error(`Nenhum dado encontrado ou erro na API para ${tipoGrafico}`);
+                    proximaAtualizacao = setTimeout(
+                        () => atualizarGrafico(testefk, dados, myChart, idCanvas, tipoGrafico),
+                        2000
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.error(
+                    `Erro na obtenção dos dados para ${tipoGrafico}: ${error.message}`
+                );
+            });
+    }
+
+</script>
