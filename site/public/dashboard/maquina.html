@@ -60,20 +60,20 @@
 
         <div class="dashboard">
             <div class="botoesGraph">
-                <div class="CPU grafico" id="elementoCPU">
-                    <canvas id="CPU" width="600" height="300"></canvas>
+                <div class="CPU grafico" id="CPU">
+                    <canvas id="canvasCPU" width="600" height="300"></canvas>
                 </div>
 
                 <div id="RAM" class="elementoRAM grafico" style="display: none;">
-                    <canvas id="RAM" width="600" height="300"></canvas>
+                    <canvas id="canvasRAM" width="600" height="300"></canvas>
                 </div>
 
                 <div id="Disco" class="elementoDisco grafico" style="display: none;">
-                    <canvas id="DISCO" width="600" height="300"></canvas>
+                    <canvas id="canvasDISCO" width="600" height="300"></canvas>
                 </div>
 
                 <div id="GPU" class="elementoGPU grafico" style="display: none;">
-                    <canvas id="GPU" width="600" height="300"></canvas>
+                    <canvas id="canvasGPU" width="600" height="300"></canvas>
                 </div>
 
                 <div class="botoes">
@@ -85,7 +85,7 @@
                         RAM
                         <div id="performance">Ruim | 95%</div>
                     </button>
-                    <button onclick="mostrarElemento('elementoCPU')">
+                    <button onclick="mostrarElemento('CPU')">
                         CPU
                         <div id="performance">Bom | 15%</div>
                     </button>
@@ -301,36 +301,27 @@
                 window.location = "/login";
             }
 
-            document.addEventListener("DOMContentLoaded", function () {
-                var graficos = document.querySelectorAll(".grafico");
-                graficos.forEach(function (grafico) {
-                    grafico.style.display = "none";
-                });
-
-                var elementoCPU = document.getElementById("elementoCPU");
-                if (elementoCPU) {
-                    elementoCPU.style.display = "block";
-                }
-
-                var botoes = document.querySelectorAll(".botoes button");
-                botoes.forEach(function (botao) {
-                    botao.addEventListener("click", function () {
-                        var elementoID = botao.getAttribute("data-elemento");
-                        mostrarElemento(elementoID);
-                    });
-                });
-            });
-
             function mostrarElemento(elementoID) {
-                var elementos = document.querySelectorAll(".grafico");
+                var elementos = ["CPU", "RAM", "Disco", "GPU"];
                 elementos.forEach(function (elemento) {
-                    elemento.style.display = "none";
-
+                    var elementoAtual = document.getElementById(elemento);
+                    if (elementoAtual) {
+                        elementoAtual.style.display = 'none';
+                    }
                 });
-
                 var elementoSelecionado = document.getElementById(elementoID);
                 if (elementoSelecionado) {
-                    elementoSelecionado.style.display = "block";
+                    elementoSelecionado.style.display = 'block';
+
+                    if (elementoID === 'CPU') {
+                        obterDadosGrafico(testefk, 'CPU', 'canvasCPU');
+                    } else if (elementoID === 'RAM') {
+                        obterDadosGrafico(testefk, 'RAM', 'canvasRAM');
+                    } else if (elementoID === 'Disco') {
+                        obterDadosGrafico(testefk, 'Disco', 'canvasDISCO');
+                    } else if (elementoID === 'GPU') {
+                        obterDadosGrafico(testefk, 'GPU', 'canvasGPU');
+                    }
                 }
             }
         </script>
@@ -348,20 +339,20 @@
 
     function obterDadosGraficos() {
 
-        // if (document.getElementById("elementoCPU").style.display === "block") {
+        // if (document.getElementById('CPU').style.display === "block") {
         //     obterDadosGrafico(testefk, 'CPU', 'CPU');
-        // } else if (document.getElementById("elementoRAM").style.display === "block") {
+        // } else if (RAM.style.display === "block") {
         //     obterDadosGrafico(testefk, 'RAM', 'RAM');
-        // } else if (document.getElementById("elementoDisco").style.display === "block") {
+        // } else if (Disco.style.display === "block") {
         //     obterDadosGrafico(testefk, 'Disco', 'DISCO');
-        // } else if (document.getElementById("elementoGPU").style.display === "block") {
+        // } else if (GPU.style.display === "block") {
         //     obterDadosGrafico(testefk, 'GPU', 'GPU');
         // }
 
-        obterDadosGrafico(testefk, 'CPU', 'CPU');
-        obterDadosGrafico(testefk, 'RAM', 'RAM');
-        obterDadosGrafico(testefk, 'Disco', 'DISCO');
-        obterDadosGrafico(testefk, 'GPU', 'GPU');
+        obterDadosGrafico(testefk, 'CPU', 'canvasCPU');
+        // obterDadosGrafico(testefk, 'RAM', 'canvasRAM');
+        // obterDadosGrafico(testefk, 'Disco', 'canvasDISCO');
+        // obterDadosGrafico(testefk, 'GPU', 'canvasGPU');
     }
 
     function obterDadosGrafico(testefk, tipoGrafico, idCanvas) {
@@ -456,7 +447,7 @@
             },
         };
 
-        let canvas = document.getElementById(tipoGrafico);
+        let canvas = document.getElementById(idCanvas);
         let ctx = canvas?.getContext?.("2d");
 
         if (ctx) {
@@ -478,8 +469,6 @@
 
                         console.log(`Dados atuais do gráfico ${tipoGrafico}:`);
                         console.log(dados);
-
-                        let avisoCaptura = document.getElementById(`avisoCaptura`);
 
                         if (
                             novoRegistro[0].momento_grafico ==
@@ -507,8 +496,8 @@
                             dados.datasets[0].data.shift();
 
                             // Simulação de um novo dado (substitua pela lógica real)
-                            var novoDado = Math.random() * 100; // exemplo: substitua pelo seu novo dado
-                            dados.datasets[0].data.push(novoDado);
+                            // var novoDado = Math.random() * 100; // exemplo: substitua pelo seu novo dado
+                            // dados.datasets[0].data.push(novoDado);
 
                             myChart.update();
                         }
