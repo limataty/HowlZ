@@ -83,9 +83,33 @@ function validarFuncionario(nomeFuncionario, emailFuncionario) {
 
 function contarMaquinas(fkGestor) {
     var instrucao = `
-        SELECT COUNT(*) as maquinas
-        FROM Usuario
-        WHERE fkGestor = ${fkGestor};
+    SELECT COUNT(*) as maquinas
+    FROM Usuario JOIN Computador
+    WHERE fkGestor = ${fkGestor} AND Usuario.nome = Computador.nome;
+    `;
+    return database.executar(instrucao);
+
+}
+
+function maquinas(idMaquina) {
+    var instrucao = `
+    SELECT 
+    DATE_FORMAT(Monitoramento.dataHora, '%H:%i:%s') AS momento_grafico, 
+    Componente.fkComputador AS idComputador,
+    MAX(CASE WHEN Monitoramento.tipo = 'PORCENTAGEMUSO' THEN Monitoramento.valor END) AS UsoCPU,
+    MAX(CASE WHEN Monitoramento.tipo = 'GBUSO' THEN Monitoramento.valor END) AS Memoria,
+    MAX(CASE WHEN Monitoramento.tipo = 'GBTOTAL' THEN Monitoramento.valor END) AS Disco
+FROM 
+    Componente
+JOIN 
+    Monitoramento ON Componente.idComponente = Monitoramento.fkComponente
+WHERE 
+    Componente.fkComputador = ${idMaquina} 
+GROUP BY 
+    momento_grafico, idComputador
+ORDER BY 
+    momento_grafico DESC
+LIMIT 1;
     `;
     return database.executar(instrucao);
 
@@ -102,4 +126,5 @@ module.exports = {
     validarGestor,
     validarFuncionario,
     contarMaquinas,
+    maquinas,
 };

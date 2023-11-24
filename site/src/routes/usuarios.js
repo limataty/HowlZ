@@ -29,5 +29,8 @@ router.post("/contar", function (req, res) {
     usuarioController.contarMaquinas(req, res);
 });
 
+router.post("/maquinas", function (req, res) {
+    usuarioController.maquinas(req, res);
+});
 
 module.exports = router;

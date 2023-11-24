@@ -64,11 +64,11 @@
     </div>
     <script>
 
-//função para quebrar linha das maquinas
+        //função para quebrar linha das maquinas
         // for (let i = 0; i < array.length; i++) {
         //     const element = array[i];
         //     if (i % 5 == 0){
-                
+
         //     }
         // }
 
@@ -96,88 +96,140 @@
             window.location = "/login";
         }
 
-    fetch("/usuarios/contar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
-      }),
-    })
-      .then(function (resposta) {
+        fetch("/usuarios/contar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
+            }),
+        })
+            .then(function (resposta) {
 
-        if (resposta.ok) {
-          console.log(resposta);
+                if (resposta.ok) {
+                    console.log(resposta);
 
-          resposta.json().then((json) => {
-            console.log(json);
-            console.log(JSON.stringify(json));
+                    resposta.json().then((json) => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
 
-          for (let i = 0; i < json; i++) {
-            const element = json[i];
+                       var maquinas = document.getElementById("maquinas");
+                        var maquinasHTML = "";
 
-            if (i % 5 == 0){
-               maquinas.innerHTML += `<br>`; 
-              }
+                        for (let i = 0; i < json; i++) {
+                            if (i % 5 === 0) {
+                                maquinasHTML += '<div class="maquinasLinha">';
+                            }
 
-            maquinas.innerHTML += `
-                    <div class="maquina">
-                        <h3>Máquina ${i + 1}</h3>
-                        <p class="status ativa">Status: Ativa</p>
-                        <p>Uso de CPU: 1</p>
-                        <p>Memória RAM: 1</p>
-                        <p>Espaço em Disco: 1</p>
-                        <a href="../dashboard/maquina.html"><button>Monitorar</button></a>
-                    </div>
-                        `;
-          }});
+                            fetch("/usuarios/maquinas", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    fkMaquina: 5,
+                                }),
+                            })
+                                .then(function (volta) {
+                                    if (volta.ok) {
+                                        volta.json().then((json) => {
+                                            console.log(json);
+                                            console.log(JSON.stringify(json));
 
-          //   fetch("/usuarios/maquinas", {
-          //     method: "POST",
-          //     headers: {
-          //       "Content-Type": "application/json",
-          //     },
-          //     body: JSON.stringify({
-          //       id: element.id,
-          //     }),
-          //   })
-          //     .then(function (volta) {
-          //       if (volta.ok) {
-          //           volta.json().then((json) => {
+                                            maquinasHTML += `
+                                                <div class="maquina ${i % 5 === 0 ? 'primeiraNaLinha' : ''}">
+                                                    <h3>Máquina ${json.idComputador}</h3>
+                                                    <p class="status ativa">Status: Ativa</p>
+                                                    <p>Uso de CPU: ${json.UsoCPU}</p>
+                                                    <p>Memória RAM: ${json.Memoria}</p>
+                                                    <p>Espaço em Disco: ${json.Disco}</p>
+                                                    <a href="../dashboard/maquina.html"><button>Monitorar</button></a>
+                                                </div>
+                                            `;
 
-          //               maquinas.innerHTML = `
-          //           <div class="maquina">
-          //               <h3>Máquina ${volta[i].idMaquina}</h3>
-          //               <p class="status ativa">Status: Ativa</p>
-          //               <p>Uso de CPU: ${volta[i].UsoCPU}</p>
-          //               <p>Memória RAM: ${volta[i].MemRam}</p>
-          //               <p>Espaço em Disco: ${volta[i].EspacoDisco}</p>
-          //               <a href="../dashboard/maquina.html"><button>Monitorar</button></a>
-          //           </div>
-          //               `;
-                    
-          //           console.log(json);
-          //           console.log(JSON.stringify(json));
-          //         });
-          //       } else {
-          //         resposta.text().then((texto) => {
-          //           console.log(texto);
-          //         });
-          //       }
-          //     })
-          //     .catch(function (erro) {
-          //       console.log(erro);
-          //     });
-        //  }
-        // } else {
-          
-        // }
-      }})
-      .catch(function (erro) {
-        console.log(erro);
-      });
-    
+                                            if ((i + 1) % 5 === 0) {
+                                                maquinasHTML += '</div>';
+                                            }
+
+                                            maquinas.innerHTML = maquinasHTML;
+                                        });
+                                    } else {
+                                        volta.text().then((texto) => {
+                                            console.log(texto);
+                                        });
+                                    }
+                                })
+                                .catch(function (erro) {
+                                    console.log(erro);
+                                });
+
+                    //         maquinasHTML += `
+                    //             <div class="maquina ${i % 5 === 0 ? 'primeiraNaLinha' : ''}">
+                    //                 <h3>Máquina ${i + 1}</h3>
+                    //                 <p class="status ativa">Status: Ativa</p>
+                    //                 <p>Uso de CPU: 1</p>
+                    //                 <p>Memória RAM: 1</p>
+                    //                 <p>Espaço em Disco: 1</p>
+                    //                 <a href="../dashboard/maquina.html"><button>Monitorar</button></a>
+                    //             </div>
+                    //         `;
+
+                    //         if ((i + 1) % 5 === 0) {
+                    //             maquinasHTML += '</div>';
+                    //         }
+                    //     }
+
+                    //     maquinas.innerHTML = maquinasHTML;
+                    // });
+
+                    //   fetch("/usuarios/maquinas", {
+                    //     method: "POST",
+                    //     headers: {
+                    //       "Content-Type": "application/json",
+                    //     },
+                    //     body: JSON.stringify({
+                    //       id: element.id,
+                    //     }),
+                    //   })
+                    //     .then(function (volta) {
+                    //       if (volta.ok) {
+                    //           volta.json().then((json) => {
+
+                    //               maquinas.innerHTML = `
+                    //           <div class="maquina">
+                    //               <h3>Máquina ${volta[i].idMaquina}</h3>
+                    //               <p class="status ativa">Status: Ativa</p>
+                    //               <p>Uso de CPU: ${volta[i].UsoCPU}</p>
+                    //               <p>Memória RAM: ${volta[i].MemRam}</p>
+                    //               <p>Espaço em Disco: ${volta[i].EspacoDisco}</p>
+                    //               <a href="../dashboard/maquina.html"><button>Monitorar</button></a>
+                    //           </div>
+                    //               `;
+
+                    //           console.log(json);
+                    //           console.log(JSON.stringify(json));
+                    //         });
+                    //       } else {
+                    //         resposta.text().then((texto) => {
+                    //           console.log(texto);
+                    //         });
+                    //       }
+                    //     })
+                    //     .catch(function (erro) {
+                    //       console.log(erro);
+                    //     });
+                    //  }
+                    // } else {
+
+                    // }
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+        }});
+
 
     </script>
 </body>

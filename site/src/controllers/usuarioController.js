@@ -319,6 +319,25 @@ function contarMaquinas(req, res){
     });
 }
 
+function maquinas(req, res){ 
+  var idMaquina = req.body.fkMaquina; 
+
+  usuarioModel
+    .maquinas(idMaquina)
+    .then(function (resultado) {
+      console.log("resultado: " + resultado[0].UsoCPU + " " + resultado[0].Memoria + " " + resultado[0].Disco);
+      res.json(resultado[0]);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log(
+        "\nHouve um erro ao realizar a validação! Erro: ",
+        erro.sqlMessage
+      );
+      res.status(500).send(erro.sqlMessage);
+    });
+}
+
 module.exports = {
   cadastrarEmpresa,
   entrar,
@@ -328,4 +347,5 @@ module.exports = {
   validarGestor,
   validarFuncionario,
   contarMaquinas,
+  maquinas,
 };
