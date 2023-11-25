@@ -2,21 +2,21 @@
 <html lang="pt">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../assets/css/dashboard.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/dashboard.css" />
     <link rel="website icon" href="../assets/icon/owl.svg" />
 </head>
 
 <body>
     <nav class="menu-lateral" id="menuLateral">
         <div class="botao-menu" onclick="botaoMenu()">
-            <img src="../assets/img/menu-hamburguer.png" alt="">
+            <img src="../assets/img/menu-hamburguer.png" alt="" />
         </div>
 
         <div class="usuario">
             <h4 id="nomeDaEmpresa"></h4>
-            <img src="../assets/img/usuario.png" alt="">
+            <img src="../assets/img/usuario.png" alt="" />
             <h4 id="nomeDoUsuario"></h4>
         </div>
 
@@ -45,13 +45,13 @@
                     <span class="texto" onclick="limparSessao()">Sair</span>
                 </a>
             </li>
-
         </ul>
-
     </nav>
+    <div class="tipoAlertas" id="tipoAlertass"></div>
+    <div class="alertas" id="alertass"></div>
     <div class="content">
         <h2>Máquinas Monitoradas</h2>
-        <div class="container" id="maquinas" style="gap: 10px;">
+        <div class="container" id="maquinas" style="gap: 10px">
             <!-- <div class="maquina">
                 <h3>Máquina 1</h3>
                 <p class="status ativa">Status: Ativa</p>
@@ -71,6 +71,8 @@
 
         //     }
         // }
+
+        sessionStorage.ID_MAQUINA = 0;
 
         function botaoMenu() {
             var menuLateral = document.getElementById("menuLateral");
@@ -96,141 +98,130 @@
             window.location = "/login";
         }
 
+        var fkGestorServer = sessionStorage.getItem("ID_USUARIO");
+
         fetch("/usuarios/contar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
+                fkGestorServer: fkGestorServer,
             }),
         })
             .then(function (resposta) {
-
                 if (resposta.ok) {
-                    console.log(resposta);
+                    return resposta.json();
+                } else {
+                    throw new Error("Erro ao contar usuários");
+                }
+            })
+            .then(function (json) {
+                console.log(json);
 
-                    resposta.json().then((json) => {
-                        console.log(json);
-                        console.log(JSON.stringify(json));
+                var maquinasHTML = "";
+                var vermelho = 0;
+                var laranja = 0;
 
-                       var maquinas = document.getElementById("maquinas");
-                        var maquinasHTML = "";
+                for (let i = 0; i < json; i++) {
+                    if (i % 5 === 0) {
+                        maquinasHTML += '<div class="maquinasLinha">';
+                    }
 
-                        for (let i = 0; i < json; i++) {
-                            if (i % 5 === 0) {
-                                maquinasHTML += '<div class="maquinasLinha">';
+                    fetch("/usuarios/idMaquina", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            fkGestorServer: fkGestorServer,
+                            contagem: i,
+                        }),
+                    })
+                        .then(function (retorno) {
+                            if (retorno.ok) {
+                                return retorno.json();
+                            } else {
+                                throw new Error("Erro ao obter ID da máquina");
                             }
+                        })
+                        .then(function (item) {
+                            console.log(item);
+                            console.log(JSON.stringify(item));
 
-                            fetch("/usuarios/maquinas", {
+                            console.log(item + "  id da maquina");
+
+                            return fetch("/usuarios/maquinas", {
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json",
                                 },
                                 body: JSON.stringify({
-                                    fkMaquina: 5,
+                                    fkMaquina: 5, // colocar o Item aqui
                                 }),
-                            })
-                                .then(function (volta) {
-                                    if (volta.ok) {
-                                        volta.json().then((json) => {
-                                            console.log(json);
-                                            console.log(JSON.stringify(json));
+                            });
+                        })
+                        .then(function (volta) {
+                            if (volta.ok) {
+                                return volta.json();
+                            } else {
+                                throw new Error("Erro ao obter informações da máquina");
+                            }
+                        })
+                        .then(function (json) {
+                            console.log(json);
+                            console.log(JSON.stringify(json));
+                            
 
-                                            maquinasHTML += `
-                                                <div class="maquina ${i % 5 === 0 ? 'primeiraNaLinha' : ''}">
-                                                    <h3>Máquina ${json.idComputador}</h3>
-                                                    <p class="status ativa">Status: Ativa</p>
-                                                    <p>Uso de CPU: ${json.UsoCPU}</p>
-                                                    <p>Memória RAM: ${json.Memoria}</p>
-                                                    <p>Espaço em Disco: ${json.Disco}</p>
-                                                    <a href="../dashboard/maquina.html"><button>Monitorar</button></a>
-                                                </div>
-                                            `;
+                            maquinasHTML += `
+                                <div id="maquina" class="maquina ${i % 5 === 0 ? 'primeiraNaLinha' : ''}" 
+                                    style="${json.UsoCPU > 80 ? 'border-color: red;' : ''} ${json.UsoCPU > 2 && json.UsoCPU <= 80 ? 'border-color: orange;' : ''}">
+                                    <h3>Máquina ${json.idComputador}</h3>
+                                    <p class="status ativa">Status: Ativa</p>
+                                    <p>Uso de CPU: ${json.UsoCPU}</p>
+                                    <p>Memória RAM: ${json.Memoria}</p>
+                                    <p>Espaço em Disco: ${json.Disco}</p>
+                                    <button onclick="mudarPagina(${json.idComputador})">Monitorar</button>
+                                </div>
+                            `;
 
-                                            if ((i + 1) % 5 === 0) {
-                                                maquinasHTML += '</div>';
-                                            }
+                            if (json.UsoCPU > 80) {
+                                vermelho++;
+                            } else if (json.UsoCPU > 2 && json.UsoCPU <= 80) {
+                                laranja++;
+                            }
 
-                                            maquinas.innerHTML = maquinasHTML;
-                                        });
-                                    } else {
-                                        volta.text().then((texto) => {
-                                            console.log(texto);
-                                        });
-                                    }
-                                })
-                                .catch(function (erro) {
-                                    console.log(erro);
-                                });
+                            if ((i + 1) % 5 === 0) {
+                                maquinasHTML += '</div>';
+                            }
 
-                    //         maquinasHTML += `
-                    //             <div class="maquina ${i % 5 === 0 ? 'primeiraNaLinha' : ''}">
-                    //                 <h3>Máquina ${i + 1}</h3>
-                    //                 <p class="status ativa">Status: Ativa</p>
-                    //                 <p>Uso de CPU: 1</p>
-                    //                 <p>Memória RAM: 1</p>
-                    //                 <p>Espaço em Disco: 1</p>
-                    //                 <a href="../dashboard/maquina.html"><button>Monitorar</button></a>
-                    //             </div>
-                    //         `;
-
-                    //         if ((i + 1) % 5 === 0) {
-                    //             maquinasHTML += '</div>';
-                    //         }
-                    //     }
-
-                    //     maquinas.innerHTML = maquinasHTML;
-                    // });
-
-                    //   fetch("/usuarios/maquinas", {
-                    //     method: "POST",
-                    //     headers: {
-                    //       "Content-Type": "application/json",
-                    //     },
-                    //     body: JSON.stringify({
-                    //       id: element.id,
-                    //     }),
-                    //   })
-                    //     .then(function (volta) {
-                    //       if (volta.ok) {
-                    //           volta.json().then((json) => {
-
-                    //               maquinas.innerHTML = `
-                    //           <div class="maquina">
-                    //               <h3>Máquina ${volta[i].idMaquina}</h3>
-                    //               <p class="status ativa">Status: Ativa</p>
-                    //               <p>Uso de CPU: ${volta[i].UsoCPU}</p>
-                    //               <p>Memória RAM: ${volta[i].MemRam}</p>
-                    //               <p>Espaço em Disco: ${volta[i].EspacoDisco}</p>
-                    //               <a href="../dashboard/maquina.html"><button>Monitorar</button></a>
-                    //           </div>
-                    //               `;
-
-                    //           console.log(json);
-                    //           console.log(JSON.stringify(json));
-                    //         });
-                    //       } else {
-                    //         resposta.text().then((texto) => {
-                    //           console.log(texto);
-                    //         });
-                    //       }
-                    //     })
-                    //     .catch(function (erro) {
-                    //       console.log(erro);
-                    //     });
-                    //  }
-                    // } else {
-
-                    // }
+                            maquinas.innerHTML = maquinasHTML;
+                            alertass.innerHTML = `
+                                <h3>Máquinas em Alerta</h3>
+                                <p style="Color: red;">Risco: <b>${vermelho}</b></p>
+                                <p style="Color: orange;">Alerta: <b>${laranja}</b></p>
+                            `;
+                        })
+                        .catch(function (erro) {
+                            console.error(erro);
+                        });
                 }
+
+                tipoAlertass.innerHTML = `
+                <h3>Tipo Alerta</h3>
+                <p style="Color: red;">Risco <br> <b>↑80</b></p>
+                <p style="Color: orange;">Alerta <br> <b>↑60 e ↓80</b></p>
+                `;
             })
             .catch(function (erro) {
-                console.log(erro);
+                console.error(erro);
             });
-        }});
 
 
+        function mudarPagina(idComputador) {
+            sessionStorage.ID_MAQUINA = idComputador;
+            window.location = "../dashboard/maquina.html";
+        }
     </script>
 </body>
 

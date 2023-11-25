@@ -33,4 +33,8 @@ router.post("/maquinas", function (req, res) {
     usuarioController.maquinas(req, res);
 });
 
+router.post("/idMaquina", function (req, res) {
+    usuarioController.idMaquina(req, res);
+});
+
 module.exports = router;

@@ -23,7 +23,7 @@ function buscarUltimasMedidas(req, res) {
 
 function buscarMedidasEmTempoReal(req, res) {
   var idComputador = req.params.idCaptacao;
-  var tipoComponente = req.query.tipo // Ajuste aqui para pegar o parâmetro correto
+  var tipoComponente = req.query.tipo;
 
   console.log(`Recuperando medidas em tempo real`);
 

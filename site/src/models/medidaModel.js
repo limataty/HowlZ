@@ -6,14 +6,15 @@ function buscarUltimasMedidas(idComputador, tipoComponente) {
   const limite_linhas = 7;
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
-    // instrucaoSql = `select top ${limite_linhas}
-    //     dht11_temperatura as temperatura, 
-    //     dht11_umidade as umidade,  
-    //                     momento,
-    //                     FORMAT(momento, 'HH:mm:ss') as momento_grafico
-    //                 from medida
-    //                 where fk_aquario = ${idComputador}
-    //                 order by id desc`;
+    instrucaoSql = `SELECT FORMAT(Monitoramento.dataHora, 'HH:mm:ss') as momento_grafico, 
+    Monitoramento.valor as totalCaptacao
+    FROM Componente
+    JOIN Monitoramento ON Componente.idComponente = Monitoramento.fkComponente
+    JOIN Computador ON Componente.fkComputador = Computador.idComputador
+    WHERE Computador.idComputador = ${idComputador} AND Componente.tipo = ${tipoComponente}
+    ORDER BY Monitoramento.dataHora DESC
+    OFFSET 0 ROWS FETCH NEXT 5 ROWS ONLY;
+`;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     instrucaoSql = `SELECT DATE_FORMAT(Monitoramento.dataHora, '%H:%i:%s') as momento_grafico, 
     Monitoramento.valor as totalCaptacao
@@ -39,13 +40,14 @@ function buscarMedidasEmTempoReal(idComputador, tipoComponente) {
   instrucaoSql = "";
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
-    // instrucaoSql = `select top 1
-    //     dht11_temperatura as temperatura, 
-    //     dht11_umidade as umidade,  
-    //                     CONVERT(varchar, momento, 108) as momento_grafico, 
-    //                     fk_aquario 
-    //                     from captacao where fk_aquario = ${idCaptacao} 
-    //                 order by id desc`;
+    instrucaoSql = `SELECT TOP 1
+    FORMAT(Monitoramento.dataHora, 'HH:mm:ss') as momento_grafico,
+    Monitoramento.valor as totalCaptacao
+    FROM Componente
+    JOIN Monitoramento ON Componente.idComponente = Monitoramento.fkComponente
+    WHERE Componente.tipo = '${tipoComponente}' AND Componente.fkComputador = ${idComputador}
+    ORDER BY Monitoramento.dataHora DESC;
+`;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     instrucaoSql = `SELECT DATE_FORMAT(Monitoramento.dataHora, '%H:%i:%s') as momento_grafico, 
     Monitoramento.valor as totalCaptacao
@@ -69,13 +71,13 @@ function buscarMedidasEmTempoRealDisparos(idComputador, tipoComponente) {
   instrucaoSql = "";
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
-    // instrucaoSql = `select top 1
-    //     dht11_temperatura as temperatura, 
-    //     dht11_umidade as umidade,  
-    //                     CONVERT(varchar, momento, 108) as momento_grafico, 
-    //                     fk_aquario 
-    //                     from captacao where fk_aquario = ${idCaptacao} 
-    //                 order by id desc`;
+    instrucaoSql = `SELECT DATE_FORMAT(Monitoramento.dataHora, '%H:%i:%s') as momento_grafico, 
+    Monitoramento.valor as totalCaptacao
+    FROM Componente
+    JOIN Monitoramento ON Componente.idComponente = Monitoramento.fkComponente
+    WHERE Componente.tipo = '${tipoComponente}' AND Componente.fkComputador = ${idComputador}
+    ORDER BY Monitoramento.dataHora DESC
+    LIMIT 1`;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     instrucaoSql = `SELECT DATE_FORMAT(Monitoramento.dataHora, '%H:%i:%s') as momento_grafico, 
     Monitoramento.valor as totalCaptacao

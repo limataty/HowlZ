@@ -235,7 +235,7 @@ function validarGestor(req, res) {
   }
 }
 
-function cadastrarFuncionario(nomeFuncionario, emailFuncionario, senhaFuncionario, fkEmpresa) {
+function cadastrarFuncionario(nomeFuncionario, emailFuncionario, senhaFuncionario, fkEmpresa, fkGestor) {
 
   if (nomeFuncionario == "" || emailFuncionario == "" || senhaFuncionario == "") {
     res.status(400).send("Preencha todos os campos");
@@ -247,7 +247,7 @@ function cadastrarFuncionario(nomeFuncionario, emailFuncionario, senhaFuncionari
       .send("Senha inválida, é necessário possuir 8 ou mais caracteres");
   } else {
     usuarioModel
-      .cadastrarFuncionario(nomeFuncionario, emailFuncionario, senhaFuncionario, fkEmpresa)
+      .cadastrarFuncionario(nomeFuncionario, emailFuncionario, senhaFuncionario, fkEmpresa, fkGestor)
       .then(function (resultado) {
       })
       .catch(function (erro) {
@@ -265,6 +265,7 @@ function validarFuncionario(req, res) {
   var emailFuncionario = req.body.emailFuncionario;
   var senhaFuncionario = req.body.senhaFuncionario;
   var fkEmpresa = req.body.fkEmpresa;
+  var fkGestor = req.body.fkGestor;
 
   if (nomeFuncionario == "" || emailFuncionario == "" || senhaFuncionario == "") {
     res.status(400).send("Preencha todos os campos");
@@ -283,7 +284,7 @@ function validarFuncionario(req, res) {
 
       if (resultado[0].existe_funcionario == 0) {
         res.status(201).send("Cadastrado com sucesso!");
-        cadastrarFuncionario(nomeFuncionario, emailFuncionario, senhaFuncionario, fkEmpresa);
+        cadastrarFuncionario(nomeFuncionario, emailFuncionario, senhaFuncionario, fkEmpresa, fkGestor);
       } else {
         console.log("Funcionario existe");
         res.status(203).send("Funcionario já existente!");
@@ -338,6 +339,26 @@ function maquinas(req, res){
     });
 }
 
+function idMaquina(req, res){ 
+  var fkGestor = req.body.fkGestorServer; 
+  var contagem = req.body.contagem;
+
+  usuarioModel
+    .idMaquina(fkGestor)
+    .then(function (resultado) {
+      console.log("idComputador: " + resultado[contagem].idComputador);
+      res.status(200).json(resultado[contagem].idComputador);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log(
+        "\nHouve um erro ao realizar a validação! Erro: ",
+        erro.sqlMessage
+      );
+      res.status(500).send(erro.sqlMessage);
+    });
+}
+
 module.exports = {
   cadastrarEmpresa,
   entrar,
@@ -348,4 +369,5 @@ module.exports = {
   validarFuncionario,
   contarMaquinas,
   maquinas,
+  idMaquina,
 };
