@@ -6,7 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="../assets/css/maquina.css" />
     <link rel="website icon" href="../assets/icon/owl.svg" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
+
 
 <body onload="mostrarElemento('elementoCPU')">
     <nav class="menu-lateral" id="menuLateral">
@@ -52,279 +59,406 @@
         <div class="titulo">
             <h2>Máquina</h2>
         </div>
+        <div class="voltar"><a href="dashboard.html">
+                <span class="material-symbols-outlined">
+                    undo
+                </span></a></div>
         <div class="paths">
-            <a href="dashboard.html"> Voltar</a>
-            <a href="janelas.html">Janelas</a>
-            <a href="logs.html">Logs</a>
+            <a href="alertas.html">Histórico de alertas</a>
         </div>
 
-        <div class="dashboard">
-            <div class="botoesGraph">
-                <div class="CPU grafico" id="CPU">
-                    <canvas id="canvasCPU" width="600" height="300"></canvas>
+        <div class="containerDash">
+            <div class="dashboard">
+                <div id="alertaComp" class="alertas">
+                    Alertas:
+                
                 </div>
+                <div class="botoesGraph">
+                    <div class="CPU grafico" id="CPU">
+                        <canvas id="canvasCPU" width="600" height="300"></canvas>
+                    </div>
 
-                <div id="RAM" class="elementoRAM grafico" style="display: none;">
-                    <canvas id="canvasRAM" width="600" height="300"></canvas>
-                </div>
+                    <div id="RAM" class="elementoRAM grafico" style="display: none;">
+                        <canvas id="canvasRAM" width="600" height="300"></canvas>
+                    </div>
 
-                <div id="Disco" class="elementoDisco grafico" style="display: none;">
-                    <canvas id="canvasDISCO" width="600" height="300"></canvas>
-                </div>
+                    <div id="Disco" class="elementoDisco grafico" style="display: none;">
+                        <canvas id="canvasDISCO" width="600" height="300"></canvas>
+                    </div>
 
-                <div id="GPU" class="elementoGPU grafico" style="display: none;">
-                    <canvas id="canvasGPU" width="600" height="300"></canvas>
-                </div>
+                    <div id="GPU" class="elementoGPU grafico" style="display: none;">
+                        <canvas id="canvasGPU" width="600" height="300"></canvas>
+                    </div>
 
-                <div class="botoes">
-                    <button onclick="mostrarElemento('GPU')">
-                        GPU
-                        <div id="performance">Médio | 60%</div>
-                    </button>
-                    <button onclick="mostrarElemento('RAM')">
-                        RAM
-                        <div id="performance">Ruim | 95%</div>
-                    </button>
-                    <button onclick="mostrarElemento('CPU')">
-                        CPU
-                        <div id="performance">Bom | 15%</div>
-                    </button>
-                    <button onclick="mostrarElemento('Disco')">
-                        Disco
-                        <div id="performance">Ruim | 90%</div>
-                    </button>
-                </div>
+                    <div class="botoes">
+                        <button onclick="mostrarElemento('GPU')">
+                            GPU
+                            <div id="performance">Médio | 60%</div>
+                        </button>
+                        <button onclick="mostrarElemento('RAM')">
+                            RAM
+                            <div id="performance">Ruim | 95%</div>
+                        </button>
+                        <button onclick="mostrarElemento('CPU')">
+                            CPU
+                            <div id="performance">Bom | 15%</div>
+                        </button>
+                        <button onclick="mostrarElemento('Disco')">
+                            Disco
+                            <div id="performance">Ruim | 90%</div>
+                        </button>
+                    </div>
 
-                <div class="legendas">
-                    <div class="Bom">
+                    <div class="legendas">
+                        <div class="Bom">
+                        </div>
                     </div>
                 </div>
             </div>
+
+                <div class="caixaLogs">
+                    <div class="caixaJanelas">
+                        <div class="tabela">
+                            <table border="1">
+                                <tr>
+                                    <th>Janelas</th>
+                                    <th>Horário</th>
+                                    <th>Valor</th>
+                                </tr>
+                                <tr>
+                                    <td>CPUlllLLLLLlll</td>
+                                    <td>21:40:31</td>
+                                    <td>92%</td>
+                                </tr>
+                                <tr>
+                                    <td>RAM Nnkjbjbkjkb</td>
+                                    <td>22:59:31</td>
+                                    <td>80%</td>
+                                </tr>
+                                <tr>
+                                    <td>Memória HUgygbyutgu</td>
+                                    <td>22:00:31</td>
+                                    <td>60%</td>
+                                </tr>
+                                <tr>
+                                    <td>DiscoygkuyguygkuyKKK           giuyg</td>
+                                    <td>22:55:31</td>
+                                    <td>55%</td>
+                                </tr>
+                                <tr>
+                                    <td>Discoygkuyguygk     uygiuyg</td>
+                                    <td>22:21:31</td>
+                                    <td>75%</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Discoygkuyguygk     uygiuyg</td>
+                                    <td>22:21:31</td>
+                                    <td>75%</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Discoygkuyguygkuygiuyg</td>
+                                    <td>22:21:31</td>
+                                    <td>75%</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+
+
+                    <div class="caixaProcessos">
+                        <div class="tabela">
+                            <table border="1">
+                                <tr>
+                                    <th>Processos</th>
+                                    <th>Horário</th>
+                                    <th>Valor</th>
+                                </tr>
+                                <tr>
+                                    <td>CPUlllLLLLLl   ll</td>
+                                    <td>21:40:31</td>
+                                    <td>92%</td>
+                                </tr>
+                                <tr>
+                                    <td>RAM Nnkjbjbk   jkb</td>
+                                    <td>22:59:31</td>
+                                    <td>80%</td>
+                                </tr>
+                                <tr>
+                                    <td>Memória HUgygbyutgu</td>
+                                    <td>22:00:31</td>
+                                    <td>60%</td>
+                                </tr>
+                                <tr>
+                                    <td>DiscoygkuyguygkLLLLLLLLLLLLLLLLLL Luygiuyg</td>
+                                    <td>22:55:31</td>
+                                    <td>55%</td>
+                                </tr>
+                                <tr>
+                                    <td>DiscoygkuyguygkuyKKKKKKKKKKKK giuyg</td>
+                                    <td>22:21:31</td>
+                                    <td>75%</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Discoygkuyguygkuygiuyg</td>
+                                    <td>22:21:31</td>
+                                    <td>75%</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Discoygkuyguygkuygiuyg</td>
+                                    <td>22:21:31</td>
+                                    <td>75%</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
         </div>
+    </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        <script>
-            //PARA OS GRAFICOS CPU
-            var ctx = document.getElementById("0").getContext("2d");
 
-            var data = {
-                labels: [], //dados de horario
-                datasets: [
-                    {
-                        label: "CPU",
-                        data: [], //dados de %
-                        backgroundColor: "rgba(123, 11, 192, 0.514)",
-                        borderColor: "rgb(122, 11, 192)",
-                        fill: true,
-                        hoverBorderWidth: 10,
-                        borderWidth: 3,
-                    },
-                ],
-            };
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-            var options = {
-                responsive: true,
-                maintainAspectRatio: false,
-                title: {
-                    display: true,
+    <script>
+        //PARA OS GRAFICOS CPU
+        var ctx = document.getElementById("0").getContext("2d");
+
+        var data = {
+            labels: [], //dados de horario
+            datasets: [
+                {
+                    label: "CPU",
+                    data: [], //dados de %
+                    backgroundColor: "rgba(123, 11, 192, 0.514)",
+                    borderColor: "rgb(122, 11, 192)",
+                    fill: true,
+                    hoverBorderWidth: 10,
+                    borderWidth: 3,
                 },
-                plugins: {
-                    legend: {
-                        labels: {
-                            font: {
-                                family: "Poppins",
-                            },
+            ],
+        };
+
+        var options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            family: "Poppins",
                         },
                     },
                 },
-                defaultFontFamily: "Poppins",
-            };
+            },
+            defaultFontFamily: "Poppins",
+        };
 
-            var myLineChart = new Chart(ctx, {
-                type: "line",
-                data: data,
-                options: options,
-            });
+        var myLineChart = new Chart(ctx, {
+            type: "line",
+            data: data,
+            options: options,
+        });
 
-            //GRAFICO DA RAM
+        //GRAFICO DA RAM
 
-            var ctxRAM = document.getElementById("1").getContext("2d");
+        var ctxRAM = document.getElementById("1").getContext("2d");
 
-            var dataRAM = {
-                labels: [], //dados de horário
-                datasets: [
-                    {
-                        label: "RAM",
-                        data: [], //dados de %
-                        backgroundColor: "rgba(123, 11, 192, 0.514)",
-                        borderColor: "rgb(122, 11, 192)",
-                        fill: true,
-                        hoverBorderWidth: 10,
-                        borderWidth: 3,
-                    },
-                ],
-            };
-
-            var optionsRAM = {
-                responsive: true,
-                maintainAspectRatio: false,
-                title: {
-                    display: true,
+        var dataRAM = {
+            labels: [], //dados de horário
+            datasets: [
+                {
+                    label: "RAM",
+                    data: [], //dados de %
+                    backgroundColor: "rgba(123, 11, 192, 0.514)",
+                    borderColor: "rgb(122, 11, 192)",
+                    fill: true,
+                    hoverBorderWidth: 10,
+                    borderWidth: 3,
                 },
-                plugins: {
-                    legend: {
-                        labels: {
-                            font: {
-                                family: "Poppins",
-                            },
+            ],
+        };
+
+        var optionsRAM = {
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            family: "Poppins",
                         },
                     },
                 },
-                defaultFontFamily: "Poppins",
-            };
+            },
+            defaultFontFamily: "Poppins",
+        };
 
-            var myLineChartRAM = new Chart(ctxRAM, {
-                type: "line",
-                data: dataRAM,
-                options: optionsRAM,
-            });
+        var myLineChartRAM = new Chart(ctxRAM, {
+            type: "line",
+            data: dataRAM,
+            options: optionsRAM,
+        });
 
-            //GRAFICO DO DISCO
-            var ctxDisco = document.getElementById("2").getContext("2d");
+        //GRAFICO DO DISCO
+        var ctxDisco = document.getElementById("2").getContext("2d");
 
-            var dataDisco = {
-                labels: [], //dados de horário
-                datasets: [
-                    {
-                        label: "Disco",
-                        data: [], //dados de %
-                        backgroundColor: "rgba(123, 11, 192, 0.514)",
-                        borderColor: "rgb(122, 11, 192)",
-                        fill: true,
-                        hoverBorderWidth: 10,
-                        borderWidth: 3,
-                    },
-                ],
-            };
-
-            var optionsDisco = {
-                responsive: true,
-                maintainAspectRatio: false,
-                title: {
-                    display: true,
+        var dataDisco = {
+            labels: [], //dados de horário
+            datasets: [
+                {
+                    label: "Disco",
+                    data: [], //dados de %
+                    backgroundColor: "rgba(123, 11, 192, 0.514)",
+                    borderColor: "rgb(122, 11, 192)",
+                    fill: true,
+                    hoverBorderWidth: 10,
+                    borderWidth: 3,
                 },
-                plugins: {
-                    legend: {
-                        labels: {
-                            font: {
-                                family: "Poppins",
-                            },
+            ],
+        };
+
+        var optionsDisco = {
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            family: "Poppins",
                         },
                     },
                 },
-                defaultFontFamily: "Poppins",
-            };
+            },
+            defaultFontFamily: "Poppins",
+        };
 
-            var myLineChartDisco = new Chart(ctxDisco, {
-                type: "line",
-                data: dataDisco,
-                options: optionsDisco,
-            });
+        var myLineChartDisco = new Chart(ctxDisco, {
+            type: "line",
+            data: dataDisco,
+            options: optionsDisco,
+        });
 
-            //GRAFICO DA GPU
-            var ctxGPU = document.getElementById("3").getContext("2d");
+        //GRAFICO DA GPU
+        var ctxGPU = document.getElementById("3").getContext("2d");
 
-            var dataGPU = {
-                labels: [], //dados de horário
-                datasets: [
-                    {
-                        label: "GPU",
-                        data: [], //dados de %
-                        backgroundColor: "rgba(123, 11, 192, 0.514)",
-                        borderColor: "rgb(122, 11, 192)",
-                        fill: true,
-                        hoverBorderWidth: 10,
-                        borderWidth: 3,
-                    },
-                ],
-            };
-
-            var optionsGPU = {
-                responsive: true,
-                maintainAspectRatio: false,
-                title: {
-                    display: true,
+        var dataGPU = {
+            labels: [], //dados de horário
+            datasets: [
+                {
+                    label: "GPU",
+                    data: [], //dados de %
+                    backgroundColor: "rgba(123, 11, 192, 0.514)",
+                    borderColor: "rgb(122, 11, 192)",
+                    fill: true,
+                    hoverBorderWidth: 10,
+                    borderWidth: 3,
                 },
-                plugins: {
-                    legend: {
-                        labels: {
-                            font: {
-                                family: "Poppins",
-                            },
+            ],
+        };
+
+        var optionsGPU = {
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            family: "Poppins",
                         },
                     },
                 },
-                defaultFontFamily: "Poppins",
-            };
+            },
+            defaultFontFamily: "Poppins",
+        };
 
-            var myLineChartGPU = new Chart(ctxGPU, {
-                type: "line",
-                data: dataGPU,
-                options: optionsGPU,
+        var myLineChartGPU = new Chart(ctxGPU, {
+            type: "line",
+            data: dataGPU,
+            options: optionsGPU,
+        });
+
+        //PARA FAZER MENU HAMBURGUER
+        function botaoMenu() {
+            var menuLateral = document.getElementById("menuLateral");
+            var botaoMenuImg = document.getElementById("botaoMenuImg");
+
+            menuLateral.classList.toggle("ver-menu");
+            botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu")
+                ? "none"
+                : "block";
+
+            var content = document.querySelector(".content");
+            content.classList.toggle("content-shift");
+        }
+
+        //PARA PUXAR DADO DO USUARIO
+        var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
+        document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
+
+        var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
+        document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
+
+        function limparSessao() {
+            sessionStorage.clear();
+
+            window.location = "/login";
+        }
+
+        function mostrarElemento(elementoID) {
+            var elementos = ["CPU", "RAM", "Disco", "GPU"];
+            elementos.forEach(function (elemento) {
+                var elementoAtual = document.getElementById(elemento);
+                if (elementoAtual) {
+                    elementoAtual.style.display = 'none';
+                }
             });
+            var elementoSelecionado = document.getElementById(elementoID);
+            if (elementoSelecionado) {
+                elementoSelecionado.style.display = 'block';
 
-            //PARA FAZER MENU HAMBURGUER
-            function botaoMenu() {
-                var menuLateral = document.getElementById("menuLateral");
-                var botaoMenuImg = document.getElementById("botaoMenuImg");
-
-                menuLateral.classList.toggle("ver-menu");
-                botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu")
-                    ? "none"
-                    : "block";
-
-                var content = document.querySelector(".content");
-                content.classList.toggle("content-shift");
-            }
-
-            //PARA PUXAR DADO DO USUARIO
-            var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
-            document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
-
-            var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
-            document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
-
-            function limparSessao() {
-                sessionStorage.clear();
-
-                window.location = "/login";
-            }
-
-            function mostrarElemento(elementoID) {
-                var elementos = ["CPU", "RAM", "Disco", "GPU"];
-                elementos.forEach(function (elemento) {
-                    var elementoAtual = document.getElementById(elemento);
-                    if (elementoAtual) {
-                        elementoAtual.style.display = 'none';
-                    }
-                });
-                var elementoSelecionado = document.getElementById(elementoID);
-                if (elementoSelecionado) {
-                    elementoSelecionado.style.display = 'block';
-
-                    if (elementoID === 'CPU') {
-                        obterDadosGrafico(testefk, 'CPU', 'canvasCPU');
-                    } else if (elementoID === 'RAM') {
-                        obterDadosGrafico(testefk, 'RAM', 'canvasRAM');
-                    } else if (elementoID === 'Disco') {
-                        obterDadosGrafico(testefk, 'Disco', 'canvasDISCO');
-                    } else if (elementoID === 'GPU') {
-                        obterDadosGrafico(testefk, 'GPU', 'canvasGPU');
-                    }
+                if (elementoID === 'CPU') {
+                    obterDadosGrafico(testefk, 'CPU', 'canvasCPU');
+                    alertaComp.innerHTML = `30% 40% 80%`
+                } else if (elementoID === 'RAM') {
+                    obterDadosGrafico(testefk, 'RAM', 'canvasRAM');
+                    alertaComp.innerHTML = `10% 10% 10%`
+                } else if (elementoID === 'Disco') {
+                    obterDadosGrafico(testefk, 'Disco', 'canvasDISCO');
+                } else if (elementoID === 'GPU') {
+                    obterDadosGrafico(testefk, 'GPU', 'canvasGPU');
                 }
             }
-        </script>
+        }
+
+        function pegarProcessos() {
+            fetch("/processos/exibir", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
+                }),
+            })
+        }
+    </script>
 </body>
 
 </html>
