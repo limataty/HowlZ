@@ -134,6 +134,7 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 0 0 65%;
 }
 
 .paths a {
@@ -155,7 +156,7 @@ ul {
 
 .conteudo {
     display: flex;
-    gap: 50px;
+    gap: 20px;
 }
 
 .titulo {
@@ -172,10 +173,112 @@ ul {
     flex-direction: column;
 }
 
-.dashboard{
+.voltar {
+    position: fixed;
+    top: 20px;
+    left: 100px;
+    z-index: 999; /* Certifica-se de que o botão fica acima de outros elementos, se houver */
+    color: #fff; 
+    background-color: #ffffff22;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    
+}
+
+.voltar a {
+    color: #fff; 
+    text-decoration: none;
+}
+
+.containerDash{
     display: flex;
     flex-direction: row;
+    align-items: center;
+    align-content: center;
+}
+
+.caixaLogs{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.caixaJanelas{
+    display: flex;
+    flex-direction: column;
+    max-height: 200px; /* Defina a altura máxima desejada para o contêiner */
+    overflow-y: auto;  /* Adiciona uma barra de rolagem vertical quando necessário */
+    
+}
+
+.caixaProcessos{
+    display: flex;
+    flex-direction: column;
+    max-height: 200px; /* Defina a altura máxima desejada para o contêiner */
+    overflow-y: auto;  /* Adiciona uma barra de rolagem vertical quando necessário */
+    margin-top: 10px;
+    
+}
+
+.caixaLogs::-webkit-scrollbar,
+.caixaJanelas::-webkit-scrollbar,
+.caixaProcessos::-webkit-scrollbar {
+    width: 8px; /* Largura da barra de rolo */
+}
+
+.caixaLogs::-webkit-scrollbar-thumb,
+.caixaJanelas::-webkit-scrollbar-thumb,
+.caixaProcessos::-webkit-scrollbar-thumb {
+    background-color: #888; /* Cor da barra de rolo */
+    border-radius: 4px; /* Borda arredondada */
+}
+
+
+table{
+    display: flex;
+    border-style: none;
+    border-color: #141619;
+    border-radius: 5px;
+    margin: 0 20px 10px 10px ;
+    border-spacing: 4px;
+}
+
+th {
+    border-radius: 4px;
+    border-style: groove;
+    border-color: #4b0975;
+    background-color:#3a0859;
+    text-align: left;
+}
+
+td{
+    border-radius: 4px;
+    border-style: groove;
+    border-color: #4b0975;
+    background-color:#7a0bc0;
+    text-align: left;
+    word-wrap: break-word ;
+    max-width: 200px;
+}
+
+.dashboard .alertas{
+    display: flex;
+    flex-direction: row;
+    background-color: #202225;
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 10px;
+    margin-right: 8px;
+}
+
+.dashboard{
+    display: flex;
+    flex-direction: column;
     height: 50%;
+    margin: 0 2% 2% 2%;
 }
 
 .CPU, .elementoRAM, .elementoDisco, .elementoGPU{
@@ -205,4 +308,10 @@ ul {
     filter: brightness(70%);
     transform: scale(.9);
     border-radius: 10px;
+    
 }
+
+.botoes:disabled{
+    background-color: #202225;
+}
+
