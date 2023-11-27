@@ -1,0 +1,72 @@
+body{
+    align-items: center;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+.tabela{
+    display: flex;
+    flex-direction: row;
+    padding-left: 25%;
+    padding-top: 5%;
+}
+
+table{
+    display: flex;
+    border-style: none;
+    border-color: #141619;
+    border-radius: 5px;
+    margin: 0 20px 10px 10px ;
+    border-spacing: 4px;
+}
+
+th {
+    background-color: black;
+    color: aliceblue;
+    border-radius: 4px;
+    border-style: groove;
+    border-color: #3f0961;
+    background-color:#20092e;
+    text-align: left;
+    width: 250px;
+    padding: 10px;
+}
+
+td{
+    color: aliceblue;
+    border-radius: 4px;
+    border-style: groove;
+    border-color: #4b0975;
+    background-color:#7a0bc0;
+    text-align: left;
+    word-wrap: break-word ;
+    padding: 10px;
+    max-width: 200px;
+}
+
+
+
+/*botoes de escolher*/
+.voltar {
+    position: fixed;
+    top: 20px;
+    left: 100px;
+    z-index: 999; /* Certifica-se de que o botão fica acima de outros elementos, se houver */
+    color: #fff; 
+    background-color: #ffffff22;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    
+}
+
+.voltar a {
+    color: #fff; 
+    text-decoration: none;
+}
+

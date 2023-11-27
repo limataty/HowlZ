@@ -193,6 +193,39 @@ ul {
     text-decoration: none;
 }
 
+.containerAlertas{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    border-radius: 5px;
+    background-color: #202225;
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+.alertas1{
+    display: flex;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: rgba(0, 128, 0, 0.897);
+}
+
+.alertas2{
+    display: flex;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: rgba(255, 166, 0, 0.911);
+}
+
+.alertas3{
+    display: flex;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: rgba(255, 0, 0, 0.76);
+}
+
 .containerDash{
     display: flex;
     flex-direction: row;

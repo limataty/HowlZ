@@ -81,9 +81,11 @@
 
         <div class="containerDash">
             <div class="dashboard">
-                <div id="alertaComp" class="alertas">
+                <div class="containerAlertas">
                     Alertas:
-                
+                    <div id="alertaComp1" class="alertas1"></div>
+                    <div id="alertaComp2" class="alertas2"></div>
+                    <div id="alertaComp3" class="alertas3"></div>
                 </div>
                 <div class="botoesGraph">
                     <div class="CPU grafico" id="CPU">
@@ -128,108 +130,33 @@
                 </div>
             </div>
 
-                <div class="caixaLogs">
-                    <div class="caixaJanelas">
-                        <div class="tabela">
-                            <table border="1">
-                                <tr>
-                                    <th>Janelas</th>
-                                    <th>Horário</th>
-                                    <th>Valor</th>
-                                </tr>
-                                <tr>
-                                    <td>CPUlllLLLLLlll</td>
-                                    <td>21:40:31</td>
-                                    <td>92%</td>
-                                </tr>
-                                <tr>
-                                    <td>RAM Nnkjbjbkjkb</td>
-                                    <td>22:59:31</td>
-                                    <td>80%</td>
-                                </tr>
-                                <tr>
-                                    <td>Memória HUgygbyutgu</td>
-                                    <td>22:00:31</td>
-                                    <td>60%</td>
-                                </tr>
-                                <tr>
-                                    <td>DiscoygkuyguygkuyKKK           giuyg</td>
-                                    <td>22:55:31</td>
-                                    <td>55%</td>
-                                </tr>
-                                <tr>
-                                    <td>Discoygkuyguygk     uygiuyg</td>
-                                    <td>22:21:31</td>
-                                    <td>75%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Discoygkuyguygk     uygiuyg</td>
-                                    <td>22:21:31</td>
-                                    <td>75%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Discoygkuyguygkuygiuyg</td>
-                                    <td>22:21:31</td>
-                                    <td>75%</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    
-
-
-                    <div class="caixaProcessos">
-                        <div class="tabela">
-                            <table border="1">
-                                <tr>
-                                    <th>Processos</th>
-                                    <th>Horário</th>
-                                    <th>Valor</th>
-                                </tr>
-                                <tr>
-                                    <td>CPUlllLLLLLl   ll</td>
-                                    <td>21:40:31</td>
-                                    <td>92%</td>
-                                </tr>
-                                <tr>
-                                    <td>RAM Nnkjbjbk   jkb</td>
-                                    <td>22:59:31</td>
-                                    <td>80%</td>
-                                </tr>
-                                <tr>
-                                    <td>Memória HUgygbyutgu</td>
-                                    <td>22:00:31</td>
-                                    <td>60%</td>
-                                </tr>
-                                <tr>
-                                    <td>DiscoygkuyguygkLLLLLLLLLLLLLLLLLL Luygiuyg</td>
-                                    <td>22:55:31</td>
-                                    <td>55%</td>
-                                </tr>
-                                <tr>
-                                    <td>DiscoygkuyguygkuyKKKKKKKKKKKK giuyg</td>
-                                    <td>22:21:31</td>
-                                    <td>75%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Discoygkuyguygkuygiuyg</td>
-                                    <td>22:21:31</td>
-                                    <td>75%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Discoygkuyguygkuygiuyg</td>
-                                    <td>22:21:31</td>
-                                    <td>75%</td>
-                                </tr>
-                            </table>
-                        </div>
+            <div class="caixaLogs">
+                <div class="caixaJanelas">
+                    <div class="tabela">
+                        <table id="tabelaJanela" border="1">
+                            <tr>
+                                <th>Janelas</th>
+                                <th>Horário</th>
+                                <th>Valor</th>
+                            </tr>
+                        </table>
                     </div>
                 </div>
+
+                <div class="caixaProcessos">
+                    <div class="tabela">
+                        <table id="tabelaProcesso" border="1">
+                            <tr>
+                                <th>Processos</th>
+                                <th>Horário</th>
+                                <th>Valor</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
+        <span style="color:forestgreen;"></span>
     </div>
 
 
@@ -447,28 +374,159 @@
 
                 if (elementoID === 'CPU') {
                     obterDadosGrafico(testefk, 'CPU', 'canvasCPU');
-                    alertaComp.innerHTML = `30% 40% 80%`
+                    alertaComp1.innerHTML = `
+                    Bom: Até 79.9%</span>`
+                    alertaComp2.innerHTML = `
+                    Alerta: De 80% à 90%`
+                    alertaComp3.innerHTML = `
+                    Ruim: A partir de 90%
+                    `
                 } else if (elementoID === 'RAM') {
                     obterDadosGrafico(testefk, 'RAM', 'canvasRAM');
-                    alertaComp.innerHTML = `10% 10% 10%`
+                    alertaComp1.innerHTML = `
+                    Bom: Até 89.9%</span>`
+                    alertaComp2.innerHTML = `
+                    Alerta: De 90% à 94.9%`
+                    alertaComp3.innerHTML = `
+                    Ruim: A partir de 95%
+                    `
                 } else if (elementoID === 'Disco') {
                     obterDadosGrafico(testefk, 'Disco', 'canvasDISCO');
+                    alertaComp1.innerHTML = `
+                    Bom: Até 84.9%</span>`
+                    alertaComp2.innerHTML = `
+                    Alerta: De 85% à 89.9%`
+                    alertaComp3.innerHTML = `
+                    Ruim: A partir de 90%
+                    `
                 } else if (elementoID === 'GPU') {
                     obterDadosGrafico(testefk, 'GPU', 'canvasGPU');
+                    alertaComp1.innerHTML = `
+                    Bom: Até 79.9%</span>`
+                    alertaComp2.innerHTML = `
+                    Alerta: De 80% à 89.9%`
+                    alertaComp3.innerHTML = `
+                    Ruim: A partir de 90%
+                    `
                 }
             }
         }
 
         function pegarProcessos() {
-            fetch("/processos/exibir", {
+            fetch("/processos/contarProcesso", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
+                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
                 }),
             })
+                .then(function (json) {
+                    console.log("ESTOU NO THEN DO entrar()!");
+                    var processosHTML = "";
+                    if (json.ok) {
+                        console.log(json);
+                        for (let i = 0; i < json.length; i++) {
+                            fetch("/processos/exibirProcesso", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
+                                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
+                                }),
+                            })
+                                .then(function (resposta) {
+                                    console.log("ESTOU NO THEN DO entrar()!");
+
+                                    if (resposta.ok) {
+                                        console.log(resposta);
+                                        processosHTML += `<tr>
+                                            <td>${resposta[0].NomeProcesso}</td>
+                                            <td>${resposta[0].dataHora}</td>
+                                            <td>${resposta[0].uso} ${resposta[0].simbolo}</td>
+                                            </tr>`
+                                        tabelaProcessos.innerHTML = processosHTML;
+                                    } else {
+                                        resposta.text().then((texto) => {
+                                            console.log(texto);
+                                        });
+                                    }
+                                })
+                                .catch(function (erro) {
+                                    console.log(erro);
+                                });
+                        }
+                    } else {
+                        json.text().then((texto) => {
+                            console.log(texto);
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                });
+
+        }
+
+        function pegarJanela() {
+            fetch("/processos/contarJanela", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
+                }),
+            })
+                .then(function (json) {
+                    console.log("ESTOU NO THEN DO entrar()!");
+                    var janelasHTML = "";
+                    if (json.ok) {
+                        console.log(json);
+                        for (let i = 0; i < json.length; i++) {
+                            fetch("/processos/exibirJanela", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
+                                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
+                                }),
+                            })
+                                .then(function (resposta) {
+                                    console.log("ESTOU NO THEN DO entrar()!");
+
+                                    if (resposta.ok) {
+                                        console.log(resposta);
+                                        janelasHTML += `<tr>
+                                            <td>${resposta[0].titulo}</td>
+                                            <td>${resposta[0].dataHora}</td>
+                                            </tr>`
+                                        tabelaJanela.innerHTML = janelasHTML;
+                                    } else {
+                                        resposta.text().then((texto) => {
+                                            console.log(texto);
+                                        });
+                                    }
+                                })
+                                .catch(function (erro) {
+                                    console.log(erro);
+                                });
+                        }
+
+                    } else {
+                        json.text().then((texto) => {
+                            console.log(texto);
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                });
         }
     </script>
 </body>
