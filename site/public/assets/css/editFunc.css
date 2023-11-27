@@ -64,6 +64,7 @@ ul{
     justify-content: center;
     align-items: center;
     gap: 50px 0 0;
+
 }
 
 /* Estilos para o menu lateral */
@@ -209,6 +210,7 @@ ul{
     border: none;
     background-color: #ffffffc1;
     height: 35px;
+    padding-left: 5px;
 }
 
 .credenciais label{

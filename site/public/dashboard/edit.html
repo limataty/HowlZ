@@ -72,7 +72,7 @@
     <!-- card de seleção -->
     <div class="conteudo">
         <h2>Editar funcionários</h2>
-        <div class="listaFuncionario">
+        <div class="listaFuncionario" id="feed_container">
             <p>Nome:</p>
             <p>Email:</p>
             <div class="botoes">
@@ -85,6 +85,9 @@
 </body>
 <script>
     sessionStorage.ID_MAQUINA = 0;
+    sessionStorage.ID_FUNCIONARIO_PARA_EDITAR = 0;
+    sessionStorage.NOME_FUNCIONARIO_PARA_EDITAR = "";
+    sessionStorage.EMAIL_FUNCIONARIO_PARA_EDITAR = "";
 
     function botaoMenu() {
         var menuLateral = document.getElementById("menuLateral");
@@ -112,9 +115,88 @@
 
     var fkGestorServer = sessionStorage.getItem("ID_USUARIO");
 
-    function editarFunc() {
-        window.location = "/ediFunc";
+    function editarFunc(nome, email, idUsuario) {
+        sessionStorage.setItem("NOME_FUNCIONARIO_PARA_EDITAR", nome);
+        sessionStorage.setItem("EMAIL_FUNCIONARIO_PARA_EDITAR", nome.split(", ")[1]);
+        sessionStorage.setItem("ID_FUNCIONARIO_PARA_EDITAR", nome.split(", ")[2]);
+
+        window.location = "/dashboard/editFunc.html";
     }
+
+    function atualizarFeed() {
+
+fetch(`/usuarios/listar/${fkGestorServer}`)
+    .then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+
+                var feed = document.getElementById("feed_container");
+                var mensagem = document.createElement("span");
+                mensagem.innerHTML = "Nenhum Funcionário encontrado.";
+                feed.appendChild(mensagem);
+                throw "Nenhum resultado encontrado!!";
+            }
+
+            resposta.json().then(function (resposta) {
+
+                var feed = document.getElementById("feed_container");
+                feed.innerHTML = "";
+
+                for (var i = 0; i < resposta.length; i++) {
+                    var publicacao = resposta[i];
+
+                    var divPublicacao = document.createElement("div");
+                    var spanNome = document.createElement("p");
+                    var pEmail = document.createElement("p");
+                    var divButtons = document.createElement("div");
+                    var btnEditar = document.createElement("button");
+                    var btnDeletar = document.createElement("button");
+
+                    spanNome.innerHTML = "Nome: <b>" + publicacao.nome + "</b>";
+                    pEmail.innerHTML =
+                        "Email: <b>" + publicacao.email + "</b>";
+                    btnEditar.innerHTML = `<img src="../assets/img/editPen.png" alt="">Editar`;
+                    btnDeletar.innerHTML = `<img src="../assets/img/trash.png" alt="">Apagar`;
+
+                    divPublicacao.className = "publicacao";
+                    spanNome.className = "publicacao-nome";
+                    pEmail.className = "publicacao-email";
+
+                    divButtons.className = "botoes";
+
+                    // btnEditar.className = "publicacao-btn-editar";
+                    btnEditar.id = "btnEditar" + publicacao.nome;
+                    btnEditar.setAttribute("onclick", `editarFunc('${publicacao.nome}, ${publicacao.email}, ${publicacao.idUsuario}')`);
+                    console.log(publicacao.nome)
+                    console.log(publicacao.email)
+                    console.log(publicacao.idUsuario)
+
+                    // btnDeletar.className = "publicacao-btn-editar";
+                    btnDeletar.id = "btnDeletar" + publicacao.nome;
+                    btnDeletar.setAttribute(
+                        "onclick",
+                        `editarFunc('${publicacao.nome}, ${publicacao.email}, ${publicacao.idUsuario}')`
+                    );
+
+                    divPublicacao.appendChild(spanNome);
+                    divPublicacao.appendChild(pEmail);
+                    divPublicacao.appendChild(divButtons);
+                    divButtons.appendChild(btnEditar);
+                    divButtons.appendChild(btnDeletar);
+                    feed.appendChild(divPublicacao);
+                }
+
+            });
+        } else {
+            throw "Houve um erro na API!";
+        }
+    })
+    .catch(function (erro) {
+        console.error(erro);
+    });
+}
+
+atualizarFeed();
 
 </script>
 

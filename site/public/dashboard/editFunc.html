@@ -101,7 +101,23 @@
         </div>
     </div>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
 <script>
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+    });
+
     sessionStorage.ID_MAQUINA = 0;
 
     function botaoMenu() {
@@ -129,6 +145,87 @@
     }
 
     var fkGestorServer = sessionStorage.getItem("ID_USUARIO");
+
+    usernameFuncionario.value = sessionStorage.getItem("NOME_FUNCIONARIO_PARA_EDITAR").split(",")[0];
+    useremailFuncionario.value = sessionStorage.getItem("EMAIL_FUNCIONARIO_PARA_EDITAR");
+    console.log(sessionStorage.getItem("NOME_FUNCIONARIO_PARA_EDITAR").split(" ")[2]);
+
+    function enviarAlteracao() {
+        var nome = sessionStorage.getItem("NOME_FUNCIONARIO_PARA_EDITAR").split(",")[0];
+        var email = sessionStorage.getItem("EMAIL_FUNCIONARIO_PARA_EDITAR")
+        var idUsuario = sessionStorage.getItem("ID_FUNCIONARIO_PARA_EDITAR")
+
+        var nomeMudado = usernameFuncionario.value;
+        var emailMudado = useremailFuncionario.value;
+        var senhaMudada = userpasswordFuncionario.value;
+        var cSenhaMudada = usercPasswordFuncionario.value;
+
+        if (senhaMudada != cSenhaMudada) {
+            Toast.fire({
+                icon: "error",
+                title: "As senhas não coincidem!"
+            });
+        } else {
+
+            fetch(`/usuarios/editar`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nome: nomeMudado,
+                    email: emailMudado,
+                    senha: senhaMudada,
+                    idUsuario: idUsuario,
+                    nomeAntigo: nome,
+                    emailAntigo: email
+                })
+            })
+                .then(function (resposta) {
+                    if (resposta.ok) {
+                        window.location = "../dashboard/edit.html";
+                    } else if (resposta.status == 404) {
+                    } else {
+                        throw (
+                            "Houve um erro ao tentar atualizar a postagem! Código da resposta: " +
+                            resposta.status
+                        );
+                    }
+                })
+                .catch(function (erro) {
+                    console.log("#ERRO: ", erro);
+                });
+        }
+    }
+
+    function editarFunc(){
+        var idUsuario = sessionStorage.getItem("ID_FUNCIONARIO_PARA_EDITAR")
+
+        fetch(`/usuarios/apagar`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idUsuario: idUsuario
+            })
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    window.location = "../dashboard/edit.html";
+                } else if (resposta.status == 404) {
+                } else {
+                    throw (
+                        "Houve um erro ao tentar atualizar a postagem! Código da resposta: " +
+                        resposta.status
+                    );
+                }
+            })
+            .catch(function (erro) {
+                console.log("#ERRO: ", erro);
+            });
+    }
+
 </script>
 
 </html>

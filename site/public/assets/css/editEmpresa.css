@@ -293,7 +293,6 @@ hr {
     font-weight: 500;
 }
 
-
 .botaoConfirmar {
     margin: 20px 0 15px;
     width: 100%;
@@ -313,5 +312,22 @@ hr {
 }
 
 .botaoConfirmar button:hover {
+    filter: brightness(50%);
+}
+
+.enviarEmpresa {
+    height: 50px;
+    width: 130px;
+    font-weight: 500;
+    border: none;
+    background-color: #7935a2;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    margin-top: 15px;
+}
+
+.enviarEmpresa button:hover {
     filter: brightness(50%);
 }

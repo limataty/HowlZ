@@ -79,14 +79,92 @@
             <label for="apelido">Alterar apelido:</label>
             <input type="text" id="empresaApelido" name="apelido" />
 
-            <hr>
+            <button class="enviarEmpresa">Confirmar</button>
 
             <h3>Gerenciar alertas da empresa</h3>
             <div class="editAlertas">
                 <ul class="toggle-list">
                     <li class="toggle-item aberto">
                         <div class="botaoAbrir" onclick="toggleContent(this)">
-                            <img class="iconeImagem" src="../assets/img/toggle.png" alt="">Título:
+                            <img class="iconeImagem" src="../assets/img/toggle.png" alt="">GPU:
+                            <!--substitui esse "Titulo:" daqui pelo nome do alerta-->
+                            <div class="botoes">
+                                <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
+                            </div>
+                        </div>
+                        <div class="conteudoAlert">
+                            <p>Titulo:</p>
+                            <p>Componente</p>
+                            <p>Valor max:</p>
+                            <p>Valor min:</p>
+                            <div class="faixasPorcent">
+                                <label for="valorAlertMax">Valor máximo (%):</label>
+                                <input type="number" id="valorAlertMax" name="valorAlertMax" min="0" max="100" value="">
+
+                                <label for="valorAlertMin">Valor minimo (%):</label>
+                                <input type="number" id="valorAlertMin" name="valorAlertMin" min="0" max="100" value="">
+                            </div>
+
+                            <div class="botaoConfirmar">
+                                <button id="enviar" onclick="enviarAlteracao()">Confirmar</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="toggle-item aberto">
+                        <div class="botaoAbrir" onclick="toggleContent(this)">
+                            <img class="iconeImagem" src="../assets/img/toggle.png" alt="">RAM:
+                            <!--substitui esse "Titulo:" daqui pelo nome do alerta-->
+                            <div class="botoes">
+                                <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
+                            </div>
+                        </div>
+                        <div class="conteudoAlert">
+                            <p>Titulo:</p>
+                            <p>Componente</p>
+                            <p>Valor max:</p>
+                            <p>Valor min:</p>
+                            <div class="faixasPorcent">
+                                <label for="valorAlertMax">Valor máximo (%):</label>
+                                <input type="number" id="valorAlertMax" name="valorAlertMax" min="0" max="100" value="">
+
+                                <label for="valorAlertMin">Valor minimo (%):</label>
+                                <input type="number" id="valorAlertMin" name="valorAlertMin" min="0" max="100" value="">
+                            </div>
+
+                            <div class="botaoConfirmar">
+                                <button id="enviar" onclick="enviarAlteracao()">Confirmar</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="toggle-item aberto">
+                        <div class="botaoAbrir" onclick="toggleContent(this)">
+                            <img class="iconeImagem" src="../assets/img/toggle.png" alt="">Disco:
+                            <!--substitui esse "Titulo:" daqui pelo nome do alerta-->
+                            <div class="botoes">
+                                <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
+                            </div>
+                        </div>
+                        <div class="conteudoAlert">
+                            <p>Titulo:</p>
+                            <p>Componente</p>
+                            <p>Valor max:</p>
+                            <p>Valor min:</p>
+                            <div class="faixasPorcent">
+                                <label for="valorAlertMax">Valor máximo (%):</label>
+                                <input type="number" id="valorAlertMax" name="valorAlertMax" min="0" max="100" value="">
+
+                                <label for="valorAlertMin">Valor minimo (%):</label>
+                                <input type="number" id="valorAlertMin" name="valorAlertMin" min="0" max="100" value="">
+                            </div>
+
+                            <div class="botaoConfirmar">
+                                <button id="enviar" onclick="enviarAlteracao()">Confirmar</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="toggle-item aberto">
+                        <div class="botaoAbrir" onclick="toggleContent(this)">
+                            <img class="iconeImagem" src="../assets/img/toggle.png" alt="">CPU:
                             <!--substitui esse "Titulo:" daqui pelo nome do alerta-->
                             <div class="botoes">
                                 <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
@@ -116,6 +194,12 @@
     </div>
 </body>
 <script>
+
+    sessionStorage.ID_MAQUINA = 0;
+    sessionStorage.ID_FUNCIONARIO_PARA_EDITAR = 0;
+    sessionStorage.NOME_FUNCIONARIO_PARA_EDITAR = "";
+    sessionStorage.EMAIL_FUNCIONARIO_PARA_EDITAR = "";
+
     function botaoMenu() {
         var menuLateral = document.getElementById("menuLateral");
         var botaoMenuImg = document.getElementById("botaoMenuImg");

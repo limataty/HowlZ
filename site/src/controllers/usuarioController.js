@@ -359,6 +359,88 @@ function idMaquina(req, res){
     });
 }
 
+function listar(req, res) {
+  var fkGestor = req.params.fkGestorServer;
+
+    usuarioModel.listar(fkGestor).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function editar(req, res) {
+  var novoNome = req.body.nome;
+  var novoEmail = req.body.email;
+  var novaSenha = req.body.senha;
+  var nomeAntigo = req.body.nomeAntigo;
+  var emailAntigo = req.body.emailAntigo;
+  var idUsuario = req.body.idUsuario;
+
+  usuarioModel.editar(novoNome, novoEmail, novaSenha, nomeAntigo, emailAntigo, idUsuario)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function apagar(req, res) {
+  var idUsuario = req.body.idUsuario;
+
+  usuarioModel.apagar(idUsuario)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function editarGestor(req, res){
+  var novoNome = req.body.nome;
+  var novoEmail = req.body.email;
+  var novaSenha = req.body.senha;
+  var nomeAntigo = req.body.nomeAntigo;
+  var emailAntigo = req.body.emailAntigo;
+  var idUsuario = req.body.idUsuario;
+
+  usuarioModel.editarGestor(novoNome, novoEmail, novaSenha, nomeAntigo, emailAntigo, idUsuario)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function apagarGestor(req, res) {
+  var idUsuario = req.body.idUsuario;
+
+  usuarioModel.apagarGestor(idUsuario)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
   cadastrarEmpresa,
   entrar,
@@ -370,4 +452,9 @@ module.exports = {
   contarMaquinas,
   maquinas,
   idMaquina,
+  listar,
+  editar,
+  apagar,
+  editarGestor,
+  apagarGestor,
 };
