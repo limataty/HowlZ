@@ -65,7 +65,7 @@ function validarGestor(nomeGestor, emailGestor) {
         SELECT CASE WHEN EXISTS (
             SELECT 1
             FROM usuario
-            WHERE nome = '${nomeGestor}' AND email = '${emailGestor}' AND tipo = 'Gestor'
+            WHERE nome = '${nomeGestor}' AND email = '${emailGestor}' AND fkTipoUsuario = 1
         ) THEN 1 ELSE 0 END AS existe_gestor;
     `;
     return database.executar(instrucao);
@@ -76,7 +76,7 @@ function validarFuncionario(nomeFuncionario, emailFuncionario) {
         SELECT CASE WHEN EXISTS (
             SELECT 1
             FROM usuario
-            WHERE nome = '${nomeFuncionario}' AND email = '${emailFuncionario}' AND tipo = 'Funcionario'
+            WHERE nome = '${nomeFuncionario}' AND email = '${emailFuncionario}' AND fkTipoUsuario = 2
         ) THEN 1 ELSE 0 END AS existe_funcionario;
     `;
     return database.executar(instrucao);
@@ -86,9 +86,8 @@ function contarMaquinas(fkGestor) {
     var instrucao = `
     SELECT COUNT(*) as maquinas
     FROM Usuario
-    JOIN Computador ON Usuario.nome = Computador.nome
+    JOIN AssociacaoComputadorUsuario ON Usuario.idUsuario = fkUsuario
     WHERE Usuario.fkGestor = ${fkGestor};
-
     `;
     return database.executar(instrucao);
 
