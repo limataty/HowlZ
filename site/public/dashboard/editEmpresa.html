@@ -98,12 +98,15 @@
                             <p>Valor max:</p>
                             <p>Valor min:</p>
                             <div class="faixasPorcent">
-                                <label for="valorAlertMax">Valor máximo:</label>
-                                <input type="range" id="valorAlertMax" name="valorAlertMax" min="0" max="100"
-                                    value="">
+                                <label for="valorAlertMax">Valor máximo (%):</label>
+                                <input type="number" id="valorAlertMax" name="valorAlertMax" min="0" max="100" value="">
 
-                                <label for="valorAlertMin">Valor minimo:</label>
-                                <input type="range" id="valorAlertMin" name="valorAlertMin" min="0" max="100" value="">
+                                <label for="valorAlertMin">Valor minimo (%):</label>
+                                <input type="number" id="valorAlertMin" name="valorAlertMin" min="0" max="100" value="">
+                            </div>
+
+                            <div class="botaoConfirmar">
+                                <button id="enviar" onclick="enviarAlteracao()">Confirmar</button>
                             </div>
                         </div>
                     </li>

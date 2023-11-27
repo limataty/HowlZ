@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-*{
+* {
     font-family: 'Poppins';
     margin: 0;
     padding: 0;
 }
 
-body{
+body {
     background-color: #141619;
 }
 
 /* Estilos para o ícone do menu hamburguer */
 
-.content h2{
+.content h2 {
     margin: 20px 0 30px;
 }
 
@@ -23,7 +23,7 @@ body{
     z-index: 1000;
 }
 
-.botao-menu img{
+.botao-menu img {
     width: 50px;
 }
 
@@ -34,7 +34,7 @@ body{
     transition: 0.4s;
 }
 
-.texto{
+.texto {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,23 +42,23 @@ body{
     background-color: #ffffff1c;
     height: 50px;
     width: 150px;
-	transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
 }
 
-.textoEdit img{
+.textoEdit img {
     width: 15px;
 }
 
-.textoEdit:hover{
+.textoEdit:hover {
     color: #913cc5;
 }
 
-.texto:hover{
+.texto:hover {
     background-color: #ffffff46;
 }
 
 
-ul{
+ul {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -70,7 +70,8 @@ ul{
 .menu-lateral {
     position: fixed;
     top: 0;
-    left: -260px; /* Inicialmente, o menu fica completamente fora da tela */
+    left: -260px;
+    /* Inicialmente, o menu fica completamente fora da tela */
     width: 300px;
     height: 100%;
     background-color: #202225;
@@ -82,13 +83,13 @@ ul{
     box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.075);
 }
 
-.usuario{
+.usuario {
     color: #fff;
     text-align: center;
     padding: 80px 0 0;
 }
 
-.usuario img{
+.usuario img {
     width: 85px;
 }
 
@@ -118,7 +119,7 @@ ul{
     left: 0;
 }
 
-.conteudo{
+.conteudo {
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -127,11 +128,11 @@ ul{
     margin: 40px;
 }
 
-.conteudo h2{
+.conteudo h2 {
     margin-bottom: 20px;
 }
 
-.editEmpresa{
+.editEmpresa {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -144,11 +145,11 @@ ul{
     width: 50%;
 }
 
-.editEmpresa label{
+.editEmpresa label {
     width: 50%;
 }
 
-.editEmpresa input{
+.editEmpresa input {
     border-radius: 5px;
     border: none;
     height: 30px;
@@ -156,9 +157,9 @@ ul{
     background-color: #ffffff87;
 }
 
-hr{
+hr {
     border: solid 1px #ffffff4b;
-    border-top: none; 
+    border-top: none;
     margin: 20px 0;
     width: 100%;
 }
@@ -189,10 +190,16 @@ hr{
     width: 350px;
 }
 
-.faixasPorcent{
+.faixasPorcent {
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
+
+.faixasPorcent input {
+    width: 15%;
+}
+
 .conteudoAlert {
     display: none;
     padding: 10px;
@@ -203,21 +210,21 @@ hr{
     width: 350px;
 }
 
-.editAlertas{
+.editAlertas {
     width: 100%;
 }
 
-.editAlertas .botoes img{
+.editAlertas .botoes img {
     height: 15px;
     width: 15px;
 }
 
-.botaoAbrir img{
+.botaoAbrir img {
     width: 10px;
     height: 10px;
 }
 
-.botoes{
+.botoes {
     display: flex;
     align-items: center;
     width: 100%;
@@ -227,7 +234,7 @@ hr{
     height: 100%;
 }
 
-.botoes a{
+.botoes a {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -249,12 +256,12 @@ hr{
     box-shadow: 5px 2px 5px rgba(0, 0, 0, 0.260);
 }
 
-.botoes button{
+.botoes button {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.522);
+    background-color: #ffffff;
     height: 40px;
     width: 85px;
     text-decoration: none;
@@ -269,21 +276,42 @@ hr{
     box-shadow: none;
 }
 
-.botoes a:hover{
+.botoes a:hover {
     filter: brightness(35%);
 }
 
-.botoes button:hover{
+.botoes button:hover {
     filter: brightness(35%);
 }
 
-.conteudoAlert p{
+.conteudoAlert p {
     font-size: .9em;
     font-weight: 300;
 }
 
-.conteudoAlert label{
+.conteudoAlert label {
     font-weight: 500;
 }
 
 
+.botaoConfirmar {
+    margin: 20px 0 15px;
+    width: 100%;
+    display: flex;
+}
+
+.botaoConfirmar button {
+    height: 40px;
+    width: 100px;
+    font-weight: 500;
+    border: none;
+    background-color: #7935a2;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.botaoConfirmar button:hover {
+    filter: brightness(50%);
+}
