@@ -65,11 +65,12 @@
         <h2>Alterar dados</h2>
         <div class="corpo">
             <!-- campo para colocar credenciais do usuario -->
-            <div class="infoPerfilFunc">
+            <div class="infoPerfilGestor">
                 <div class="gestor">
                     <h4 id="nomeDaEmpresa"></h4>
                     <img src="../assets/img/usuario.png" alt="" />
                     <h4 id="nomeDoUsuario"></h4>
+                    <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
                 </div>
             </div>
             <div class="editGestor">
@@ -120,6 +121,24 @@
     }
 
     var fkGestorServer = sessionStorage.getItem("ID_USUARIO");
+
+
+    // Sua função botaoMenu() e outras funções existentes...
+
+    function mudarConteudo() {
+            // Obtém referências para as divs que deseja mudar
+            var divOrigem = document.querySelector('.infoPerfil');
+            var divDestino = document.querySelector('.editGestor');
+
+            // Obtém o conteúdo da divOrigem
+            var conteudoDivOrigem = divOrigem.innerHTML;
+
+            // Define o conteúdo da divDestino com o conteúdo da divOrigem
+            divDestino.innerHTML = conteudoDivOrigem;
+
+            // Opcional: Limpa o conteúdo da divOrigem ou modifica conforme necessário
+            divOrigem.innerHTML = '';
+        }
 </script>
 
 </html>
