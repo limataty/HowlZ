@@ -98,37 +98,37 @@ function maquinas(idMaquina) {
     if(process.env.AMBIENTE_PROCESSO == "producao"){
         instrucao = `
         SELECT 
-    FORMAT(Monitoramento.dataHora, 'HH:mm:ss') AS momento_grafico, 
-    Componente.fkComputador AS idComputador,
-    MAX(CASE WHEN Monitoramento.tipo = 'PORCENTAGEMUSO' THEN Monitoramento.valor END) AS UsoCPU,
-    MAX(CASE WHEN Monitoramento.tipo = 'GBUSO' THEN Monitoramento.valor END) AS Memoria,
-    MAX(CASE WHEN Monitoramento.tipo = 'GBTOTAL' THEN Monitoramento.valor END) AS Disco
+        FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:') AS momento_grafico, 
+        Componente.fkComputador AS idComputador,
+        MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 1 THEN MonitoramentoComponente.valor END) AS UsoCPU,
+        MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 2 THEN MonitoramentoComponente.valor END) AS Memoria,
+        MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 3 THEN MonitoramentoComponente.valor END) AS Disco
     FROM 
         Componente
     JOIN 
-        Monitoramento ON Componente.idComponente = Monitoramento.fkComponente
+        MonitoramentoComponente ON Componente.idComponente = MonitoramentoComponente.fkComponente
     WHERE 
-        Componente.fkComputador = ?
+        Componente.fkComputador = ${idMaquina}
     GROUP BY 
-        FORMAT(Monitoramento.dataHora, 'HH:mm:ss'), Componente.fkComputador
+        FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:'), idComputador
     ORDER BY 
-        FORMAT(Monitoramento.dataHora, 'HH:mm:ss') DESC
-    OFFSET 0 ROWS FETCH NEXT 1 ROW ONLY;
+        momento_grafico DESC;
+    
         `;
     }else if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
     instrucao = `
     SELECT 
-    DATE_FORMAT(Monitoramento.dataHora, '%H:%i:%s') AS momento_grafico, 
+    DATE_FORMAT(MonitoramentoComponente.dataHora, '%H:%i') AS momento_grafico, 
     Componente.fkComputador AS idComputador,
-    MAX(CASE WHEN Monitoramento.tipo = 'PORCENTAGEMUSO' THEN Monitoramento.valor END) AS UsoCPU,
-    MAX(CASE WHEN Monitoramento.tipo = 'GBUSO' THEN Monitoramento.valor END) AS Memoria,
-    MAX(CASE WHEN Monitoramento.tipo = 'GBTOTAL' THEN Monitoramento.valor END) AS Disco
+    MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 1 THEN MonitoramentoComponente.valor END) AS UsoCPU,
+    MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 2 THEN MonitoramentoComponente.valor END) AS Memoria,
+    MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 3 THEN MonitoramentoComponente.valor END) AS Disco
     FROM 
         Componente
     JOIN 
-        Monitoramento ON Componente.idComponente = Monitoramento.fkComponente
+        MonitoramentoComponente ON Componente.idComponente = MonitoramentoComponente.fkComponente
     WHERE 
-        Componente.fkComputador = ${idMaquina} 
+        Componente.fkComputador = ${idMaquina}
     GROUP BY 
         momento_grafico, idComputador
     ORDER BY 
@@ -156,14 +156,14 @@ function idMaquina(fkGestor) {
     return database.executar(instrucao);
 }
 
-function listar(fkGestor){
-    var instrucao = `SELECT Usuario.nome,
-	Usuario.email
-    FROM Usuario
-    WHERE fkGestor = ${fkGestor};`;
+// function listar(fkGestor){
+//     var instrucao = `SELECT Usuario.nome,
+// 	Usuario.email
+//     FROM Usuario
+//     WHERE fkGestor = ${fkGestor};`;
 
-    return database.executar(instrucao);
-}
+//     return database.executar(instrucao);
+// }
 
 function listar(fkGestor){
     var instrucao = `SELECT Usuario.nome,
@@ -234,5 +234,5 @@ module.exports = {
     editar,
     apagar,
     editarGestor,
-
+    apagarGestor,
 };
