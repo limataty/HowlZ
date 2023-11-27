@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/edit.css">
-    <title>Editar | HowlZ</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/editGestor.css" />
     <link rel="website icon" href="../assets/icon/owl.svg" />
-
-
+    <title>Editar | HowlZ</title>
 </head>
 
 <body>
@@ -69,23 +67,41 @@
         </ul>
     </nav>
 
-    <!-- card de seleção -->
     <div class="conteudo">
-        <h2>Editar funcionários</h2>
-        <div class="listaFuncionario">
-            <p>Nome:</p>
-            <p>Email:</p>
-            <div class="botoes">
-                <a href="editFunc.html"><img src="../assets/img/editPen.png" alt="">Editar</a>
-                <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
+        <h2>Alterar dados</h2>
+        <div class="corpo">
+            <!-- campo para colocar credenciais do usuario -->
+            <div class="infoPerfilGestor">
+                <div class="gestor">
+                    <h4 id="nomeDaEmpresa"></h4>
+                    <img src="../assets/img/usuario.png" alt="" />
+                    <h4 id="nomeDoUsuario"></h4>
+                    <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
+                </div>
+            </div>
+            <div class="editGestor">
+                <div class="credenciais">
+                    <h3>Editar dados do Gestor</h3>
+                    <label for="text">Alterar nome:</label>
+                    <input type="text" id="usernameGestor" name="nomeGestor"/>
+
+                    <label for="email">Alterar e-mail:</label>
+                    <input type="email" id="useremailGestor" name="emailGestor"/>
+
+                    <label for="password">Alterar senha:</label>
+                    <input type="password" id="userpasswordGestor" name="passwordGestor"/>
+
+                    <label for="cPassword">Confirmar senha:</label>
+                    <input type="password" id="usercPasswordGestor" name="cPasswordGestor"/>
+                    <div class="botaoConfirmar">
+                        <button id="enviar" onclick="enviarAlteracao()">Confirmar</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
 </body>
 <script>
-    sessionStorage.ID_MAQUINA = 0;
-
     function botaoMenu() {
         var menuLateral = document.getElementById("menuLateral");
         var botaoMenuImg = document.getElementById("botaoMenuImg");
@@ -112,10 +128,23 @@
 
     var fkGestorServer = sessionStorage.getItem("ID_USUARIO");
 
-    function editarFunc() {
-        window.location = "/ediFunc";
-    }
 
+    // Sua função botaoMenu() e outras funções existentes...
+
+    function mudarConteudo() {
+            // Obtém referências para as divs que deseja mudar
+            var divOrigem = document.querySelector('.infoPerfil');
+            var divDestino = document.querySelector('.editGestor');
+
+            // Obtém o conteúdo da divOrigem
+            var conteudoDivOrigem = divOrigem.innerHTML;
+
+            // Define o conteúdo da divDestino com o conteúdo da divOrigem
+            divDestino.innerHTML = conteudoDivOrigem;
+
+            // Opcional: Limpa o conteúdo da divOrigem ou modifica conforme necessário
+            divOrigem.innerHTML = '';
+        }
 </script>
 
 </html>

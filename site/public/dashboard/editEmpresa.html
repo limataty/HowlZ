@@ -23,7 +23,7 @@
 
         <ul>
             <li class="item-menu">
-                <a href="editEmpresa.html">
+                <a href="editGestor.html">
                     <span class="icone"><i class="bi bi-person-gear"></i></span>
                     <span class="textoEdit">Editar <img src="../assets/img/lapis.png" alt=""></span>
                 </a>
@@ -32,6 +32,12 @@
                 <a href="edit.html">
                     <span class="icone"><i class="bi bi-person-gear"></i></span>
                     <span class="texto">Editar funcionário</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="editEmpresa.html">
+                    <span class="icone"><i class="bi bi-person-gear"></i></span>
+                    <span class="texto">Editar empresa</span>
                 </a>
             </li>
             <li class="item-menu">
@@ -60,37 +66,48 @@
             </li>
         </ul>
     </nav>
-
     <div class="conteudo">
-        <h2>Alterar dados</h2>
-        <div class="corpo">
-            <!-- campo para colocar credenciais do usuario -->
-            <div class="infoPerfilGestor">
-                <div class="gestor">
-                    <h4 id="nomeDaEmpresa"></h4>
-                    <img src="../assets/img/usuario.png" alt="" />
-                    <h4 id="nomeDoUsuario"></h4>
-                    <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
-                </div>
-            </div>
-            <div class="editGestor">
-                <div class="credenciais">
-                    <h3>Editar dados do Gestor</h3>
-                    <label for="text">Alterar nome:</label>
-                    <input type="text" id="usernameGestor" name="nomeGestor" required />
+        <h2>Editar</h2>
+        <div class="editEmpresa">
+            <h3>Alterar dados da empresa</h3>
+            <label for="nomeFantasia">Alterar nome fantasia:</label>
+            <input type="text" id="empresaNomeFantasia" name="nomeFantasia" />
 
-                    <label for="email">Alterar e-mail:</label>
-                    <input type="email" id="useremailGestor" name="emailGestor" required />
+            <label for="razaoSocial">Alterar razão social:</label>
+            <input type="text" id="empresaRazaoSocial" name="razaoSocial" />
 
-                    <label for="password">Alterar senha:</label>
-                    <input type="password" id="userpasswordGestor" name="passwordGestor" required />
+            <label for="apelido">Alterar apelido:</label>
+            <input type="text" id="empresaApelido" name="apelido" />
 
-                    <label for="cPassword">Confirmar senha:</label>
-                    <input type="password" id="usercPasswordGestor" name="cPasswordGestor" required />
-                    <div class="botaoConfirmar">
-                        <button id="enviar" onclick="enviarAlteracao()">Confirmar</button>
-                    </div>
-                </div>
+            <hr>
+
+            <h3>Gerenciar alertas da empresa</h3>
+            <div class="editAlertas">
+                <ul class="toggle-list">
+                    <li class="toggle-item aberto">
+                        <div class="botaoAbrir" onclick="toggleContent(this)">
+                            <img class="iconeImagem" src="../assets/img/toggle.png" alt="">Título:
+                            <!--substitui esse "Titulo:" daqui pelo nome do alerta-->
+                            <div class="botoes">
+                                <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
+                            </div>
+                        </div>
+                        <div class="conteudoAlert">
+                            <p>Titulo:</p>
+                            <p>Componente</p>
+                            <p>Valor max:</p>
+                            <p>Valor min:</p>
+                            <div class="faixasPorcent">
+                                <label for="valorAlertMax">Valor máximo:</label>
+                                <input type="range" id="valorAlertMax" name="valorAlertMax" min="0" max="100"
+                                    value="">
+
+                                <label for="valorAlertMin">Valor minimo:</label>
+                                <input type="range" id="valorAlertMin" name="valorAlertMin" min="0" max="100" value="">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -122,23 +139,11 @@
 
     var fkGestorServer = sessionStorage.getItem("ID_USUARIO");
 
-
-    // Sua função botaoMenu() e outras funções existentes...
-
-    function mudarConteudo() {
-            // Obtém referências para as divs que deseja mudar
-            var divOrigem = document.querySelector('.infoPerfil');
-            var divDestino = document.querySelector('.editGestor');
-
-            // Obtém o conteúdo da divOrigem
-            var conteudoDivOrigem = divOrigem.innerHTML;
-
-            // Define o conteúdo da divDestino com o conteúdo da divOrigem
-            divDestino.innerHTML = conteudoDivOrigem;
-
-            // Opcional: Limpa o conteúdo da divOrigem ou modifica conforme necessário
-            divOrigem.innerHTML = '';
-        }
+    //PARA A LISTA DE ALERTS
+    function toggleContent(element) {
+        var content = element.nextElementSibling;
+        content.style.display = content.style.display === 'none' ? 'block' : 'none';
+    }
 </script>
 
 </html>

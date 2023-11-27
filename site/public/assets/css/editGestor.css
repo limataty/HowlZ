@@ -119,142 +119,41 @@ ul{
 }
 
 .conteudo{
-    color: #fff;
+    color:#fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 40px;
+    gap: 50px;
 }
 
-.conteudo h2{
-    margin-bottom: 20px;
-}
-
-.editEmpresa{
+.gestor{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    background-color: #913cc55d;
-    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.260);
+    background-color: #5620774b;
     border-radius: 10px;
-    padding: 35px;
-    width: 50%;
-}
-
-.editEmpresa label{
-    width: 50%;
-}
-
-.editEmpresa input{
-    border-radius: 5px;
-    border: none;
-    height: 30px;
-    width: 50%;
-    background-color: #ffffff87;
-}
-
-hr{
-    border: solid 1px #ffffff4b;
-    border-top: none; 
-    margin: 20px 0;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.191);
     width: 100%;
-}
-
-.toggle-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.toggle-item {
-    margin-bottom: 5px;
-}
-
-.botaoAbrir {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    gap: 10px;
-    background-color: #913cc565;
-    box-shadow: 5px 2px 5px rgba(0, 0, 0, 0.095);
-    border-radius: 5px;
+    height: 100%;
     color: #fff;
-    padding: 10px;
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-    width: 350px;
+    text-align: center;
+    padding: 100px 40px;
 }
 
-.faixasPorcent{
-    display: flex;
-    flex-direction: column;
-}
-.conteudoAlert {
-    display: none;
-    padding: 10px;
-    border-bottom: solid 1px rgba(255, 255, 255, 0.374);
-    border-left: solid 1px rgba(255, 255, 255, 0.374);
-    border-right: solid 1px rgba(255, 255, 255, 0.374);
-    border-radius: 5px;
-    width: 350px;
+
+.gestor img{
+    width: 85px;
 }
 
-.editAlertas{
-    width: 100%;
-}
-
-.editAlertas .botoes img{
-    height: 15px;
-    width: 15px;
-}
-
-.botaoAbrir img{
-    width: 10px;
-    height: 10px;
-}
-
-.botoes{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: flex-end;
-    gap: 20px;
-    margin: 0;
-    height: 100%;
-}
-
-.botoes a{
+.gestor button{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     background-color: #ffffff;
-    height: 35px;
-    width: 75px;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all .3s ease-in-out;
-    margin-top: 50px;
-    padding: 3.5px 0;
-    width: 80px;
-    color: #000;
-    text-decoration: none;
-    font-size: .9em;
-    box-shadow: 5px 2px 5px rgba(0, 0, 0, 0.260);
-}
-
-.botoes button{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, 0.522);
     height: 40px;
     width: 85px;
     text-decoration: none;
@@ -263,27 +162,85 @@ hr{
     box-shadow: none;
     cursor: pointer;
     transition: all .3s ease-in-out;
-    color: #000;
+    margin-top: 50px;
+    color: #5b227e;
+    font-weight: 600;
     text-decoration: none;
-    font-size: .9em;
-    box-shadow: none;
+    padding: 0 8px;
 }
 
-.botoes a:hover{
+.gestor button:hover{
     filter: brightness(35%);
 }
 
-.botoes button:hover{
-    filter: brightness(35%);
+.gestor button img{
+    width: 25px;
 }
 
-.conteudoAlert p{
-    font-size: .9em;
-    font-weight: 300;
+.credenciais{
+    display: flex;
+    flex-direction: column;
+    background-color: #5620774b;
+    border-radius: 10px;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.191);
+    width: 300px;
+    padding: 50px 40px;
+    justify-content: center;
+    align-items: center;
 }
 
-.conteudoAlert label{
+.credenciais h3{
+    margin: 0 0 15px;
+}
+
+.credenciais input{
+    width: 90%;
+    margin: 10px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background-color: #ffffffc1;
+    height: 35px;
+}
+
+.credenciais label{
+    display: flex;
+    width: 90%;
+    justify-content: flex-start;
+}
+
+.botaoConfirmar{
+    margin: 30px 5px 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.botaoConfirmar button{
+    height: 40px;
+    width: 100px;
     font-weight: 500;
+    border: none;
+    background-color: #5b227e;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.191);
+    cursor: pointer;
+	transition: all .3s ease-in-out;
 }
+
+.botaoConfirmar button:hover{
+    filter: brightness(50%);
+}
+
+.corpo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    display: flex;
+    flex-direction: row;
+}
+
 
 
