@@ -117,69 +117,51 @@ ul{
 .ver-menu {
     left: 0;
 }
-
-h2{
-    margin-top: 40px;
+.corpo{
+    display: flex;
+    flex-direction: row;
 }
 
 .conteudo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 50px;
+    margin: 40px;
+    gap: 30px;
+    padding: 0;
+
 }
 
-.listaFuncionario{
-    background-color: #17191b;
+.corpo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+}
+
+.funcionario{
     display: flex;
     flex-direction: column;
-    width: 60%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: #5620774b;
     border-radius: 10px;
-}
-
-.listaFuncionario p {
-    margin: 5px 0;
-}
-
-.listaFuncionario img{
-    width: 25px;
-}
-
-.botoes{
-    display: flex;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.191);
     width: 100%;
-    justify-content: flex-end;
-    gap: 20px;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+    padding: 100px 40px;
 }
 
-.botoes a{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    background-color: #ffffff;
-    height: 35px;
-    width: 75px;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    box-shadow: none;
-    cursor: pointer;
-    transition: all .3s ease-in-out;
-    margin-top: 50px;
-    padding: 3.5px 0;
-    width: 80px;
-    color: #000;
-    text-decoration: none;
-    font-size: .9em;
-    box-shadow: 5px 2px 5px rgba(0, 0, 0, 0.260);
+
+.funcionario img{
+    width: 85px;
 }
 
-.botoes button{
+.funcionario button{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -194,17 +176,43 @@ h2{
     cursor: pointer;
     transition: all .3s ease-in-out;
     margin-top: 50px;
-    color: #000;
+    color: #5b227e;
+    font-weight: 600;
     text-decoration: none;
-    font-size: .9em;
-    box-shadow: 5px 2px 5px rgba(0, 0, 0, 0.260);
+    padding: 0 8px;
 }
 
-.botoes a:hover{
+.funcionario button:hover{
     filter: brightness(35%);
 }
 
-.botoes button:hover{
-    filter: brightness(35%);
+.funcionario button img{
+    width: 25px;
+}
+
+.credenciais{
+    display: flex;
+    flex-direction: column;
+    background-color: #5620774b;
+    border-radius: 10px;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.191);
+    width: 300px;
+    padding: 50px 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.credenciais input{
+    width: 90%;
+    margin: 10px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+}
+
+.credenciais label{
+    display: flex;
+    width: 90%;
+    justify-content: flex-start;
 }
 

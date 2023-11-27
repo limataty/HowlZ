@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/edit.css">
-    <title>Editar | HowlZ</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/editFunc.css" />
     <link rel="website icon" href="../assets/icon/owl.svg" />
-
-
+    <title>Editar funcionário | HowlZ</title>
 </head>
+
 <body>
     <nav class="menu-lateral" id="menuLateral">
         <div class="botao-menu" onclick="botaoMenu()">
@@ -55,52 +55,65 @@
         </ul>
     </nav>
 
-    <!-- card de seleção -->
+
+
     <div class="conteudo">
-        <h2>Editar funcionários</h2>
-        <div class="listaFuncionario">
-            <p>Nome:</p>
-            <p>Email:</p>
-            <div class="botoes">
-                <a href="editFunc.html"><img src="../assets/img/editPen.png" alt="">Editar</a>
+        <h2>Editar dados do funcionário</h2>
+        <div class="corpo">
+            <!-- campo para colocar credenciais do usuario -->
+            <div class="infoPerfilFunc">
+                <div class="funcionario">
+                    <h4 id="nomeFuncionario"></h4>
+                    <img src="../assets/img/usuario.png" alt="" />
+                    <h4 id="nomeDoFuncionario"></h4>
                 <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
+                </div>
+            </div>
+            <!-- inputs para editar -->
+            <div class="credenciais">
+                <label for="text">Alterar nome:</label>
+                <input type="text" id="usernameFuncionario" name="nomeFuncionario" required />
+
+                <label for="email">Alterar e-mail:</label>
+                <input type="email" id="useremailFuncionario" name="emailFuncionario" required />
+
+                <label for="password">Alterar senha:</label>
+                <input type="password" id="userpasswordFuncionario" name="passwordFuncionario" required />
+
+                <label for="cPassword">Confirmar senha:</label>
+                <input type="password" id="usercPasswordFuncionario" name="cPasswordFuncionario" required />
             </div>
         </div>
     </div>
-    
 </body>
 <script>
-            sessionStorage.ID_MAQUINA = 0;
+    sessionStorage.ID_MAQUINA = 0;
 
-function botaoMenu() {
-    var menuLateral = document.getElementById("menuLateral");
-    var botaoMenuImg = document.getElementById("botaoMenuImg");
+    function botaoMenu() {
+        var menuLateral = document.getElementById("menuLateral");
+        var botaoMenuImg = document.getElementById("botaoMenuImg");
 
-    menuLateral.classList.toggle("ver-menu");
-    botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu") ? "none" : "block";
+        menuLateral.classList.toggle("ver-menu");
+        botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu") ? "none" : "block";
 
-    var content = document.querySelector(".content");
-    content.classList.toggle("content-shift");
-}
+        var content = document.querySelector(".content");
+        content.classList.toggle("content-shift");
+    }
 
-var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
-document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
+    var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
+    document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
 
-var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
-document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
+    var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
+    document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
 
-function limparSessao() {
+    function limparSessao() {
 
-    sessionStorage.clear();
+        sessionStorage.clear();
 
-    window.location = "/login";
-}
+        window.location = "/login";
+    }
 
-var fkGestorServer = sessionStorage.getItem("ID_USUARIO");
-
-function editarFunc() {
-    window.location = "/ediFunc";
-}
-
+    var fkGestorServer = sessionStorage.getItem("ID_USUARIO");
 </script>
+
 </html>
