@@ -110,10 +110,9 @@ function maquinas(idMaquina) {
     WHERE 
         Componente.fkComputador = ${idMaquina}
     GROUP BY 
-        FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:'), idComputador
+        FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:'), fkComputador
     ORDER BY 
         momento_grafico DESC;
-    
         `;
     }else if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
     instrucao = `
