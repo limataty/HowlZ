@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/edit.css">
+    <title>Editar | HowlZ</title>
+    <link rel="website icon" href="../assets/icon/owl.svg" />
+
+
+</head>
+<body>
+    <nav class="menu-lateral" id="menuLateral">
+        <div class="botao-menu" onclick="botaoMenu()">
+            <img src="../assets/img/menu-hamburguer.png" alt="" />
+        </div>
+
+        <div class="usuario">
+            <h4 id="nomeDaEmpresa"></h4>
+            <img src="../assets/img/usuario.png" alt="" />
+            <h4 id="nomeDoUsuario"></h4>
+        </div>
+
+        <ul>
+            <li class="item-menu">
+                <a href="edit.html">
+                    <span class="icone"><i class="bi bi-person-gear"></i></span>
+                    <span class="textoEdit">Editar <img src="../assets/img/lapis.png" alt=""></span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="./dashboard.html">
+                    <span class="icone"><i class="bi bi-bar-chart-fill"></i></span>
+                    <span class="texto">Computadores</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="../cadastroNovoFunc.html">
+                    <span class="icone"><i class="bi bi-person-add"></i></span>
+                    <span class="texto">Configuração</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="https://howlz.atlassian.net/servicedesk/customer/portal/1">
+                    <span class="icone"><i class="bi bi-person-gear"></i></span>
+                    <span class="texto">Suporte</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="../login.html">
+                    <span class="icone"><i class="bi bi-box-arrow-in-right"></i></span>
+                    <span class="texto" onclick="limparSessao()">Sair</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- card de seleção -->
+    <div class="conteudo">
+        <h2>Editar funcionários</h2>
+        <div class="listaFuncionario">
+            <span>Nome:</span>
+            <p>Email:</p>
+            <div class="botoes">
+                <button><img src="../assets/img/editPen.png" alt="">Editar</button>
+                <button><img src="../assets/img/trash.png" alt="">Apagar</button>
+            </div>
+        </div>
+    </div>
+    
+</body>
+<script>
+            sessionStorage.ID_MAQUINA = 0;
+
+function botaoMenu() {
+    var menuLateral = document.getElementById("menuLateral");
+    var botaoMenuImg = document.getElementById("botaoMenuImg");
+
+    menuLateral.classList.toggle("ver-menu");
+    botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu") ? "none" : "block";
+
+    var content = document.querySelector(".content");
+    content.classList.toggle("content-shift");
+}
+
+var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
+document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
+
+var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
+document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
+
+function limparSessao() {
+
+    sessionStorage.clear();
+
+    window.location = "/login";
+}
+
+var fkGestorServer = sessionStorage.getItem("ID_USUARIO");
+
+</script>
+</html>

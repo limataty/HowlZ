@@ -45,6 +45,14 @@ body{
 	transition: all .3s ease-in-out;
 }
 
+.textoEdit img{
+    width: 15px;
+}
+
+.textoEdit:hover{
+    color: #913cc5;
+}
+
 .texto:hover{
     background-color: #ffffff46;
 }
