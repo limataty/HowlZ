@@ -315,3 +315,11 @@ td{
     background-color: #202225;
 }
 
+.textoEdit img{
+    width: 15px;
+}
+
+.textoEdit:hover{
+    color: #913cc5;
+}
+

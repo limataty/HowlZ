@@ -117,30 +117,18 @@ ul{
 .ver-menu {
     left: 0;
 }
-.corpo{
-    display: flex;
-    flex-direction: row;
-}
 
 .conteudo{
+    color:#fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #fff;
     margin: 40px;
-    gap: 30px;
-    padding: 0;
+    gap: 50px;
 }
 
-.corpo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 100px;
-}
-
-.funcionario{
+.gestor{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -156,11 +144,11 @@ ul{
 }
 
 
-.funcionario img{
+.gestor img{
     width: 85px;
 }
 
-.funcionario button{
+.gestor button{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -181,11 +169,11 @@ ul{
     padding: 0 8px;
 }
 
-.funcionario button:hover{
+.gestor button:hover{
     filter: brightness(35%);
 }
 
-.funcionario button img{
+.gestor button img{
     width: 25px;
 }
 
@@ -199,6 +187,10 @@ ul{
     padding: 50px 40px;
     justify-content: center;
     align-items: center;
+}
+
+.credenciais h3{
+    margin: 0 0 15px;
 }
 
 .credenciais input{
@@ -240,3 +232,15 @@ ul{
 .botaoConfirmar button:hover{
     filter: brightness(50%);
 }
+
+.corpo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    display: flex;
+    flex-direction: row;
+}
+
+
+

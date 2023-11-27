@@ -23,7 +23,7 @@
 
         <ul>
             <li class="item-menu">
-                <a href="edit.html">
+                <a href="editEmpresa.html">
                     <span class="icone"><i class="bi bi-person-gear"></i></span>
                     <span class="textoEdit">Editar <img src="../assets/img/lapis.png" alt=""></span>
                 </a>
@@ -72,7 +72,7 @@
                     <h4 id="nomeFuncionario"></h4>
                     <img src="../assets/img/usuario.png" alt="" />
                     <h4 id="nomeDoFuncionario"></h4>
-                <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
+                    <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
                 </div>
             </div>
             <!-- inputs para editar -->
@@ -88,6 +88,9 @@
 
                 <label for="cPassword">Confirmar senha:</label>
                 <input type="password" id="usercPasswordFuncionario" name="cPasswordFuncionario" required />
+                <div class="botaoConfirmar">
+                    <button id="enviar" onclick="enviarAlteracao()">Confirmar</button>
+                </div>
             </div>
         </div>
     </div>
