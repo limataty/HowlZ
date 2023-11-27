@@ -97,7 +97,7 @@ function maquinas(idMaquina) {
     instrucao = "";
     if(process.env.AMBIENTE_PROCESSO == "producao"){
         instrucao = `
-        SELECT 
+        SELECT TOP 1
         FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:') AS momento_grafico, 
         Componente.fkComputador AS idComputador,
         MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 1 THEN MonitoramentoComponente.valor END) AS UsoCPU,
