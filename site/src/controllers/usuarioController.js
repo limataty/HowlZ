@@ -307,7 +307,7 @@ function contarMaquinas(req, res){
   usuarioModel
     .contarMaquinas(fkGestor)
     .then(function (resultado) {
-      console.log("resultado: " + resultado[0].maquinas);
+      console.log("quantidade maquinas: " + resultado[0].maquinas);
       res.json(resultado[0].maquinas);
     })
     .catch(function (erro) {
@@ -326,7 +326,7 @@ function maquinas(req, res){
   usuarioModel
     .maquinas(idMaquina)
     .then(function (resultado) {
-      console.log("resultado: " + resultado[0].UsoCPU + " " + resultado[0].Memoria + " " + resultado[0].Disco);
+      console.log("resultado das maquinas: " + resultado[0].UsoCPU + " " + resultado[0].Memoria + " " + resultado[0].Disco);
       res.json(resultado[0]);
     })
     .catch(function (erro) {
