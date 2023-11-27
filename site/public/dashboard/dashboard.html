@@ -119,9 +119,7 @@
 
         var fkGestorServer = sessionStorage.getItem("ID_USUARIO");
 
-        async function obterDadosMaquinas() {
-    try {
-        const respostaContagem = await fetch("/usuarios/contar", {
+        fetch("/usuarios/contar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -129,110 +127,120 @@
             body: JSON.stringify({
                 fkGestorServer: fkGestorServer,
             }),
-        });
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    throw new Error("Erro ao contar usuários");
+                }
+            })
+            .then(function (json) {
+                console.log(json);
 
-        if (!respostaContagem.ok) {
-            throw new Error("Erro ao contar usuários");
-        }
+                var maquinasHTML = "";
+                var vermelho = 0;
+                var laranja = 0;
 
-        const jsonContagem = await respostaContagem.json();
+                for (let i = 0; i < json; i++) {
+                    if (i % 5 === 0) {
+                        maquinasHTML += '<div class="maquinasLinha">';
+                    }
 
-        var maquinasHTML = "";
-        var vermelho = 0;
-        var laranja = 0;
+                    fetch("/usuarios/idMaquina", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            fkGestorServer: fkGestorServer,
+                            contagem: i,
+                        }),
+                    })
+                        .then(function (retorno) {
+                            if (retorno.ok) {
+                                return retorno.json();
+                            } else {
+                                throw new Error("Erro ao obter ID da máquina");
+                            }
+                        })
+                        .then(function (item) {
+                            console.log(item);
+                            console.log(JSON.stringify(item));
 
-        for (let i = 0; i < jsonContagem; i++) {
-            if (i % 5 === 0) {
-                maquinasHTML += '<div class="maquinasLinha">';
-            }
+                            console.log(item + "  id da maquina");
 
-            const respostaIdMaquina = await fetch("/usuarios/idMaquina", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    fkGestorServer: fkGestorServer,
-                    contagem: i,
-                }),
+                            fetch("/usuarios/maquinas", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    fkMaquina: item, // colocar o Item aqui
+                                }),
+                            });
+                        })
+                        .then(function (volta) {
+                            if (volta.ok) {
+                                return volta.json();
+                            } else {
+                                throw new Error("Erro ao obter informações da máquina");
+                            }
+                        })
+                        .then(function (json) {
+                            console.log(json);
+                            console.log(JSON.stringify(json));
+                            
+
+                            maquinasHTML += `
+                                <div id="maquina" class="maquina ${i % 5 === 0 ? 'primeiraNaLinha' : ''}" 
+                                    style="${json.UsoCPU > 80 ? 'border-color: red;' : ''} ${json.UsoCPU > 2 && json.UsoCPU <= 80 ? 'border-color: orange;' : ''}">
+                                    <h3>Máquina ${json.idComputador}</h3>
+                                    <p class="status ativa">Status: Ativa</p>
+                                    <p>Uso de CPU: ${json.UsoCPU}</p>
+                                    <p>Memória RAM: ${json.Memoria}</p>
+                                    <p>Espaço em Disco: ${json.Disco}</p>
+                                    <button onclick="mudarPagina(${json.idComputador})">Monitorar</button>
+                                </div>
+                            `;
+
+                            if (json.UsoCPU > 80) {
+                                vermelho++;
+                            } else if (json.UsoCPU > 2 && json.UsoCPU <= 80) {
+                                laranja++;
+                            }
+
+                            if ((i + 1) % 5 === 0) {
+                                maquinasHTML += '</div>';
+                            }
+
+                            maquinas.innerHTML = maquinasHTML;
+                            alertass.innerHTML = `
+                                <h3>Máquinas em Alerta</h3>
+                                <p style="Color: red;">Risco: <b>${vermelho}</b></p>
+                                <p style="Color: orange;">Alerta: <b>${laranja}</b></p>
+                            `;
+                        })
+                        .catch(function (erro) {
+                            console.error(erro);
+                        });
+                }
+
+                tipoAlertass.innerHTML = `
+                <h3>Tipo Alerta</h3>
+                <p style="Color: red;">Risco <br> <b>↑80</b></p>
+                <p style="Color: orange;">Alerta <br> <b>↑60 e ↓80</b></p>
+                `;
+            })
+            .catch(function (erro) {
+                console.error(erro);
             });
 
-            if (!respostaIdMaquina.ok) {
-                throw new Error("Erro ao obter ID da máquina");
-            }
 
-            const item = await respostaIdMaquina.json();
-
-            console.log(item);
-            console.log(JSON.stringify(item));
-
-            console.log(item + "  id da maquina");
-
-            const respostaMaquinas = await fetch("/usuarios/maquinas", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    fkMaquina: item, // colocar o Item aqui
-                }),
-            });
-
-            const jsonMaquina = await respostaMaquinas.json();
-
-            console.log(jsonMaquina);
-            console.log(JSON.stringify(jsonMaquina));
-
-            maquinasHTML += `
-                <div id="maquina" class="maquina ${i % 5 === 0 ? 'primeiraNaLinha' : ''}" 
-                    style="${jsonMaquina.UsoCPU > 80 ? 'border-color: red;' : ''} ${jsonMaquina.UsoCPU > 2 && jsonMaquina.UsoCPU <= 80 ? 'border-color: orange;' : ''}">
-                    <h3>Máquina ${jsonMaquina.idComputador}</h3>
-                    <p class="status ativa">Status: Ativa</p>
-                    <p>Uso de CPU: ${jsonMaquina.UsoCPU}</p>
-                    <p>Memória RAM: ${jsonMaquina.Memoria}</p>
-                    <p>Espaço em Disco: ${jsonMaquina.Disco}</p>
-                    <button onclick="mudarPagina(${jsonMaquina.idComputador})">Monitorar</button>
-                </div>
-            `;
-
-            if (jsonMaquina.UsoCPU > 80) {
-                vermelho++;
-            } else if (jsonMaquina.UsoCPU > 2 && jsonMaquina.UsoCPU <= 80) {
-                laranja++;
-            }
-
-            if ((i + 1) % 5 === 0) {
-                maquinasHTML += '</div>';
-            }
-
-            // Certifique-se de que 'maquinas' e 'alertass' estão definidos antes de atualizá-los.
-            document.getElementById('maquinas').innerHTML = maquinasHTML;
-            document.getElementById('alertass').innerHTML = `
-                <h3>Máquinas em Alerta</h3>
-                <p style="Color: red;">Risco: <b>${vermelho}</b></p>
-                <p style="Color: orange;">Alerta: <b>${laranja}</b></p>
-            `;
+        function mudarPagina(idComputador) {
+            sessionStorage.ID_MAQUINA = idComputador;
+            window.location = "../dashboard/maquina.html";
         }
-
-        // Certifique-se de que 'tipoAlertass' está definido antes de atualizá-lo.
-        document.getElementById('tipoAlertass').innerHTML = `
-            <h3>Tipo Alerta</h3>
-            <p style="Color: red;">Risco <br> <b>↑80</b></p>
-            <p style="Color: orange;">Alerta <br> <b>↑60 e ↓80</b></p>
-        `;
-    } catch (erro) {
-        console.error(erro);
-    }
-}
-
-function mudarPagina(idComputador) {
-    sessionStorage.ID_MAQUINA = idComputador;
-    window.location = "../dashboard/maquina.html";
-}
-
-// Chame a função para iniciar o processo.
-obterDadosMaquinas();
-
     </script>
 </body>
 
