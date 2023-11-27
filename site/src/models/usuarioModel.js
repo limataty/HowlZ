@@ -147,7 +147,9 @@ function idMaquina(fkGestor) {
     FROM 
         Usuario
     JOIN 
-        Computador ON Usuario.nome = Computador.nome AND Usuario.fkEmpresa = Computador.fkEmpresa
+        AssociacaoComputadorUsuario ON Usuario.idUsuario = fkUsuario
+	JOIN 
+		Computador ON fkComputador = idComputador
     WHERE 
         Usuario.fkGestor = ${fkGestor};
     `;
