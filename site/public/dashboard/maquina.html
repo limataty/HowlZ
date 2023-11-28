@@ -368,42 +368,50 @@
 
         function mostrarElemento(elementoID) {
 
-           fetch("medidas/alertas", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                fkEmpresa: sessionStorage.getItem("ID_EMPRESA")
+            fetch("medidas/alertas", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    fkEmpresa: sessionStorage.getItem("ID_EMPRESA")
+                })
+                    .then(function (resposta) {
+                        console.log("ESTOU NO THEN DO entrar()!");
+
+                        if (resposta.ok) {
+                            console.log(resposta);
+
+                            var bomCPU = resposta.alertaCPU - 0.01;
+                            var bomRAM = resposta.alertaRAM - 0.01;
+                            var bomDisco = resposta.alertaDISCO - 0.01;
+                            var bomGPU = resposta.alertaGPU - 0.01;
+
+                            var alertaCPU = resposta.alertaCPU;
+                            var alertaRAM = resposta.alertaRAM;
+                            var alertaDisco = resposta.alertaDISCO;
+                            var alertaGPU = resposta.alertaGPU;
+
+                            var ateCPU = resposta.criticoCPU - 0.01;
+                            var ateRAM = resposta.criticoRAM - 0.01;
+                            var ateDisco = resposta.criticoDISCO - 0.01;
+                            var ateGPU = resposta.criticoGPU - 0.01;
+
+                            var ruimCPU = resposta.criticoCPU;
+                            var ruimRAM = resposta.criticoRAM;
+                            var ruimDisco = resposta.criticoDISCO;
+                            var ruimGPU = resposta.criticoGPU;
+                            
+                        } else {
+                            resposta.text().then((texto) => {
+                                console.log(texto);
+                            });
+                        }
+                    })
+                    .catch(function (erro) {
+                        console.log(erro);
+                    })
             })
-            .then(function (resposta) {
-                console.log("ESTOU NO THEN DO entrar()!");
-                console.log(resposta);
-
-                var bomCPU = resposta.alertaCPU - 0.01;
-                var bomRAM = resposta.alertaRAM - 0.01;
-                var bomDisco = resposta.alertaDISCO - 0.01;
-                var bomGPU = resposta.alertaGPU - 0.01;
-
-                var alertaCPU = resposta.alertaCPU;
-                var alertaRAM = resposta.alertaRAM;
-                var alertaDisco = resposta.alertaDISCO;
-                var alertaGPU = resposta.alertaGPU;
-
-                var ateCPU = resposta.criticoCPU - 0.01;
-                var ateRAM = resposta.criticoRAM - 0.01;
-                var ateDisco = resposta.criticoDISCO - 0.01;
-                var ateGPU = resposta.criticoGPU - 0.01;
-
-                var ruimCPU = resposta.criticoCPU;
-                var ruimRAM = resposta.criticoRAM;
-                var ruimDisco = resposta.criticoDISCO;
-                var ruimGPU = resposta.criticoGPU;
-            })
-            .catch(function (erro) {
-                console.log(erro);
-            })
-           })
 
             var elementos = ["CPU", "RAM", "Disco", "GPU"];
             elementos.forEach(function (elemento) {
@@ -435,7 +443,7 @@
                     Ruim: A partir de ${ruimRAM}%
                     `
                 } else if (elementoID === 'Disco') {
-                    obterDadosGrafico(testefk, 'Disco' ,'3', 'canvasDISCO');
+                    obterDadosGrafico(testefk, 'Disco', '3', 'canvasDISCO');
                     alertaComp1.innerHTML = `
                     Bom: Até ${bomDisco}%</span>`
                     alertaComp2.innerHTML = `
@@ -603,7 +611,7 @@
         // obterDadosGrafico(testefk, 'GPU', 'canvasGPU');
     }
 
-    function obterDadosGrafico(testefk, nomeGrafico ,tipoGrafico, idCanvas) {
+    function obterDadosGrafico(testefk, nomeGrafico, tipoGrafico, idCanvas) {
         if (proximaAtualizacao != undefined) {
             clearTimeout(proximaAtualizacao);
         }
@@ -617,7 +625,7 @@
                         console.log(`Dados recebidos para ${nomeGrafico}: ${JSON.stringify(resposta)}`);
                         resposta.reverse();
 
-                        plotarGrafico(resposta, nomeGrafico ,tipoGrafico, idCanvas);
+                        plotarGrafico(resposta, nomeGrafico, tipoGrafico, idCanvas);
                     });
                 } else {
                     console.error(`Nenhum dado encontrado ou erro na API para ${nomeGrafico}`);
@@ -630,7 +638,7 @@
             });
     }
 
-    function plotarGrafico(resposta, nomeGrafico ,tipoGrafico, idCanvas) {
+    function plotarGrafico(resposta, nomeGrafico, tipoGrafico, idCanvas) {
         console.log(`Iniciando plotagem do gráfico ${nomeGrafico}...`);
 
         let labels = [];
@@ -700,7 +708,7 @@
 
         if (ctx) {
             let myChart = new Chart(ctx, config);
-            setTimeout(() => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico,tipoGrafico), 2000);
+            setTimeout(() => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico), 2000);
         } else {
             console.error(`Erro ao obter contexto do gráfico ${tipoGrafico}.`);
         }
@@ -751,14 +759,14 @@
                         }
 
                         proximaAtualizacao = setTimeout(
-                            () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico,tipoGrafico),
+                            () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
                             5000
                         );
                     });
                 } else {
                     console.error(`Nenhum dado encontrado ou erro na API para ${tipoGrafico}`);
                     proximaAtualizacao = setTimeout(
-                        () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico,tipoGrafico),
+                        () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
                         2000
                     );
                 }
