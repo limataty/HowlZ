@@ -529,24 +529,22 @@
                     for (let i = 0; i < respostas.length; i++) {
                         var json = respostas[i];
 
-                        if (respostas.ok) {
-                            console.log(respostas);
+                        if (json.ok) {
+                            console.log(json);
                             processosHTML += `<tr>
                     <td>${json.NomeProcesso}</td>
                     <td>${json.dataHora}</td>
                     <td>${json.uso} ${json.simbolo}</td>
-                    </tr>`;
+                </tr>`;
                         } else {
-                            respostas.text().then((texto) => {
-                                console.log(texto);
-                            });
+                            console.error("Erro na resposta:", json);
                         }
                     }
 
                     tabelaProcessos.innerHTML = processosHTML;
                 })
                 .catch(function (erro) {
-                    console.log(erro);
+                    console.error("Erro geral:", erro);
                 });
         }
 
