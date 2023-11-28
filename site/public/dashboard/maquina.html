@@ -472,7 +472,9 @@
         }
 
         function pegarProcessos() {
-            fetch(`/processos/contarProcesso`, {
+
+            fetch("/processos/exibirProcesso", {
+
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -481,63 +483,34 @@
                     idMaquina: sessionStorage.getItem("ID_MAQUINA")
                 }),
             })
-                .then(function (json) {
-                    if (!json.ok) {
-                        throw new Error("Erro na requisição: " + json.status);
-                    }
-                    return json.json(); // Retorna a promessa do corpo JSON
-                })
-
-                .then(function (json) {
-                    console.log("ESTOU NO THEN DO entrar do Processo()!");
-                    var processosHTML = "";
-                    if (json.ok) {
-                        console.log(json);
-                        for (let i = 0; i < json; i++) {
-                            fetch("/processos/exibirProcesso", {
-
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({
-                                    fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
-                                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
-                                }),
-                            })
-                                .then(function (resposta) {
-                                    if (resposta.ok) {
-                                        return resposta.json(); // Retorna uma Promise que resolve para o corpo JSON
-                                    } else {
-                                        return resposta.text().then((texto) => {
-                                            console.log(texto);
-                                            throw new Error("Erro na requisição: " + resposta.status);
-                                        });
-                                    }
-                                })
-                                .then(function (resposta) {
-                                    console.log("ESTOU NO THEN DO entrar do Exibir Processo()!");
-
-                                    if (resposta.ok) {
-                                        console.log(resposta);
-                                        processosHTML += `<tr>
-                                            <td>${resposta[0].NomeProcesso}</td>
-                                            <td>${resposta[0].dataHora}</td>
-                                            <td>${resposta[0].uso} ${resposta[0].simbolo}</td>
-                                            </tr>`
-                                        tabelaProcessos.innerHTML = processosHTML;
-                                    } else {
-                                        resposta.text().then((texto) => {
-                                            console.log(texto);
-                                        });
-                                    }
-                                })
-                                .catch(function (erro) {
-                                    console.log(erro);
-                                });
-                        }
+                .then(function (resposta) {
+                    if (resposta.ok) {
+                        return resposta.json(); // Retorna uma Promise que resolve para o corpo JSON
                     } else {
-                        json.text().then((texto) => {
+                        return resposta.text().then((texto) => {
+                            console.log(texto);
+                            throw new Error("Erro na requisição: " + resposta.status);
+                        });
+                    }
+                })
+                .then(function (resposta) {
+                    console.log("ESTOU NO THEN DO entrar do Exibir Processo()!");
+                    processosHTML = "";
+
+                    if (resposta.ok) {
+                        console.log(resposta);
+                        for (let i = 0; i < resposta.length; i++) {
+                        
+                            processosHTML += `<tr>
+                                                <td>${resposta[0].NomeProcesso}</td>
+                                                <td>${resposta[0].dataHora}</td>
+                                                <td>${resposta[0].uso} ${resposta[0].simbolo}</td>
+                                                </tr>`
+                            tabelaProcessos.innerHTML = processosHTML;
+                        }
+
+                    } else {
+                        resposta.text().then((texto) => {
                             console.log(texto);
                         });
                     }
@@ -545,8 +518,8 @@
                 .catch(function (erro) {
                     console.log(erro);
                 });
-
         }
+
 
         pegarProcessos();
 

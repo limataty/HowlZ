@@ -59,7 +59,7 @@ function contarProcessoModel(idMaquina) {
 //     return database.executar(instrucao);
 // }
 
-function exibirProcesso(fkGestor, idMaquina) {
+function exibirProcesso(idMaquina) {
     var instrucao = "";
 
     if(process.env.AMBIENTE_PROCESSO == "producao"){

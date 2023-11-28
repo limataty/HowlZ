@@ -1,11 +1,10 @@
 var processoModel = require("../models/processoModel");
 
 function exibirProcesso(req, res) {
-  var fkGestor = req.body.fkGestorServer;
   var idMaquina = req.body.idMaquina;
 
   processoModel
-    .exibirProcesso(fkGestor, idMaquina)
+    .exibirProcesso(idMaquina)
     .then(function (resultado) {
       console.log("resultado: " + resultado[0].NomeProcesso + " " + resultado[0].dataHora + " " + resultado[0].uso + resultado[0].simbolo);
       res.json(resultado[0]);
@@ -45,8 +44,8 @@ function contarProcesso(req, res) {
 
   processoModel.contarProcessoModel(idMaquina)
     .then(function (resultado) {
-      console.log("resultado da contagem de Processos: " + resultado.TotalLinhas);
-      res.json(resultado.TotalLinhas);
+      console.log("resultado: " + resultado[0].TotalLinhas);
+      res.json(resultado[0].TotalLinhas);
     })
     .catch(function (erro) {
       console.log(erro);
