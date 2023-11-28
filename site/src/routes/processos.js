@@ -7,16 +7,16 @@ router.post("/exibirProcesso", function (req, res) {
     processosController.exibirProcesso(req, res);
 })
 
-router.post("/exibirJanela", function (req, res) {
-    processosController.exibirJanela(req, res);
-})
+// router.post("/exibirJanela", function (req, res) {
+//     processosController.exibirJanela(req, res);
+// })
 
 router.post("/contarProcesso", function (req, res) {
     processosController.contarProcesso(req, res);
 })
 
-router.post("/contarJanela", function (req, res) {
-    processosController.contarJanela(req, res);
-})
+// router.post("/contarJanela", function (req, res) {
+//     processosController.contarJanela(req, res);
+// })
 
 module.exports = router;
