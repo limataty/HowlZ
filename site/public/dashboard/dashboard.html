@@ -230,8 +230,16 @@
             `;
             tipoAlertass.innerHTML = `
                 <h3>Tipo Alerta</h3>
-                <p style="Color: red;">Risco <br> <b>↑${alertaInfo.criticoCPU}</b></p>
-                <p style="Color: orange;">Alerta <br> <b>↑60 e ↓80</b></p>
+                <p style="Color: red;">Risco <br> 
+                    CPU<b>↑${alertaInfo.criticoCPU}</b>
+                    RAM<b>↑${alertaInfo.criticoRAM}</b>
+                    DISCO<b>↑${alertaInfo.criticoDISCO}</b>
+                    </p>
+                <p style="Color: orange;">Alerta <br> 
+                    CPU<b>↑${alertaInfo.alertaCPU} e ↓${alertaInfo.criticoCPU}</b>
+                    RAM<b>↑${alertaInfo.alertaRAM} e ↓${alertaInfo.criticoRAM}</b>
+                    DISCO<b>↑${alertaInfo.alertaDISCO} e ↓${alertaInfo.criticoDISCO}</b>
+                    </p>
                 `;
                 }
 
