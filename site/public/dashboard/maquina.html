@@ -472,6 +472,9 @@
         }
 
         function pegarProcessos() {
+
+            console.log("A função pegarProcessos() foi chamada!");
+
             fetch("/processos/contarProcesso", {
                 method: "POST",
                 headers: {
