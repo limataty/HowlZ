@@ -40,7 +40,7 @@ function exibirJanela(req, res) {
 }
 
 function contarProcesso(req, res) {
-  var idMaquina = req.params.idMaquina;
+  var idMaquina = req.body.idMaquina;
 
   processoModel.contarProcessoModel(idMaquina)
     .then(function (resultado) {
