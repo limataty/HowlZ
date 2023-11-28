@@ -166,7 +166,7 @@ function exibirProcesso(fkGestor, idMaquina) {
 
 module.exports = {
     exibirProcesso,
-    exibirJanela,
+    // exibirJanela,
     contarProcesso,
-    contarJanela
+    // contarJanela
 };
