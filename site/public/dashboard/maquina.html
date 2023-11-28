@@ -532,9 +532,9 @@
                         if (respostas.ok) {
                             console.log(respostas);
                             processosHTML += `<tr>
-                    <td>${respostas[i].NomeProcesso}</td>
-                    <td>${respostas[i].dataHora}</td>
-                    <td>${respostas[i].uso} ${respostas[i].simbolo}</td>
+                    <td>${json.NomeProcesso}</td>
+                    <td>${json.dataHora}</td>
+                    <td>${json.uso} ${json.simbolo}</td>
                     </tr>`;
                         } else {
                             respostas.text().then((texto) => {
