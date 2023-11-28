@@ -368,6 +368,26 @@
 
         function mostrarElemento(elementoID) {
 
+            var bomCPU = 0;
+            var bomRAM = 0;
+            var bomDisco = 0;
+            var bomGPU = 0;
+
+            var alertaCPU = 0;
+            var alertaRAM = 0;
+            var alertaDisco = 0;
+            var alertaGPU = 0;
+
+            var ateCPU = 0;
+            var ateRAM = 0;
+            var ateDisco = 0;
+            var ateGPU = 0;
+
+            var ruimCPU = 0;
+            var ruimRAM = 0;
+            var ruimDisco = 0;
+            var ruimGPU = 0;
+
             fetch("medidas/alertas", {
                 method: "POST",
                 headers: {
@@ -383,25 +403,25 @@
                     if (resposta.ok) {
                         console.log(resposta);
 
-                        var bomCPU = resposta.alertaCPU - 0.01;
-                        var bomRAM = resposta.alertaRAM - 0.01;
-                        var bomDisco = resposta.alertaDISCO - 0.01;
-                        var bomGPU = resposta.alertaGPU - 0.01;
+                        bomCPU = resposta.alertaCPU - 0.01;
+                        bomRAM = resposta.alertaRAM - 0.01;
+                        bomDisco = resposta.alertaDISCO - 0.01;
+                        bomGPU = resposta.alertaGPU - 0.01;
 
-                        var alertaCPU = resposta.alertaCPU;
-                        var alertaRAM = resposta.alertaRAM;
-                        var alertaDisco = resposta.alertaDISCO;
-                        var alertaGPU = resposta.alertaGPU;
+                        alertaCPU = resposta.alertaCPU;
+                        alertaRAM = resposta.alertaRAM;
+                        alertaDisco = resposta.alertaDISCO;
+                        alertaGPU = resposta.alertaGPU;
 
-                        var ateCPU = resposta.criticoCPU - 0.01;
-                        var ateRAM = resposta.criticoRAM - 0.01;
-                        var ateDisco = resposta.criticoDISCO - 0.01;
-                        var ateGPU = resposta.criticoGPU - 0.01;
+                        ateCPU = resposta.criticoCPU - 0.01;
+                        ateRAM = resposta.criticoRAM - 0.01;
+                        ateDisco = resposta.criticoDISCO - 0.01;
+                        ateGPU = resposta.criticoGPU - 0.01;
 
-                        var ruimCPU = resposta.criticoCPU;
-                        var ruimRAM = resposta.criticoRAM;
-                        var ruimDisco = resposta.criticoDISCO;
-                        var ruimGPU = resposta.criticoGPU;
+                        ruimCPU = resposta.criticoCPU;
+                        ruimRAM = resposta.criticoRAM;
+                        ruimDisco = resposta.criticoDISCO;
+                        ruimGPU = resposta.criticoGPU;
 
                     } else {
                         resposta.text().then((texto) => {
