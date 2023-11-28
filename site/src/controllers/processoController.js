@@ -80,7 +80,7 @@ function contarJanela(req, res) {
 module.exports = {
   exibirProcesso,
   exibirJanela,
-  contarProcesso,
-  contarJanela
+  // contarProcesso,
+  // contarJanela
 };
 
