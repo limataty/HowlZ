@@ -714,7 +714,9 @@
 
     setInterval(() => {
         atualizarBotoes();
-    }, 5000);
+        pegarProcessos();
+        pegarJanela();
+    }, 15000);
 
     function atualizarBotoes() {
         var idComputador = sessionStorage.getItem("ID_MAQUINA");
