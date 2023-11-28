@@ -486,7 +486,7 @@
                     var processosHTML = "";
                     if (json.ok) {
                         console.log(json);
-                        for (let i = 0; i < json.length; i++) {
+                        for (let i = 0; i < json; i++) {
                             fetch("/processos/exibirProcesso", {
                                 method: "POST",
                                 headers: {
@@ -497,6 +497,16 @@
                                     idMaquina: sessionStorage.getItem("ID_MAQUINA")
                                 }),
                             })
+                                .then(function (resposta) {
+                                    if (resposta.ok) {
+                                        return resposta.json(); // Retorna uma Promise que resolve para o corpo JSON
+                                    } else {
+                                        return resposta.text().then((texto) => {
+                                            console.log(texto);
+                                            throw new Error("Erro na requisição: " + resposta.status);
+                                        });
+                                    }
+                                })
                                 .then(function (resposta) {
                                     console.log("ESTOU NO THEN DO entrar()!");
 
