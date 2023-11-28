@@ -476,12 +476,12 @@
             fetch(`/processos/contarProcesso/${idMaquina}`, {
                 cache: "no-store",
             })
-                .then(function (json) {
+                .then(function (retorno) {
                     console.log("ESTOU NO THEN DO entrar do Processo()!");
                     var processosHTML = "";
-                    if (json.ok) {
-                        console.log(json);
-                        for (let i = 0; i < json; i++) {
+                    if (retorno.ok) {
+                        console.log(retorno);
+                        for (let i = 0; i < retorno; i++) {
                             fetch("/processos/exibirProcesso", {
                                 method: "POST",
                                 headers: {
