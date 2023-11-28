@@ -111,19 +111,19 @@
                     </div>
 
                     <div class="botoes">
-                        <button onclick="mostrarElemento('GPU')">
+                        <button onclick="mostrarElemento('GPU')" id="botaoGrafico">
                             GPU
                             <div id="performanceGPU">Médio | 60%</div>
                         </button>
-                        <button onclick="mostrarElemento('RAM')">
+                        <button onclick="mostrarElemento('RAM')" id="botaoGrafico">
                             RAM
                             <div id="performanceRAM">Ruim | 95%</div>
                         </button>
-                        <button onclick="mostrarElemento('CPU')">
+                        <button onclick="mostrarElemento('CPU')" id="botaoGrafico">
                             CPU
                             <div id="performanceCPU">Bom | 15%</div>
                         </button>
-                        <button onclick="mostrarElemento('Disco')">
+                        <button onclick="mostrarElemento('Disco')" id="botaoGrafico">
                             Disco
                             <div id="performanceDISCO">Ruim | 90%</div>
                         </button>
@@ -701,11 +701,15 @@
 
         if (ctx) {
             let myChart = new Chart(ctx, config);
-            setTimeout(() => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico), atualizarBotoes(), 2000);
+            setTimeout(() => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico), 2000);
         } else {
             console.error(`Erro ao obter contexto do gráfico ${tipoGrafico}.`);
         }
     }
+
+    setInterval(() => {
+        atualizarBotoes();
+    }, 30000);
 
     function atualizarBotoes(){
         var idComputador = sessionStorage.getItem("ID_MAQUINA");
@@ -725,32 +729,40 @@
 
                         if (resposta[0].monitoramentoGPU > criticoGPU) {
                             statusGPU = "Ruim";
+                            botaoGrafico.style.backgroundColor = "red";
                         } else if (resposta[0].monitoramentoGPU > alertaGPU && resposta[0].monitoramentoGPU < criticoGPU) {
                             statusGPU = "Médio";
+                            botaoGrafico.style.backgroundColor = "orange";
                         } else {
                             statusGPU = "Bom";
                         }
 
                         if (resposta[0].monitoramentoRAM > criticoRAM) {
                             statusRAM = "Ruim";
+                            botaoGrafico.style.backgroundColor = "red";
                         } else if (resposta[0].monitoramentoRAM > alertaRAM && resposta[0].monitoramentoRAM < criticoRAM) {
                             statusRAM = "Médio";
+                            botaoGrafico.style.backgroundColor = "orange";
                         } else {
                             statusRAM = "Bom";
                         }
 
                         if (resposta[0].monitoramentoCPU > criticoCPU) {
                             statusCPU = "Ruim";
+                            botaoGrafico.style.backgroundColor = "red";
                         } else if (resposta[0].MonitoramentoCPU > alertaCPU && resposta[0].MonitoramentoCPU < criticoCPU) {
                             statusCPU = "Médio";
+                            botaoGrafico.style.backgroundColor = "orange";
                         } else {
                             statusCPU = "Bom";
                         }
 
                         if (resposta[0].monitoramentoDISCO > criticoDISCO) {
                             statusDisco = "Ruim";
+                            botaoGrafico.style.backgroundColor = "red";
                         } else if (resposta[0].monitoramentoDISCO > alertaDISCO && resposta[0].monitoramentoDISCO < criticoDISCO) {
                             statusDisco = "Médio";
+                            botaoGrafico.style.backgroundColor = "orange";
                         } else {
                             statusDisco = "Bom";
                         }
@@ -818,7 +830,6 @@
 
                         proximaAtualizacao = setTimeout(
                             () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
-                            atualizarBotoes(),
                             5000
                         );
                     });
@@ -826,7 +837,6 @@
                     console.error(`Nenhum dado encontrado ou erro na API para ${tipoGrafico}`);
                     proximaAtualizacao = setTimeout(
                         () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
-                        atualizarBotoes(),
                         2000
                     );
                 }
