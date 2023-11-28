@@ -63,15 +63,15 @@ function alertas(req, res) {
   var fkEmpresa = req.body.fkEmpresa;
 
   medidaModel.alertas(fkEmpresa)
-    .then(function (resultado) {
-      console.log("resultado dos !alertas!: " + resultado[0].criticoCPU + " " + resultado[0].criticoMemoria + " " + resultado[0].criticoDisco + " " + resultado[0].avisoCPU + " " + resultado[0].avisoMemoria + " " + resultado[0].avisoDisco + " " + resultado[0].criticoGPU + " " + resultado[0].avisoGPU);
-      res.json(resultado[0]);
-    })
-    .catch(function (erro) {
-      console.log(erro);
-      console.log("Houve um erro ao realizar o alerta: ", erro.sqlMessage);
-      res.status(500).json(erro.sqlMessage);
-    });
+      .then(function (resultado) {
+          console.log("resultado dos !alertas!: " + resultado[0].criticoCPU + " " + resultado[0].criticoMemoria + " " + resultado[0].criticoDisco + " " + resultado[0].avisoCPU + " " + resultado[0].avisoMemoria + " " + resultado[0].avisoDisco + " " + resultado[0].criticoGPU + " " + resultado[0].avisoGPU);
+          res.json(resultado[0]);
+      })
+      .catch(function (erro) {
+          console.log(erro);
+          console.log("Houve um erro ao realizar o alerta: ", erro.sqlMessage);
+          res.status(500).json(erro.sqlMessage);
+      });
 }
 
 module.exports = {

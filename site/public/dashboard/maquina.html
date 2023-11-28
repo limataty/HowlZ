@@ -367,123 +367,88 @@
         }
 
         function mostrarElemento(elementoID) {
+    var bomCPU, bomRAM, bomDisco, bomGPU;
+    var alertaCPU, alertaRAM, alertaDisco, alertaGPU;
+    var ateCPU, ateRAM, ateDisco, ateGPU;
+    var ruimCPU, ruimRAM, ruimDisco, ruimGPU;
 
-            var bomCPU = 0;
-            var bomRAM = 0;
-            var bomDisco = 0;
-            var bomGPU = 0;
-
-            var alertaCPU = 0;
-            var alertaRAM = 0;
-            var alertaDisco = 0;
-            var alertaGPU = 0;
-
-            var ateCPU = 0;
-            var ateRAM = 0;
-            var ateDisco = 0;
-            var ateGPU = 0;
-
-            var ruimCPU = 0;
-            var ruimRAM = 0;
-            var ruimDisco = 0;
-            var ruimGPU = 0;
-
-            fetch("/medidas/alertas", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    fkEmpresa: sessionStorage.getItem("ID_EMPRESA")
-                })
-            })
-                .then(function (resposta) {
-
-                    if (resposta.ok) {
-                        console.log(resposta);
-                        console.log(resposta[0]);
-                        console.log(JSON.stringify(resposta));
-
-                        bomCPU = resposta.alertaCPU - 0.01;
-                        bomRAM = resposta.alertaRAM - 0.01;
-                        bomDisco = resposta.alertaDISCO - 0.01;
-                        bomGPU = resposta.alertaGPU - 0.01;
-
-                        alertaCPU = resposta.alertaCPU;
-                        alertaRAM = resposta.alertaRAM;
-                        alertaDisco = resposta.alertaDISCO;
-                        alertaGPU = resposta.alertaGPU;
-
-                        ateCPU = resposta.criticoCPU - 0.01;
-                        ateRAM = resposta.criticoRAM - 0.01;
-                        ateDisco = resposta.criticoDISCO - 0.01;
-                        ateGPU = resposta.criticoGPU - 0.01;
-
-                        ruimCPU = resposta.criticoCPU;
-                        ruimRAM = resposta.criticoRAM;
-                        ruimDisco = resposta.criticoDISCO;
-                        ruimGPU = resposta.criticoGPU;
-
-                    } else {
-                        resposta.text().then((texto) => {
-                            console.log(texto);
-                        });
-                    }
-                })
-                .catch(function (erro) {
-                    console.log(erro);
-                })
-
-            var elementos = ["CPU", "RAM", "Disco", "GPU"];
-            elementos.forEach(function (elemento) {
-                var elementoAtual = document.getElementById(elemento);
-                if (elementoAtual) {
-                    elementoAtual.style.display = 'none';
-                }
+    fetch("/medidas/alertas", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            fkEmpresa: sessionStorage.getItem("ID_EMPRESA")
+        })
+    })
+    .then(function (resposta) {
+        if (resposta.ok) {
+            return resposta.json();
+        } else {
+            return resposta.text().then((texto) => {
+                console.log(texto);
+                throw new Error("Erro na requisição: " + resposta.status);
             });
-            var elementoSelecionado = document.getElementById(elementoID);
-            if (elementoSelecionado) {
-                elementoSelecionado.style.display = 'block';
-
-                if (elementoID === 'CPU') {
-                    obterDadosGrafico(testefk, 'CPU', '1', 'canvasCPU');
-                    alertaComp1.innerHTML = `
-                    Bom: Até ${bomCPU}%</span>`
-                    alertaComp2.innerHTML = `
-                    Alerta: De ${alertaCPU}% à ${ateCPU}%`
-                    alertaComp3.innerHTML = `
-                    Ruim: A partir de ${ruimCPU}%
-                    `
-                } else if (elementoID === 'RAM') {
-                    obterDadosGrafico(testefk, 'RAM', '2', 'canvasRAM');
-                    alertaComp1.innerHTML = `
-                    Bom: Até ${bomRAM}%</span>`
-                    alertaComp2.innerHTML = `
-                    Alerta: De ${alertaRAM}% à ${ateRAM}%`
-                    alertaComp3.innerHTML = `
-                    Ruim: A partir de ${ruimRAM}%
-                    `
-                } else if (elementoID === 'Disco') {
-                    obterDadosGrafico(testefk, 'Disco', '3', 'canvasDISCO');
-                    alertaComp1.innerHTML = `
-                    Bom: Até ${bomDisco}%</span>`
-                    alertaComp2.innerHTML = `
-                    Alerta: De ${alertaDisco}% à ${ateDisco}%`
-                    alertaComp3.innerHTML = `
-                    Ruim: A partir de ${ruimDisco}%
-                    `
-                } else if (elementoID === 'GPU') {
-                    obterDadosGrafico(testefk, 'GPU', '4', 'canvasGPU');
-                    alertaComp1.innerHTML = `
-                    Bom: Até ${bomGPU}%</span>`
-                    alertaComp2.innerHTML = `
-                    Alerta: De ${alertaGPU}% à ${ateGPU}%`
-                    alertaComp3.innerHTML = `
-                    Ruim: A partir de ${ruimGPU}%
-                    `
-                }
-            }
         }
+    })
+    .then(function (resposta) {
+        bomCPU = resposta.alertaCPU - 0.01;
+        bomRAM = resposta.alertaRAM - 0.01;
+        bomDisco = resposta.alertaDISCO - 0.01;
+        bomGPU = resposta.alertaGPU - 0.01;
+
+        alertaCPU = resposta.alertaCPU;
+        alertaRAM = resposta.alertaRAM;
+        alertaDisco = resposta.alertaDISCO;
+        alertaGPU = resposta.alertaGPU;
+
+        ateCPU = resposta.criticoCPU - 0.01;
+        ateRAM = resposta.criticoRAM - 0.01;
+        ateDisco = resposta.criticoDISCO - 0.01;
+        ateGPU = resposta.criticoGPU - 0.01;
+
+        ruimCPU = resposta.criticoCPU;
+        ruimRAM = resposta.criticoRAM;
+        ruimDisco = resposta.criticoDISCO;
+        ruimGPU = resposta.criticoGPU;
+    })
+    .catch(function (erro) {
+        console.log(erro);
+    });
+
+    var elementos = ["CPU", "RAM", "Disco", "GPU"];
+    elementos.forEach(function (elemento) {
+        var elementoAtual = document.getElementById(elemento);
+        if (elementoAtual) {
+            elementoAtual.style.display = 'none';
+        }
+    });
+
+    var elementoSelecionado = document.getElementById(elementoID);
+    if (elementoSelecionado) {
+        elementoSelecionado.style.display = 'block';
+
+        if (elementoID === 'CPU') {
+            obterDadosGrafico(testefk, 'CPU', '1', 'canvasCPU');
+            atualizarAlertas(alertaCPU, bomCPU, ateCPU, ruimCPU, 'alertaComp1', 'alertaComp2', 'alertaComp3');
+        } else if (elementoID === 'RAM') {
+            obterDadosGrafico(testefk, 'RAM', '2', 'canvasRAM');
+            atualizarAlertas(alertaRAM, bomRAM, ateRAM, ruimRAM, 'alertaComp1', 'alertaComp2', 'alertaComp3');
+        } else if (elementoID === 'Disco') {
+            obterDadosGrafico(testefk, 'Disco', '3', 'canvasDISCO');
+            atualizarAlertas(alertaDisco, bomDisco, ateDisco, ruimDisco, 'alertaComp1', 'alertaComp2', 'alertaComp3');
+        } else if (elementoID === 'GPU') {
+            obterDadosGrafico(testefk, 'GPU', '4', 'canvasGPU');
+            atualizarAlertas(alertaGPU, bomGPU, ateGPU, ruimGPU, 'alertaComp1', 'alertaComp2', 'alertaComp3');
+        }
+    }
+}
+
+function atualizarAlertas(alerta, bom, ate, ruim, comp1, comp2, comp3) {
+    document.getElementById(comp1).innerHTML = `Bom: Até ${bom}%</span>`;
+    document.getElementById(comp2).innerHTML = `Alerta: De ${alerta}% à ${ate}%`;
+    document.getElementById(comp3).innerHTML = `Ruim: A partir de ${ruim}%`;
+}
 
         function pegarProcessos() {
             fetch("/processos/contarProcesso", {
@@ -613,24 +578,6 @@
     let proximaAtualizacao;
 
     window.onload = obterDadosGraficos;
-
-    function obterDadosGraficos() {
-
-        // if (document.getElementById('CPU').style.display === "block") {
-        //     obterDadosGrafico(testefk, 'CPU', 'CPU');
-        // } else if (RAM.style.display === "block") {
-        //     obterDadosGrafico(testefk, 'RAM', 'RAM');
-        // } else if (Disco.style.display === "block") {
-        //     obterDadosGrafico(testefk, 'Disco', 'DISCO');
-        // } else if (GPU.style.display === "block") {
-        //     obterDadosGrafico(testefk, 'GPU', 'GPU');
-        // }
-
-        // obterDadosGrafico(testefk, 'CPU', 'canvasCPU');
-        // obterDadosGrafico(testefk, 'RAM', 'canvasRAM');
-        // obterDadosGrafico(testefk, 'Disco', 'canvasDISCO');
-        // obterDadosGrafico(testefk, 'GPU', 'canvasGPU');
-    }
 
     function obterDadosGrafico(testefk, nomeGrafico, tipoGrafico, idCanvas) {
         if (proximaAtualizacao != undefined) {
