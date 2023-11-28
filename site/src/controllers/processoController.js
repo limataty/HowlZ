@@ -46,7 +46,7 @@ function contarProcesso(req, res) {
   processoModel
     .contarProcesso(idMaquina)
     .then(function (resultado) {
-      console.log("resultado: " + resultado.TotalLinhas);
+      console.log("resultado da contagem de Processos: " + resultado.TotalLinhas);
       res.json(resultado.TotalLinhas);
     })
     .catch(function (erro) {
