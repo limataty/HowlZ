@@ -446,7 +446,8 @@ function alertas(req, res){
 
   usuarioModel.alertas(fkEmpresa)
     .then(function (resultado) {
-      res.json(resultado);
+      console.log("resultado dos alertas: " + resultado[0].criticoCPU + " " + resultado[0].criticoMemoria + " " + resultado[0].criticoDisco + " " + resultado[0].avisoCPU + " " + resultado[0].avisoMemoria + " " + resultado[0].avisoDisco);
+      res.json(resultado[0]);
     })
     .catch(function (erro) {
       console.log(erro);
