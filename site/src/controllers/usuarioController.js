@@ -471,4 +471,5 @@ module.exports = {
   apagar,
   editarGestor,
   apagarGestor,
+  alertas,
 };
