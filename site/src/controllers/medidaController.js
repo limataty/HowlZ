@@ -64,7 +64,7 @@ function alertas(req, res) {
 
   medidaModel.alertas(fkEmpresa)
       .then(function (resultado) {
-          console.log("resultado dos !alertas!: " + resultado[0].criticoCPU + " " + resultado[0].criticoMemoria + " " + resultado[0].criticoDisco + " " + resultado[0].avisoCPU + " " + resultado[0].avisoMemoria + " " + resultado[0].avisoDisco + " " + resultado[0].criticoGPU + " " + resultado[0].avisoGPU);
+          console.log("resultado dos !alertas!: " + resultado[0].alertaCPU + " " + resultado[0].criticoCPU + " " + resultado[0].alertaRAM + " " + resultado[0].criticoRAM + " " + resultado[0].alertaDISCO + " " + resultado[0].criticoDISCO + " " + resultado[0].alertaGPU + " " + resultado[0].criticoGPU);
           res.json(resultado[0]);
       })
       .catch(function (erro) {
@@ -73,6 +73,7 @@ function alertas(req, res) {
           res.status(500).json(erro.sqlMessage);
       });
 }
+
 
 module.exports = {
   buscarUltimasMedidas,
