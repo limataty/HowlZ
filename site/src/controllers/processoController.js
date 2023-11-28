@@ -4,8 +4,6 @@ function exibirProcesso(req, res) {
   var fkGestor = req.body.fkGestorServer;
   var idMaquina = req.body.idMaquina;
 
-
-  
   processoModel
     .exibirProcesso(fkGestor, idMaquina)
     .then(function (resultado) {
@@ -46,7 +44,7 @@ function contarProcesso(req, res) {
   var idMaquina = req.params.idMaquina;
 
   processoModel
-    .contarProcesso(idMaquina)
+    .contarProcessoModel(idMaquina)
     .then(function (resultado) {
       console.log("resultado da contagem de Processos: " + resultado.TotalLinhas);
       res.json(resultado.TotalLinhas);

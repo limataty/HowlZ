@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function contarProcesso(idMaquina) {
+function contarProcessoModel(idMaquina) {
     var instrucao = "";
     
     if(process.env.AMBIENTE_PROCESSO == "producao"){
@@ -167,6 +167,6 @@ function exibirProcesso(fkGestor, idMaquina) {
 module.exports = {
     exibirProcesso,
     // exibirJanela,
-    contarProcesso,
+    contarProcessoModel,
     // contarJanela
 };
