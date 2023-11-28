@@ -530,6 +530,8 @@
 
         }
 
+        pegarProcessos();
+
         function pegarJanela() {
             fetch("/processos/contarJanela", {
                 method: "POST",
@@ -587,6 +589,8 @@
                     console.log(erro);
                 });
         }
+
+        pegarJanela();
     </script>
 </body>
 
@@ -742,6 +746,8 @@
                 console.error(`Erro na obtenção dos dados para botões: ${error.message}`);
             });
     }
+
+    atualizarBotoes();
 
     function obterStatus(valor, critico, alerta) {
         if (valor > critico) {

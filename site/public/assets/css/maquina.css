@@ -376,5 +376,5 @@ td {
 }
 
 .bom {
-    /* estilo para o status bom */
+    background-color: green;
 }
