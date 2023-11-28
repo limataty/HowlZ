@@ -596,7 +596,12 @@
     var testefk = sessionStorage.getItem("ID_MAQUINA");
     let proximaAtualizacao;
 
-    window.onload = obterDadosGraficos();
+    window.onload = obterDadosGraficos;
+
+    function obterDadosGraficos(){
+        
+    }
+
 
     function obterDadosGrafico(testefk, nomeGrafico, tipoGrafico, idCanvas) {
         if (proximaAtualizacao != undefined) {
