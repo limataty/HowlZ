@@ -29,6 +29,8 @@ function contarProcesso(idMaquina) {
     WHERE 
     MonitoramentoProcesso.dataHora >= CURDATE() - INTERVAL 1 WEEK AND fkComputador = ${idMaquina};
     `;
+
+    console.log(instrucao);
     return database.executar(instrucao);
     }
     
@@ -55,6 +57,7 @@ WHERE
     dataHora >= CURDATE() - INTERVAL 1 WEEK AND fkComputador = ${idMaquina};
     `;
     }
+    console.log(instrucao);
     return database.executar(instrucao);
 }
 
@@ -120,6 +123,7 @@ function exibirProcesso(fkGestor, idMaquina) {
     `;
     }
 
+    console.log(instrucao);
     return database.executar(instrucao);
 }
 
@@ -157,6 +161,7 @@ LIMIT 1;
     `;
     }
     
+    console.log(instrucao);
     return database.executar(instrucao);
 }
 
