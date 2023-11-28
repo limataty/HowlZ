@@ -6,23 +6,30 @@ function buscarUltimasMedidas(idComputador, tipoComponente) {
   const limite_linhas = 7;
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
-    instrucaoSql = `SELECT FORMAT(Monitoramento.dataHora, 'HH:mm:ss') as momento_grafico, 
-    Monitoramento.valor as totalCaptacao
-    FROM Componente
-    JOIN Monitoramento ON Componente.idComponente = Monitoramento.fkComponente
-    JOIN Computador ON Componente.fkComputador = Computador.idComputador
-    WHERE Computador.idComputador = ${idComputador} AND Componente.tipo = ${tipoComponente}
-    ORDER BY Monitoramento.dataHora DESC
-    OFFSET 0 ROWS FETCH NEXT 5 ROWS ONLY;
+    instrucaoSql = `SELECT 
+    FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:ss') AS momento_grafico, 
+    MonitoramentoComponente.valor AS totalCaptacao
+FROM 
+    Componente
+JOIN 
+    MonitoramentoComponente ON Componente.idComponente = MonitoramentoComponente.fkComponente
+JOIN 
+    Computador ON Componente.fkComputador = Computador.idComputador
+WHERE 
+    Computador.idComputador = ${idComputador} AND MonitoramentoComponente.fkTipoMonitoramentoComponente = ${tipoComponente}
+ORDER BY 
+    MonitoramentoComponente.dataHora DESC
+OFFSET 0 ROWS
+FETCH FIRST 5 ROWS ONLY;
 `;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-    instrucaoSql = `SELECT DATE_FORMAT(Monitoramento.dataHora, '%H:%i:%s') as momento_grafico, 
-    Monitoramento.valor as totalCaptacao
+    instrucaoSql = `SELECT DATE_FORMAT(MonitoramentoComponente.dataHora, '%H:%i:%s') as momento_grafico, 
+    MonitoramentoComponente.valor as totalCaptacao
 FROM Componente
-JOIN Monitoramento ON Componente.idComponente = Monitoramento.fkComponente
+JOIN MonitoramentoComponente ON Componente.idComponente = MonitoramentoComponente.fkComponente
 JOIN Computador ON Componente.fkComputador = Computador.idComputador
-WHERE Computador.idComputador = ${idComputador} AND Componente.tipo = '${tipoComponente}'
-ORDER BY Monitoramento.dataHora DESC
+WHERE Computador.idComputador = 1 AND fkTipoMonitoramentoComponente = ${idComputador} AND fkComponente = ${tipoComponente}
+ORDER BY MonitoramentoComponente.dataHora DESC
 LIMIT 5;
 `;
   } else {
@@ -40,22 +47,30 @@ function buscarMedidasEmTempoReal(idComputador, tipoComponente) {
   instrucaoSql = "";
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
-    instrucaoSql = `SELECT TOP 1
-    FORMAT(Monitoramento.dataHora, 'HH:mm:ss') as momento_grafico,
-    Monitoramento.valor as totalCaptacao
-    FROM Componente
-    JOIN Monitoramento ON Componente.idComponente = Monitoramento.fkComponente
-    WHERE Componente.tipo = '${tipoComponente}' AND Componente.fkComputador = ${idComputador}
-    ORDER BY Monitoramento.dataHora DESC;
+    instrucaoSql = `SELECT 
+    FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:ss') AS momento_grafico, 
+    MonitoramentoComponente.valor AS totalCaptacao
+FROM 
+    Componente
+JOIN 
+    MonitoramentoComponente ON Componente.idComponente = MonitoramentoComponente.fkComponente
+WHERE 
+    MonitoramentoComponente.fkTipoMonitoramentoComponente = ${tipoComponente} AND Componente.fkComputador = ${idComputador}
+ORDER BY 
+    MonitoramentoComponente.dataHora DESC
+OFFSET 0 ROWS
+FETCH FIRST 1 ROW ONLY;
+
 `;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-    instrucaoSql = `SELECT DATE_FORMAT(Monitoramento.dataHora, '%H:%i:%s') as momento_grafico, 
-    Monitoramento.valor as totalCaptacao
+    instrucaoSql = `SELECT DATE_FORMAT(MonitoramentoComponente.dataHora, '%H:%i:%s') as momento_grafico, 
+    MonitoramentoComponente.valor as totalCaptacao
     FROM Componente
-    JOIN Monitoramento ON Componente.idComponente = Monitoramento.fkComponente
-    WHERE Componente.tipo = '${tipoComponente}' AND Componente.fkComputador = ${idComputador}
-    ORDER BY Monitoramento.dataHora DESC
-    LIMIT 1;`;
+    JOIN MonitoramentoComponente ON Componente.idComponente = MonitoramentoComponente.fkComponente
+    WHERE MonitoramentoComponente.fkTipoMonitoramentoComponente = ${tipoComponente} AND Componente.fkComputador = ${idComputador}
+    ORDER BY MonitoramentoComponente.dataHora DESC
+    LIMIT 1;
+    `;
   } else {
     console.log(
       "\nO AMBIENTE (producao OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n"
@@ -71,21 +86,30 @@ function buscarMedidasEmTempoRealDisparos(idComputador, tipoComponente) {
   instrucaoSql = "";
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
-    instrucaoSql = `SELECT DATE_FORMAT(Monitoramento.dataHora, '%H:%i:%s') as momento_grafico, 
-    Monitoramento.valor as totalCaptacao
-    FROM Componente
-    JOIN Monitoramento ON Componente.idComponente = Monitoramento.fkComponente
-    WHERE Componente.tipo = '${tipoComponente}' AND Componente.fkComputador = ${idComputador}
-    ORDER BY Monitoramento.dataHora DESC
-    LIMIT 1`;
+    instrucaoSql = `SELECT 
+    FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:ss') AS momento_grafico, 
+    MonitoramentoComponente.valor AS totalCaptacao
+FROM 
+    Componente
+JOIN 
+    MonitoramentoComponente ON Componente.idComponente = MonitoramentoComponente.fkComponente
+WHERE 
+    MonitoramentoComponente.fkTipoMonitoramentoComponente = ${tipoComponente} AND Componente.fkComputador = ${idComputador}	
+ORDER BY 
+    MonitoramentoComponente.dataHora DESC
+OFFSET 0 ROWS
+FETCH FIRST 1 ROW ONLY;
+
+    `;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-    instrucaoSql = `SELECT DATE_FORMAT(Monitoramento.dataHora, '%H:%i:%s') as momento_grafico, 
-    Monitoramento.valor as totalCaptacao
+    instrucaoSql = `SELECT DATE_FORMAT(MonitoramentoComponente.dataHora, '%H:%i:%s') as momento_grafico, 
+    MonitoramentoComponente.valor as totalCaptacao
     FROM Componente
-    JOIN Monitoramento ON Componente.idComponente = Monitoramento.fkComponente
-    WHERE Componente.tipo = '${tipoComponente}' AND Componente.fkComputador = ${idComputador}
-    ORDER BY Monitoramento.dataHora DESC
-    LIMIT 1`;
+    JOIN MonitoramentoComponente ON Componente.idComponente = MonitoramentoComponente.fkComponente
+    WHERE MonitoramentoComponente.fkTipoMonitoramentoComponente = ${tipoComponente} AND Componente.fkComputador = ${idComputador}
+    ORDER BY MonitoramentoComponente.dataHora DESC
+    LIMIT 1;
+    `;
   } else {
     console.log(
       "\nO AMBIENTE (producao OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n"

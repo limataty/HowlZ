@@ -379,7 +379,7 @@
                 elementoSelecionado.style.display = 'block';
 
                 if (elementoID === 'CPU') {
-                    obterDadosGrafico(testefk, 'CPU', 'canvasCPU');
+                    obterDadosGrafico(testefk, '1', 'canvasCPU');
                     alertaComp1.innerHTML = `
                     Bom: Até 79.9%</span>`
                     alertaComp2.innerHTML = `
@@ -388,7 +388,7 @@
                     Ruim: A partir de 90%
                     `
                 } else if (elementoID === 'RAM') {
-                    obterDadosGrafico(testefk, 'RAM', 'canvasRAM');
+                    obterDadosGrafico(testefk, '2', 'canvasRAM');
                     alertaComp1.innerHTML = `
                     Bom: Até 89.9%</span>`
                     alertaComp2.innerHTML = `
@@ -397,7 +397,7 @@
                     Ruim: A partir de 95%
                     `
                 } else if (elementoID === 'Disco') {
-                    obterDadosGrafico(testefk, 'Disco', 'canvasDISCO');
+                    obterDadosGrafico(testefk, '3', 'canvasDISCO');
                     alertaComp1.innerHTML = `
                     Bom: Até 84.9%</span>`
                     alertaComp2.innerHTML = `
@@ -406,7 +406,7 @@
                     Ruim: A partir de 90%
                     `
                 } else if (elementoID === 'GPU') {
-                    obterDadosGrafico(testefk, 'GPU', 'canvasGPU');
+                    obterDadosGrafico(testefk, '4', 'canvasGPU');
                     alertaComp1.innerHTML = `
                     Bom: Até 79.9%</span>`
                     alertaComp2.innerHTML = `
