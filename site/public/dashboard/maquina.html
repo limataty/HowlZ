@@ -532,26 +532,25 @@
                         if (json.ok) {
                             console.log(json);
                             processosHTML += `<tr>
-                    <td>${json.NomeProcesso}</td>
-                    <td>${json.dataHora}</td>
-                    <td>${json.uso} ${json.simbolo}</td>
+                    <td>${json[i].NomeProcesso}</td>
+                    <td>${json[i].dataHora}</td>
+                    <td>${json[i].uso} ${json[i].simbolo}</td>
                 </tr>`;
                         } else {
-                            console.error("Erro na resposta:", json);
+                            json.text().then((texto) => {
+                                console.log(texto);
+                            });
                         }
                     }
 
                     tabelaProcessos.innerHTML = processosHTML;
                 })
                 .catch(function (erro) {
-                    console.error("Erro geral:", erro);
+                    console.log(erro);
                 });
         }
 
-        setInterval(() => {
-            pegarProcessos();
-        }, 15000);
-        // pegarProcessos();
+        pegarProcessos();
 
 
 
