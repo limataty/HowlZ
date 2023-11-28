@@ -113,19 +113,19 @@
                     <div class="botoes">
                         <button onclick="mostrarElemento('GPU')" id="botaoGrafico">
                             GPU
-                            <div id="performanceGPU">Médio | 60%</div>
+                            <div id="botaoGraficoGPU"></div>
                         </button>
                         <button onclick="mostrarElemento('RAM')" id="botaoGrafico">
                             RAM
-                            <div id="performanceRAM">Ruim | 95%</div>
+                            <div id="botaoGraficoRAM"></div>
                         </button>
                         <button onclick="mostrarElemento('CPU')" id="botaoGrafico">
                             CPU
-                            <div id="performanceCPU">Bom | 15%</div>
+                            <div id="botaoGraficoGPU"></div>
                         </button>
                         <button onclick="mostrarElemento('Disco')" id="botaoGrafico">
                             Disco
-                            <div id="performanceDISCO">Ruim | 90%</div>
+                            <div id="botaoGraficoDisco"></div>
                         </button>
                     </div>
 
@@ -707,11 +707,7 @@
         }
     }
 
-    setInterval(() => {
-        atualizarBotoes();
-    }, 30000);
-
-    function atualizarBotoes(){
+    function atualizarBotoes() {
         var idComputador = sessionStorage.getItem("ID_MAQUINA");
 
         fetch(`/medidas/botoes/${idComputador}`, {
@@ -722,66 +718,44 @@
                 var statusRAM = "";
                 var statusCPU = "";
                 var statusDisco = "";
-                
+
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(JSON.stringify(resposta));
 
-                        if (resposta[0].monitoramentoGPU > criticoGPU) {
-                            statusGPU = "Ruim";
-                            botaoGrafico.style.backgroundColor = "red";
-                        } else if (resposta[0].monitoramentoGPU > alertaGPU && resposta[0].monitoramentoGPU < criticoGPU) {
-                            statusGPU = "Médio";
-                            botaoGrafico.style.backgroundColor = "orange";
-                        } else {
-                            statusGPU = "Bom";
-                        }
+                        statusGPU = obterStatus(resposta[0].monitoramentoGPU, criticoGPU, alertaGPU);
+                        statusRAM = obterStatus(resposta[0].monitoramentoRAM, criticoRAM, alertaRAM);
+                        statusCPU = obterStatus(resposta[0].MonitoramentoCPU, criticoCPU, alertaCPU);
+                        statusDisco = obterStatus(resposta[0].monitoramentoDISCO, criticoDISCO, alertaDISCO);
 
-                        if (resposta[0].monitoramentoRAM > criticoRAM) {
-                            statusRAM = "Ruim";
-                            botaoGrafico.style.backgroundColor = "red";
-                        } else if (resposta[0].monitoramentoRAM > alertaRAM && resposta[0].monitoramentoRAM < criticoRAM) {
-                            statusRAM = "Médio";
-                            botaoGrafico.style.backgroundColor = "orange";
-                        } else {
-                            statusRAM = "Bom";
-                        }
-
-                        if (resposta[0].monitoramentoCPU > criticoCPU) {
-                            statusCPU = "Ruim";
-                            botaoGrafico.style.backgroundColor = "red";
-                        } else if (resposta[0].MonitoramentoCPU > alertaCPU && resposta[0].MonitoramentoCPU < criticoCPU) {
-                            statusCPU = "Médio";
-                            botaoGrafico.style.backgroundColor = "orange";
-                        } else {
-                            statusCPU = "Bom";
-                        }
-
-                        if (resposta[0].monitoramentoDISCO > criticoDISCO) {
-                            statusDisco = "Ruim";
-                            botaoGrafico.style.backgroundColor = "red";
-                        } else if (resposta[0].monitoramentoDISCO > alertaDISCO && resposta[0].monitoramentoDISCO < criticoDISCO) {
-                            statusDisco = "Médio";
-                            botaoGrafico.style.backgroundColor = "orange";
-                        } else {
-                            statusDisco = "Bom";
-                        }
-
-                        performanceGPU.innerHTML = `${statusGPU} | ${resposta[0].monitoramentoGPU}%`;
-                        performanceRAM.innerHTML = `${statusRAM} | ${resposta[0].monitoramentoRAM}%`;
-                        performanceCPU.innerHTML = `${statusCPU} | ${resposta[0].MonitoramentoCPU}%`;
-                        performanceDISCO.innerHTML = `${statusDisco} | ${resposta[0].monitoramentoDISCO}%`;
-
+                        atualizarBotao(botaoGraficoGPU, statusGPU, resposta[0].monitoramentoGPU);
+                        atualizarBotao(botaoGraficoRAM, statusRAM, resposta[0].monitoramentoRAM);
+                        atualizarBotao(botaoGraficoCPU, statusCPU, resposta[0].MonitoramentoCPU);
+                        atualizarBotao(botaoGraficoDisco, statusDisco, resposta[0].monitoramentoDISCO);
                     });
                 } else {
                     console.error(`Nenhum dado encontrado ou erro na API para ${tipoGrafico}`);
                 }
             })
             .catch(function (error) {
-                console.error(
-                    `Erro na obtenção dos dados para ${tipoGrafico}: ${error.message}`
-                );
+                console.error(`Erro na obtenção dos dados para ${tipoGrafico}: ${error.message}`);
             });
+    }
+
+    function obterStatus(valor, critico, alerta) {
+        if (valor > critico) {
+            return "ruim";
+        } else if (valor > alerta && valor < critico) {
+            return "medio";
+        } else {
+            return "bom";
+        }
+    }
+
+    function atualizarBotao(botao, status, valor) {
+        botao.textContent = `${status} | ${valor}%`;
+        botao.classList.remove("ruim", "medio", "bom");
+        botao.classList.add(status);
     }
 
     function atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico) {
