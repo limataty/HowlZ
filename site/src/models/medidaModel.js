@@ -142,9 +142,64 @@ WHERE
   return database.executar(instrucaoSql);
 }
 
+function botoes(idComputador){
+  instrucaoSql = "";
+
+  if (process.env.AMBIENTE_PROCESSO == "producao") {
+    instrucaoSql = `SELECT 
+    MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 4 THEN MonitoramentoComponente.valor END) AS monitoramentoGPU,
+    MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 2 THEN MonitoramentoComponente.valor END) AS monitoramentoRAM,
+    MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 3 THEN MonitoramentoComponente.valor END) AS monitoramentoDISCO,
+    MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 1 THEN MonitoramentoComponente.valor END) AS monitoramentoCPU,
+    MonitoramentoComponente.dataHora
+FROM 
+    MonitoramentoComponente
+JOIN 
+    Componente ON MonitoramentoComponente.fkComponente = Componente.idComponente
+WHERE 
+    Componente.fkComputador = ${idComputador}
+GROUP BY
+    MonitoramentoComponente.dataHora
+ORDER BY 
+    MonitoramentoComponente.dataHora DESC
+OFFSET 0 ROWS
+FETCH FIRST 1 ROWS ONLY;
+
+    `;
+  } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+    instrucaoSql = `SELECT 
+    MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 4 THEN MonitoramentoComponente.valor END) AS monitoramentoGPU,
+    MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 2 THEN MonitoramentoComponente.valor END) AS monitoramentoRAM,
+    MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 3 THEN MonitoramentoComponente.valor END) AS monitoramentoDISCO,
+    MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 1 THEN MonitoramentoComponente.valor END) AS monitoramentoCPU,
+    MonitoramentoComponente.dataHora
+FROM 
+    MonitoramentoComponente
+JOIN 
+    Componente ON MonitoramentoComponente.fkComponente = Componente.idComponente
+WHERE 
+    Componente.fkComputador = ${idComputador}
+GROUP BY 
+    MonitoramentoComponente.dataHora
+ORDER BY 
+    MonitoramentoComponente.dataHora DESC
+LIMIT 1;
+`;
+  } else {
+    console.log(
+      "\nO AMBIENTE (producao OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n"
+    );
+    return;
+  }
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   buscarUltimasMedidas,
   buscarMedidasEmTempoReal,
   buscarMedidasEmTempoRealDisparos,
-  alertas
+  alertas,
+  botoes,
 };

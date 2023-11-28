@@ -15,4 +15,9 @@ router.post("/alertas", function (req, res) {
     medidaController.alertas(req, res);
 });
 
+router.get("/botoes/:idComputador", function (req, res) {
+    medidaController.botoes(req, res);
+});
+
+
 module.exports = router;
