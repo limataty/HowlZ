@@ -386,7 +386,6 @@
         let ruimDisco = 0;
         let ruimGPU = 0;
 
-
         async function obterAlertas() {
             try {
                 const resposta = await fetch("/medidas/alertas", {
@@ -442,46 +441,55 @@
             });
         }
 
-        function mostrarElemento(elementoID) {
-            obterAlertas(); // Chama a função para obter os dados antes de prosseguir.
+        async function mostrarElemento(elementoID) {
+            await obterDadosGraficos(); // Aguarda a obtenção dos alertas antes de prosseguir.
 
             ocultarElementos();
 
-            const elementoSelecionado = document.getElementById(elementoID);
+            var elementoSelecionado = document.getElementById(elementoID);
             if (elementoSelecionado) {
                 elementoSelecionado.style.display = 'block';
 
-                const obterDadosGrafico = (testefk, tipo, id, canvasID) => {
-                    // Adapte esta função conforme necessário.
-                };
-
-                const alertaComp1 = document.getElementById('alertaComp1');
-                const alertaComp2 = document.getElementById('alertaComp2');
-                const alertaComp3 = document.getElementById('alertaComp3');
-
                 if (elementoID === 'CPU') {
                     obterDadosGrafico(testefk, 'CPU', '1', 'canvasCPU');
-                    alertaComp1.innerHTML = `Bom: Até ${bomCPU}%`;
-                    alertaComp2.innerHTML = `Alerta: De ${alertaCPU}% à ${ateCPU}%`;
-                    alertaComp3.innerHTML = `Ruim: A partir de ${ruimCPU}%`;
+                    alertaComp1.innerHTML = `
+                    Bom: Até ${bomCPU}%</span>`
+                    alertaComp2.innerHTML = `
+                    Alerta: De ${alertaCPU}% à ${ateCPU}%`
+                    alertaComp3.innerHTML = `
+                    Ruim: A partir de ${ruimCPU}%
+                    `
                 } else if (elementoID === 'RAM') {
                     obterDadosGrafico(testefk, 'RAM', '2', 'canvasRAM');
-                    alertaComp1.innerHTML = `Bom: Até ${bomRAM}%`;
-                    alertaComp2.innerHTML = `Alerta: De ${alertaRAM}% à ${ateRAM}%`;
-                    alertaComp3.innerHTML = `Ruim: A partir de ${ruimRAM}%`;
+                    alertaComp1.innerHTML = `
+                    Bom: Até ${bomRAM}%</span>`
+                    alertaComp2.innerHTML = `
+                    Alerta: De ${alertaRAM}% à ${ateRAM}%`
+                    alertaComp3.innerHTML = `
+                    Ruim: A partir de ${ruimRAM}%
+                    `
                 } else if (elementoID === 'Disco') {
                     obterDadosGrafico(testefk, 'Disco', '3', 'canvasDISCO');
-                    alertaComp1.innerHTML = `Bom: Até ${bomDisco}%`;
-                    alertaComp2.innerHTML = `Alerta: De ${alertaDisco}% à ${ateDisco}%`;
-                    alertaComp3.innerHTML = `Ruim: A partir de ${ruimDisco}%`;
+                    alertaComp1.innerHTML = `
+                    Bom: Até ${bomDisco}%</span>`
+                    alertaComp2.innerHTML = `
+                    Alerta: De ${alertaDisco}% à ${ateDisco}%`
+                    alertaComp3.innerHTML = `
+                    Ruim: A partir de ${ruimDisco}%
+                    `
                 } else if (elementoID === 'GPU') {
                     obterDadosGrafico(testefk, 'GPU', '4', 'canvasGPU');
-                    alertaComp1.innerHTML = `Bom: Até ${bomGPU}%`;
-                    alertaComp2.innerHTML = `Alerta: De ${alertaGPU}% à ${ateGPU}%`;
-                    alertaComp3.innerHTML = `Ruim: A partir de ${ruimGPU}%`;
+                    alertaComp1.innerHTML = `
+                    Bom: Até ${bomGPU}%</span>`
+                    alertaComp2.innerHTML = `
+                    Alerta: De ${alertaGPU}% à ${ateGPU}%`
+                    alertaComp3.innerHTML = `
+                    Ruim: A partir de ${ruimGPU}%
+                    `
                 }
             }
         }
+
         function pegarProcessos() {
             fetch("/processos/contarProcesso", {
                 method: "POST",
