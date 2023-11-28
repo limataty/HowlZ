@@ -472,63 +472,63 @@
         }
 
         function pegarProcessos() {
-    // Requisição para contar processos
+            // Requisição para contar processos
 
-    console.log("A função pegarProcessos() foi chamada!");
+            console.log("A função pegarProcessos() foi chamada!");
 
 
-    fetch("/processos/contarProcesso", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            idMaquina: sessionStorage.getItem("ID_MAQUINA")
-        }),
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Erro na requisição: " + response.status);
-        }
-        return response.json();
-    })
-    .then(totalProcessos => {
-        console.log("Total de processos:", totalProcessos);
+            fetch("/processos/contarProcesso", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
+                }),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Erro na requisição: " + response.status);
+                    }
+                    return response.json();
+                })
+                .then(totalProcessos => {
+                    console.log("Total de processos:", totalProcessos);
 
-        // Requisição para exibir processos
-        return fetch("/processos/exibirProcesso", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                idMaquina: sessionStorage.getItem("ID_MAQUINA")
-            }),
-        });
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Erro na requisição: " + response.status);
-        }
-        return response.json();
-    })
-    .then(processo => {
-        console.log("Processo exibido:", processo);
+                    // Requisição para exibir processos
+                    return fetch("/processos/exibirProcesso", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            idMaquina: sessionStorage.getItem("ID_MAQUINA")
+                        }),
+                    });
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Erro na requisição: " + response.status);
+                    }
+                    return response.json();
+                })
+                .then(processo => {
+                    console.log("Processo exibido:", processo);
 
-        // Atualizar a tabela com os dados do processo
-        tabelaProcessos.innerHTML = `<tr>
+                    // Atualizar a tabela com os dados do processo
+                    tabelaProcesso.innerHTML = `<tr>
             <td>${processo.NomeProcesso}</td>
             <td>${processo.dataHora}</td>
             <td>${processo.uso} ${processo.simbolo}</td>
         </tr>`;
-    })
-    .catch(error => {
-        console.error("Erro durante a execução:", error);
-    });
-}
+                })
+                .catch(error => {
+                    console.error("Erro durante a execução:", error);
+                });
+        }
 
-// Chamada da função
-pegarProcessos();
+        // Chamada da função
+        pegarProcessos();
 
 
 
