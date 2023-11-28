@@ -135,7 +135,7 @@ function alertas(fkEmpresa){
 FROM
     Alerta
 WHERE
-    fkEmpresa = ${fkEmpresa}};
+    fkEmpresa = ${fkEmpresa};
   `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);

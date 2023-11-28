@@ -64,7 +64,7 @@ function alertas(req, res) {
 
   medidaModel.alertas(fkEmpresa)
     .then(function (resultado) {
-      console.log("resultado dos alertas: " + resultado[0].criticoCPU + " " + resultado[0].criticoMemoria + " " + resultado[0].criticoDisco + " " + resultado[0].avisoCPU + " " + resultado[0].avisoMemoria + " " + resultado[0].avisoDisco);
+      console.log("resultado dos !alertas!: " + resultado[0].criticoCPU + " " + resultado[0].criticoMemoria + " " + resultado[0].criticoDisco + " " + resultado[0].avisoCPU + " " + resultado[0].avisoMemoria + " " + resultado[0].avisoDisco + " " + resultado[0].criticoGPU + " " + resultado[0].avisoGPU);
       res.json(resultado[0]);
     })
     .catch(function (erro) {
