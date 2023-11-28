@@ -401,7 +401,7 @@
 
                     if (resposta.ok) {
                         console.log(resposta);
-                        console.log("Alertaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - " + resposta[0].alertaCPU);
+                        console.log("Alertaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - " + resposta.alertaCPU);
                         console.log(JSON.stringify(resposta));
 
                         bomCPU = resposta.alertaCPU - 0.01;
