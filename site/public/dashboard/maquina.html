@@ -524,7 +524,7 @@
                                 });
                         }
                     } else {
-                        json.text().then((texto) => {
+                        retorno.text().then((texto) => {
                             console.log(texto);
                         });
                     }
@@ -720,7 +720,7 @@
     setInterval(() => {
         atualizarBotoes();
         pegarProcessos();
-        pegarJanela();
+        // pegarJanela();
     }, 15000);
 
     function atualizarBotoes() {
