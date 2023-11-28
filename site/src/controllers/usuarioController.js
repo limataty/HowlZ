@@ -442,9 +442,9 @@ function apagarGestor(req, res) {
 }
 
 function alertas(req, res){
-  var fkComputador = req.body.fkComputador;
+  var fkEmpresa = req.body.fkEmpresa;
 
-  usuarioModel.alertas(fkComputador)
+  usuarioModel.alertas(fkEmpresa)
     .then(function (resultado) {
       res.json(resultado);
     })
