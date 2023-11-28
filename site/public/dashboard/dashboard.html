@@ -119,67 +119,75 @@
 
         var fkGestorServer = sessionStorage.getItem("ID_USUARIO");
 
-async function obterContagemUsuarios() {
-    try {
-        const resposta = await fetchData("/usuarios/contar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                fkGestorServer: fkGestorServer,
-            }),
-        });
-
-        console.log(resposta);
-
-        let maquinasHTML = "";
-        let vermelho = 0;
-        let laranja = 0;
-
-        for (let i = 0; i < resposta; i++) {
-            if (i % 5 === 0) {
-                maquinasHTML += '<div class="maquinasLinha">';
+        async function fetchData(url, options) {
+            const response = await fetch(url, options);
+            if (!response.ok) {
+                throw new Error(`Erro na requisição: ${response.statusText}`);
             }
+            return response.json();
+        }
 
-            const idMaquina = await fetchData("/usuarios/idMaquina", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    fkGestorServer: fkGestorServer,
-                    contagem: i,
-                }),
-            });
+        async function obterContagemUsuarios() {
+            try {
+                const resposta = await fetchData("/usuarios/contar", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        fkGestorServer: fkGestorServer,
+                    }),
+                });
 
-            console.log(idMaquina);
-            console.log(JSON.stringify(idMaquina));
+                console.log(resposta);
 
-            console.log(idMaquina + "  id da maquina");
+                let maquinasHTML = "";
+                let vermelho = 0;
+                let laranja = 0;
 
-            const maquinaInfo = await fetchData("/usuarios/maquinas", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    fkMaquina: idMaquina,
-                }),
-            });
+                for (let i = 0; i < resposta; i++) {
+                    if (i % 5 === 0) {
+                        maquinasHTML += '<div class="maquinasLinha">';
+                    }
 
-            console.log(maquinaInfo[0]);
-            console.log(JSON.stringify(maquinaInfo));
+                    const idMaquina = await fetchData("/usuarios/idMaquina", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            fkGestorServer: fkGestorServer,
+                            contagem: i,
+                        }),
+                    });
 
-            if (maquinaInfo.UsoCPU == null) {
-                maquinaInfo.UsoCPU = 0;
-            } else if (maquinaInfo.Memoria == null) {
-                maquinaInfo.Memoria = 0;
-            } else if (maquinaInfo.Disco == null) {
-                maquinaInfo.Disco = 0;
-            }
+                    console.log(idMaquina);
+                    console.log(JSON.stringify(idMaquina));
 
-            maquinasHTML += `
+                    console.log(idMaquina + "  id da maquina");
+
+                    const maquinaInfo = await fetchData("/usuarios/maquinas", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            fkMaquina: idMaquina,
+                        }),
+                    });
+
+                    console.log(maquinaInfo[0]);
+                    console.log(JSON.stringify(maquinaInfo));
+
+                    if (maquinaInfo.UsoCPU == null) {
+                        maquinaInfo.UsoCPU = 0;
+                    } else if (maquinaInfo.Memoria == null) {
+                        maquinaInfo.Memoria = 0;
+                    } else if (maquinaInfo.Disco == null) {
+                        maquinaInfo.Disco = 0;
+                    }
+
+                    maquinasHTML += `
                 <div id="maquina" class="maquina ${i % 5 === 0 ? 'primeiraNaLinha' : ''}" 
                     style="${maquinaInfo.UsoCPU > 80 ? 'border-color: red;' : ''} ${maquinaInfo.UsoCPU > 2 && maquinaInfo.UsoCPU <= 80 ? 'border-color: orange;' : ''}">
                     <h3>Máquina ${maquinaInfo.idComputador}</h3>
@@ -191,35 +199,35 @@ async function obterContagemUsuarios() {
                 </div>
             `;
 
-            if (maquinaInfo.UsoCPU > 80) {
-                vermelho++;
-            } else if (maquinaInfo.UsoCPU > 2 && maquinaInfo.UsoCPU <= 80) {
-                laranja++;
-            }
+                    if (maquinaInfo.UsoCPU > 80) {
+                        vermelho++;
+                    } else if (maquinaInfo.UsoCPU > 2 && maquinaInfo.UsoCPU <= 80) {
+                        laranja++;
+                    }
 
-            if ((i + 1) % 5 === 0) {
-                maquinasHTML += '</div>';
-            }
+                    if ((i + 1) % 5 === 0) {
+                        maquinasHTML += '</div>';
+                    }
 
-            maquinas.innerHTML = maquinasHTML;
-            alertass.innerHTML = `
+                    maquinas.innerHTML = maquinasHTML;
+                    alertass.innerHTML = `
                 <h3>Máquinas em Alerta</h3>
                 <p style="Color: red;">Risco: <b>${vermelho}</b></p>
                 <p style="Color: orange;">Alerta: <b>${laranja}</b></p>
             `;
-        }
+                }
 
-        tipoAlertass.innerHTML = `
+                tipoAlertass.innerHTML = `
             <h3>Tipo Alerta</h3>
             <p style="Color: red;">Risco <br> <b>↑80</b></p>
             <p style="Color: orange;">Alerta <br> <b>↑60 e ↓80</b></p>
         `;
-    } catch (erro) {
-        console.error(erro);
-    }
-}
+            } catch (erro) {
+                console.error(erro);
+            }
+        }
 
-obterContagemUsuarios();
+        obterContagemUsuarios();
 
 
         function mudarPagina(idComputador) {
