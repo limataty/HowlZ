@@ -423,17 +423,7 @@
                         ruimDisco = resposta.criticoDISCO;
                         ruimGPU = resposta.criticoGPU;
 
-                    } else {
-                        resposta.text().then((texto) => {
-                            console.log(texto);
-                        });
-                    }
-                })
-                .catch(function (erro) {
-                    console.log(erro);
-                })
-
-            var elementos = ["CPU", "RAM", "Disco", "GPU"];
+                        var elementos = ["CPU", "RAM", "Disco", "GPU"];
             elementos.forEach(function (elemento) {
                 var elementoAtual = document.getElementById(elemento);
                 if (elementoAtual) {
@@ -482,6 +472,15 @@
                     `
                 }
             }
+                    } else {
+                        resposta.text().then((texto) => {
+                            console.log(texto);
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                })
         }
 
         function pegarProcessos() {
