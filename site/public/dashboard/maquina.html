@@ -529,15 +529,15 @@
         for (let i = 0; i < respostas.length; i++) {
             var json = respostas[i];
 
-            if (json.ok) {
-                console.log(json);
+            if (resposta.ok) {
+                console.log(respostas);
                 processosHTML += `<tr>
-                    <td>${json[i].NomeProcesso}</td>
-                    <td>${json[i].dataHora}</td>
-                    <td>${json[i].uso} ${json[i].simbolo}</td>
+                    <td>${respostas[i].NomeProcesso}</td>
+                    <td>${respostas[i].dataHora}</td>
+                    <td>${respostas[i].uso} ${respostas[i].simbolo}</td>
                 </tr>`;
             } else {
-                json.text().then((texto) => {
+                respostas.text().then((texto) => {
                     console.log(texto);
                 });
             }
