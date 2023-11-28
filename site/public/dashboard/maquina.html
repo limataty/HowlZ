@@ -548,7 +548,10 @@
                 });
         }
 
-        pegarProcessos();
+        setInterval(() => {
+            pegarProcessos();
+        }, 15000);
+        // pegarProcessos();
 
 
 
