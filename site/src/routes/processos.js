@@ -11,7 +11,7 @@ router.post("/exibirProcesso", function (req, res) {
 //     processosController.exibirJanela(req, res);
 // })
 
-router.post("/contarProcesso", function (req, res) {
+router.get("/contarProcesso/:idMaquina", function (req, res) {
     processosController.contarProcesso(req, res);
 })
 
