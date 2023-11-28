@@ -187,9 +187,22 @@
                         maquinaInfo.Disco = 0;
                     }
 
+                    const alertaInfo = await fetchData("/usuarios/alertas", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
+                        }),
+                    });
+
+                    console.log(alertaInfo[0]);
+                    console.log(JSON.stringify(alertaInfo));
+
                     maquinasHTML += `
                 <div id="maquina" class="maquina ${i % 5 === 0 ? 'primeiraNaLinha' : ''}" 
-                    style="${maquinaInfo.UsoCPU > 80 ? 'border-color: red;' : ''} ${maquinaInfo.UsoCPU > 2 && maquinaInfo.UsoCPU <= 80 ? 'border-color: orange;' : ''}">
+                    style="${maquinaInfo.UsoCPU > alertaInfo.criticoCPU || maquinaInfo.Memoria > alertaInfo.criticoRAM || maquinaInfo.Disco > alertaInfo.criticoDISCO ? 'border-color: red;' : ''} ${(maquinaInfo.UsoCPU > alertaInfo.alertaCPU && maquinaInfo.UsoCPU <= alertaInfo.criticoCPU) || (maquinaInfo.Memoria > alertaInfo.alertaRAM && maquinaInfo.Memoria <= alertaInfo.criticoRAM) || (maquinaInfo.Disco > alertaInfo.alertaDISCO && maquinaInfo.Disco <= alertaInfo.criticoDISCO) ? 'border-color: orange;' : ''}">
                     <h3>Máquina ${maquinaInfo.idComputador}</h3>
                     <p class="status ativa">Status: Ativa</p>
                     <p>Uso de CPU: ${maquinaInfo.UsoCPU}</p>
@@ -215,13 +228,13 @@
                 <p style="Color: red;">Risco: <b>${vermelho}</b></p>
                 <p style="Color: orange;">Alerta: <b>${laranja}</b></p>
             `;
+            tipoAlertass.innerHTML = `
+                <h3>Tipo Alerta</h3>
+                <p style="Color: red;">Risco <br> <b>↑${alertaInfo.criticoCPU}</b></p>
+                <p style="Color: orange;">Alerta <br> <b>↑60 e ↓80</b></p>
+                `;
                 }
 
-                tipoAlertass.innerHTML = `
-            <h3>Tipo Alerta</h3>
-            <p style="Color: red;">Risco <br> <b>↑80</b></p>
-            <p style="Color: orange;">Alerta <br> <b>↑60 e ↓80</b></p>
-        `;
             } catch (erro) {
                 console.error(erro);
             }

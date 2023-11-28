@@ -216,6 +216,23 @@ function apagarGestor(idUsuario){
     return database.executar(instrucao);
 }
 
+function alertas(fkEmpresa){
+    var instrucao = `
+    SELECT
+    MIN(CASE WHEN fkTipoAlerta = 1 AND fkTipoMonitoramentoComponente = 1 THEN minimo END) AS alertaCPU,
+    MIN(CASE WHEN fkTipoAlerta = 2 AND fkTipoMonitoramentoComponente = 1 THEN minimo END) AS criticoCPU,
+    MIN(CASE WHEN fkTipoAlerta = 1 AND fkTipoMonitoramentoComponente = 2 THEN minimo END) AS alertaRAM,
+    MIN(CASE WHEN fkTipoAlerta = 2 AND fkTipoMonitoramentoComponente = 2 THEN minimo END) AS criticoRAM,
+    MIN(CASE WHEN fkTipoAlerta = 1 AND fkTipoMonitoramentoComponente = 3 THEN minimo END) AS alertaDISCO,
+    MIN(CASE WHEN fkTipoAlerta = 2 AND fkTipoMonitoramentoComponente = 3 THEN minimo END) AS criticoDISCO
+    FROM
+        Alerta
+    WHERE
+        fkEmpresa = ${fkEmpresa};
+    `;
+    return database.executar(instrucao);
+}
+
 module.exports = {
     cadastrarEmpresa,
     receberIDEmpresa,
@@ -234,4 +251,5 @@ module.exports = {
     apagar,
     editarGestor,
     apagarGestor,
+    alertas,
 };

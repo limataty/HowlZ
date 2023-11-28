@@ -37,6 +37,10 @@ router.post("/idMaquina", function (req, res) {
     usuarioController.idMaquina(req, res);
 });
 
+router.post("/alertas", function (req, res) {
+    usuarioController.alertas(req, res);
+});
+
 router.get("/listar/:fkGestorServer", function (req, res) {
     usuarioController.listar(req, res);
 });
