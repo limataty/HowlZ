@@ -387,9 +387,9 @@
         let ruimDisco = 0;
         let ruimGPU = 0;
 
-        async function obterAlertas() {
-            try {
-                const resposta = await fetch("/medidas/alertas", {
+        function obterAlertas() {
+            return new Promise((resolve, reject) => {
+                fetch("/medidas/alertas", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -397,39 +397,41 @@
                     body: JSON.stringify({
                         fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
                     }),
-                });
+                })
+                    .then((resposta) => {
+                        if (resposta.ok) {
+                            return resposta.json();
+                        } else {
+                            resposta.text().then((texto) => reject(texto));
+                        }
+                    })
+                    .then((dados) => {
+                        const ajustarAlerta = (valor) => (valor != null ? valor - 0.01 : 0);
 
-                if (resposta.ok) {
-                    const dados = await resposta.json();
+                        bomCPU = ajustarAlerta(dados.alertaCPU);
+                        bomRAM = ajustarAlerta(dados.alertaRAM);
+                        bomDisco = ajustarAlerta(dados.alertaDISCO);
+                        bomGPU = ajustarAlerta(dados.alertaGPU);
 
-                    const ajustarAlerta = (valor) => (valor != null ? valor - 0.01 : 0);
+                        alertaCPU = dados.alertaCPU;
+                        alertaRAM = dados.alertaRAM;
+                        alertaDisco = dados.alertaDISCO;
+                        alertaGPU = dados.alertaGPU;
 
-                    bomCPU = ajustarAlerta(dados.alertaCPU);
-                    bomRAM = ajustarAlerta(dados.alertaRAM);
-                    bomDisco = ajustarAlerta(dados.alertaDISCO);
-                    bomGPU = ajustarAlerta(dados.alertaGPU);
+                        ateCPU = ajustarAlerta(dados.criticoCPU);
+                        ateRAM = ajustarAlerta(dados.criticoRAM);
+                        ateDisco = ajustarAlerta(dados.criticoDISCO);
+                        ateGPU = ajustarAlerta(dados.criticoGPU);
 
-                    alertaCPU = dados.alertaCPU;
-                    alertaRAM = dados.alertaRAM;
-                    alertaDisco = dados.alertaDISCO;
-                    alertaGPU = dados.alertaGPU;
+                        ruimCPU = dados.criticoCPU;
+                        ruimRAM = dados.criticoRAM;
+                        ruimDisco = dados.criticoDISCO;
+                        ruimGPU = dados.criticoGPU;
 
-                    ateCPU = ajustarAlerta(dados.criticoCPU);
-                    ateRAM = ajustarAlerta(dados.criticoRAM);
-                    ateDisco = ajustarAlerta(dados.criticoDISCO);
-                    ateGPU = ajustarAlerta(dados.criticoGPU);
-
-                    ruimCPU = dados.criticoCPU;
-                    ruimRAM = dados.criticoRAM;
-                    ruimDisco = dados.criticoDISCO;
-                    ruimGPU = dados.criticoGPU;
-                } else {
-                    const textoErro = await resposta.text();
-                    console.log(textoErro);
-                }
-            } catch (erro) {
-                console.error(erro);
-            }
+                        resolve();
+                    })
+                    .catch((erro) => reject(erro));
+            });
         }
 
         function ocultarElementos() {
@@ -443,49 +445,54 @@
         }
 
         async function mostrarElemento(elementoID) {
-            await obterAlertas();
+            try {
+                await obterAlertas();
 
-            ocultarElementos();
+                ocultarElementos();
 
-            var elementoSelecionado = document.getElementById(elementoID);
-            if (elementoSelecionado) {
-                elementoSelecionado.style.display = 'block';
+                var elementoSelecionado = document.getElementById(elementoID);
+                if (elementoSelecionado) {
+                    elementoSelecionado.style.display = 'block';
 
-                const obterDadosGrafico = (testefk, componente, numero, canvasID) => {
-                    // Implemente a lógica necessária para obter os dados do gráfico
-                    // Este trecho de código está comentado, pois a função obterDadosGrafico não foi fornecida
-                    // Substitua este comentário pela lógica real para obter os dados do gráfico
-                    // obterDadosGrafico(testefk, componente, numero, canvasID);
-                };
 
-                const alertaComp1 = document.getElementById('alertaComp1');
-                const alertaComp2 = document.getElementById('alertaComp2');
-                const alertaComp3 = document.getElementById('alertaComp3');
+                    const obterDadosGrafico = (testefk, componente, numero, canvasID) => {
+                        // Implemente a lógica necessária para obter os dados do gráfico
+                        // Este trecho de código está comentado, pois a função obterDadosGrafico não foi fornecida
+                        // Substitua este comentário pela lógica real para obter os dados do gráfico
+                        // obterDadosGrafico(testefk, componente, numero, canvasID);
+                    };
 
-                if (elementoID === 'CPU') {
-                    obterDadosGrafico(testefk, 'CPU', '1', 'canvasCPU');
-                    alertaComp1.innerHTML = `Bom: Até ${bomCPU}%</span>`;
-                    alertaComp2.innerHTML = `Alerta: De ${alertaCPU}% à ${ateCPU}%`;
-                    alertaComp3.innerHTML = `Ruim: A partir de ${ruimCPU}%`;
-                } else if (elementoID === 'RAM') {
-                    obterDadosGrafico(testefk, 'RAM', '2', 'canvasRAM');
-                    alertaComp1.innerHTML = `Bom: Até ${bomRAM}%</span>`;
-                    alertaComp2.innerHTML = `Alerta: De ${alertaRAM}% à ${ateRAM}%`;
-                    alertaComp3.innerHTML = `Ruim: A partir de ${ruimRAM}%`;
-                } else if (elementoID === 'Disco') {
-                    obterDadosGrafico(testefk, 'Disco', '3', 'canvasDISCO');
-                    alertaComp1.innerHTML = `Bom: Até ${bomDisco}%</span>`;
-                    alertaComp2.innerHTML = `Alerta: De ${alertaDisco}% à ${ateDisco}%`;
-                    alertaComp3.innerHTML = `Ruim: A partir de ${ruimDisco}%`;
-                } else if (elementoID === 'GPU') {
-                    obterDadosGrafico(testefk, 'GPU', '4', 'canvasGPU');
-                    alertaComp1.innerHTML = `Bom: Até ${bomGPU}%</span>`;
-                    alertaComp2.innerHTML = `Alerta: De ${alertaGPU}% à ${ateGPU}%`;
-                    alertaComp3.innerHTML = `Ruim: A partir de ${ruimGPU}%`;
+                    const alertaComp1 = document.getElementById('alertaComp1');
+                    const alertaComp2 = document.getElementById('alertaComp2');
+                    const alertaComp3 = document.getElementById('alertaComp3');
+
+                    if (elementoID === 'CPU') {
+                        obterDadosGrafico(testefk, 'CPU', '1', 'canvasCPU');
+                        alertaComp1.innerHTML = `Bom: Até ${bomCPU}%</span>`;
+                        alertaComp2.innerHTML = `Alerta: De ${alertaCPU}% à ${ateCPU}%`;
+                        alertaComp3.innerHTML = `Ruim: A partir de ${ruimCPU}%`;
+                    } else if (elementoID === 'RAM') {
+                        obterDadosGrafico(testefk, 'RAM', '2', 'canvasRAM');
+                        alertaComp1.innerHTML = `Bom: Até ${bomRAM}%</span>`;
+                        alertaComp2.innerHTML = `Alerta: De ${alertaRAM}% à ${ateRAM}%`;
+                        alertaComp3.innerHTML = `Ruim: A partir de ${ruimRAM}%`;
+                    } else if (elementoID === 'Disco') {
+                        obterDadosGrafico(testefk, 'Disco', '3', 'canvasDISCO');
+                        alertaComp1.innerHTML = `Bom: Até ${bomDisco}%</span>`;
+                        alertaComp2.innerHTML = `Alerta: De ${alertaDisco}% à ${ateDisco}%`;
+                        alertaComp3.innerHTML = `Ruim: A partir de ${ruimDisco}%`;
+                    } else if (elementoID === 'GPU') {
+                        obterDadosGrafico(testefk, 'GPU', '4', 'canvasGPU');
+                        alertaComp1.innerHTML = `Bom: Até ${bomGPU}%</span>`;
+                        alertaComp2.innerHTML = `Alerta: De ${alertaGPU}% à ${ateGPU}%`;
+                        alertaComp3.innerHTML = `Ruim: A partir de ${ruimGPU}%`;
+                    }
                 }
             }
+            catch (erro) {
+                console.log(erro);
+            }
         }
-
 
         function pegarProcessos() {
             fetch("/processos/contarProcesso", {
