@@ -472,14 +472,9 @@
         }
 
         function pegarProcessos() {
-            fetch("/processos/contarProcesso", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
-                }),
+            idMaquina = sessionStorage.getItem("ID_MAQUINA");
+            fetch(`/processos/contarProcesso/${idMaquina}`, {
+                cache: "no-store",
             })
                 .then(function (json) {
                     console.log("ESTOU NO THEN DO entrar()!");
