@@ -79,121 +79,131 @@
             <label for="apelido">Alterar apelido:</label>
             <input type="text" id="empresaApelido" name="apelido" />
 
-            <button class="enviarEmpresa">Confirmar</button>
+            <button class="enviarEmpresa" onclick="confirmarEmpresa()">Confirmar edição de Empresa</button>
 
             <h3>Gerenciar alertas da empresa</h3>
             <div class="editAlertas">
                 <ul class="toggle-list">
+                    <!-- ALERTA GPU -->
                     <li class="toggle-item aberto">
                         <div class="botaoAbrir" onclick="toggleContent(this)">
                             <img class="iconeImagem" src="../assets/img/toggle.png" alt="">GPU:
-                            <!--substitui esse "Titulo:" daqui pelo nome do alerta-->
                             <div class="botoes">
-                                <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
+                                <button onclick="editarAlertaGPU()"><img src="../assets/img/trash.png" alt="">Apagar</button>
                             </div>
                         </div>
                         <div class="conteudoAlert">
-                            <p>Titulo:</p>
-                            <p>Componente</p>
+                            <p>Alertas</p>
+                            <p>Component: GPU</p>
                             <p>Valor max:</p>
                             <p>Valor min:</p>
                             <div class="faixasPorcent">
-                                <label for="valorAlertMax">Valor máximo (%):</label>
-                                <input type="number" id="valorAlertMax" name="valorAlertMax" min="0" max="100" value="">
+                                <label for="valorAlertMax">Valor minino para estado de Alerta (%):</label>
+                                <input type="number" id="valorAlertMinGPU" name="nomeValorAlertMinGPU" min="0" max="100"
+                                    value="">
 
-                                <label for="valorAlertMin">Valor minimo (%):</label>
-                                <input type="number" id="valorAlertMin" name="valorAlertMin" min="0" max="100" value="">
-                            </div>
-
-                            <div class="botaoConfirmar">
-                                <button id="enviar" onclick="enviarAlteracao()">Confirmar</button>
+                                <label for="valorAlertMin">Valor minimo para estado de Crítrico (%):</label>
+                                <input type="number" id="valorCriticoMinGPU" name="nomeValorCriticoMinGPU" min="0"
+                                    max="100" value="">
                             </div>
                         </div>
                     </li>
+                    <!-- ALERTA RAM -->
                     <li class="toggle-item aberto">
                         <div class="botaoAbrir" onclick="toggleContent(this)">
                             <img class="iconeImagem" src="../assets/img/toggle.png" alt="">RAM:
-                            <!--substitui esse "Titulo:" daqui pelo nome do alerta-->
                             <div class="botoes">
-                                <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
+                                <button onclick="editarAlertaRAM()"><img src="../assets/img/trash.png" alt="">Apagar</button>
                             </div>
                         </div>
                         <div class="conteudoAlert">
-                            <p>Titulo:</p>
-                            <p>Componente</p>
+                            <p>Alertas</p>
+                            <p>Componente: RAM</p>
                             <p>Valor max:</p>
                             <p>Valor min:</p>
                             <div class="faixasPorcent">
-                                <label for="valorAlertMax">Valor máximo (%):</label>
-                                <input type="number" id="valorAlertMax" name="valorAlertMax" min="0" max="100" value="">
+                                <label for="valorAlertMax">Valor minino para estado de Alerta (%):</label>
+                                <input type="number" id="valorAlertMinRAM" name="nomeValorAlertMinRAM" min="0" max="100"
+                                    value="">
 
-                                <label for="valorAlertMin">Valor minimo (%):</label>
-                                <input type="number" id="valorAlertMin" name="valorAlertMin" min="0" max="100" value="">
-                            </div>
-
-                            <div class="botaoConfirmar">
-                                <button id="enviar" onclick="enviarAlteracao()">Confirmar</button>
+                                <label for="valorAlertMin">Valor minimo para estado de Crítrico (%):</label>
+                                <input type="number" id="valorCriticoMinRAM" name="nomeValorCriticoMinRAM" min="0"
+                                    max="100" value="">
                             </div>
                         </div>
                     </li>
+                    <!-- ALERTA DISCO -->
                     <li class="toggle-item aberto">
                         <div class="botaoAbrir" onclick="toggleContent(this)">
                             <img class="iconeImagem" src="../assets/img/toggle.png" alt="">Disco:
-                            <!--substitui esse "Titulo:" daqui pelo nome do alerta-->
                             <div class="botoes">
-                                <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
+                                <button onclick="editarAlertaDISCO()"><img src="../assets/img/trash.png" alt="">Apagar</button>
                             </div>
                         </div>
                         <div class="conteudoAlert">
-                            <p>Titulo:</p>
-                            <p>Componente</p>
+                            <p>Alertas</p>
+                            <p>Componente: Disco</p>
                             <p>Valor max:</p>
                             <p>Valor min:</p>
                             <div class="faixasPorcent">
-                                <label for="valorAlertMax">Valor máximo (%):</label>
-                                <input type="number" id="valorAlertMax" name="valorAlertMax" min="0" max="100" value="">
+                                <label for="valorAlertMax">Valor minino para estado de Alerta (%):</label>
+                                <input type="number" id="valorAlertMinDisco" name="nomeValorAlertMinDisco" min="0"
+                                    max="100" value="">
 
-                                <label for="valorAlertMin">Valor minimo (%):</label>
-                                <input type="number" id="valorAlertMin" name="valorAlertMin" min="0" max="100" value="">
-                            </div>
-
-                            <div class="botaoConfirmar">
-                                <button id="enviar" onclick="enviarAlteracao()">Confirmar</button>
+                                <label for="valorAlertMin">Valor minimo para estado de Crítrico (%):</label>
+                                <input type="number" id="valorCriticoMinDisco" name="nomeValorCriticoMinDisco" min="0"
+                                    max="100" value="">
                             </div>
                         </div>
                     </li>
+                    <!-- ALERTA CPU -->
                     <li class="toggle-item aberto">
                         <div class="botaoAbrir" onclick="toggleContent(this)">
                             <img class="iconeImagem" src="../assets/img/toggle.png" alt="">CPU:
-                            <!--substitui esse "Titulo:" daqui pelo nome do alerta-->
                             <div class="botoes">
-                                <button onclick="editarFunc()"><img src="../assets/img/trash.png" alt="">Apagar</button>
+                                <button onclick="editarAlertaCPU()"><img src="../assets/img/trash.png" alt="">Apagar</button>
                             </div>
                         </div>
                         <div class="conteudoAlert">
-                            <p>Titulo:</p>
-                            <p>Componente</p>
+                            <p>Alertas</p>
+                            <p>Componente: CPU</p>
                             <p>Valor max:</p>
                             <p>Valor min:</p>
                             <div class="faixasPorcent">
-                                <label for="valorAlertMax">Valor máximo (%):</label>
-                                <input type="number" id="valorAlertMax" name="valorAlertMax" min="0" max="100" value="">
+                                <label for="valorAlertMax">Valor minino para estado de Alerta (%):</label>
+                                <input type="number" id="valorAlertMinCPU" name="nomeValorAlertMinCPU" min="0" max="100"
+                                    value="">
 
-                                <label for="valorAlertMin">Valor minimo (%):</label>
-                                <input type="number" id="valorAlertMin" name="valorAlertMin" min="0" max="100" value="">
-                            </div>
-
-                            <div class="botaoConfirmar">
-                                <button id="enviar" onclick="enviarAlteracao()">Confirmar</button>
+                                <label for="valorAlertMin">Valor minimo para estado de Crítrico (%):</label>
+                                <input type="number" id="valorCriticoMinCPU" name="nomeValorCriticoMinCPU" min="0"
+                                    max="100" value="">
                             </div>
                         </div>
                     </li>
+                    <div class="botaoConfirmar">
+                        <button id="enviar" onclick="enviarAlteracao()">Confirmar edição de Alertas</button>
+                    </div>
                 </ul>
             </div>
         </div>
     </div>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
 <script>
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+    });
 
     sessionStorage.ID_MAQUINA = 0;
     sessionStorage.ID_FUNCIONARIO_PARA_EDITAR = 0;
@@ -231,6 +241,314 @@
         var content = element.nextElementSibling;
         content.style.display = content.style.display === 'none' ? 'block' : 'none';
     }
+
+    empresaNomeFantasia.value = sessionStorage.getItem("NOME_EMPRESA");
+
+    function confirmarEmpresa() {
+        var nomeFantasia = empresaNomeFantasia.value;
+        var razaoSocial = empresaRazaoSocial.value;
+        var apelido = empresaApelido.value;
+
+        Swal.fire({
+            title: "Tem certeza que deseja alterar os dados da empresa?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: `Sim`,
+            denyButtonText: `Não`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                editarEmpresa(nomeFantasia, razaoSocial, apelido);
+
+                Swal.fire("Alterado!", "", "success");
+            } else if (result.isDenied) {
+                Swal.fire("As alterações não foram salvas", "", "info");
+            }
+        });
+    }
+
+    function editarEmpresa(nomeFantasia, razaoSocial, apelido) {
+        fetch(`/empresas/editar`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeFantasia: nomeFantasia,
+                razaoSocial: razaoSocial,
+                apelido: apelido,
+                fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
+            }),
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (resposta) {
+                        console.log(resposta);
+                        sessionStorage.NOME_EMPRESA = resposta.nomeFantasia;
+                    });
+                } else {
+                    console.log("Erro de cadastro!");
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+    }
+
+    function enviarAlteracao() {
+        var VvalorAlertMinGPU = Number(valorAlertMinGPU.value).toFixed(2);
+        var VvalorCriticoMinGPU = Number(valorCriticoMinGPU.value).toFixed(2);
+
+        var VvalorAlertMinRAM = Number(valorAlertMinRAM.value).toFixed(2);
+        var VvalorCriticoMinRAM = Number(valorCriticoMinRAM.value).toFixed(2);
+
+        var VvalorAlertMinDisco = Number(valorAlertMinDisco.value).toFixed(2);
+        var VvalorCriticoMinDisco = Number(valorCriticoMinDisco.value).toFixed(2);
+
+        var VvalorAlertMinCPU = Number(valorAlertMinCPU.value).toFixed(2);
+        var VvalorCriticoMinCPU = Number(valorCriticoMinCPU.value).toFixed(2);
+
+        Swal.fire({
+            title: "Tem certeza que deseja alterar os dados dos alertas?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: `Sim`,
+            denyButtonText: `Não`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                editarAlerts(VvalorAlertMinGPU, VvalorCriticoMinGPU, VvalorAlertMinRAM, VvalorCriticoMinRAM, VvalorAlertMinDisco, VvalorCriticoMinDisco, VvalorAlertMinCPU, VvalorCriticoMinCPU);
+
+                Swal.fire("Alterado!", "", "success");
+            } else if (result.isDenied) {
+                Swal.fire("As alterações não foram salvas", "", "info");
+            }
+        });
+    }
+
+    function editarAlerts(VvalorAlertMinGPU, VvalorCriticoMinGPU, VvalorAlertMinRAM, VvalorCriticoMinRAM, VvalorAlertMinDisco, VvalorCriticoMinDisco, VvalorAlertMinCPU, VvalorCriticoMinCPU) {
+        var numeroMinino = sessionStorage.getItem("ID_EMPRESA") * 8 - 7;
+        var numeroMaximo = sessionStorage.getItem("ID_EMPRESA") * 8;
+
+        fetch(`/empresas/editarAlerts`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                valorAlertMinGPU: VvalorAlertMinGPU,
+                valorCriticoMinGPU: VvalorCriticoMinGPU,
+                valorAlertMinRAM: VvalorAlertMinRAM,
+                valorCriticoMinRAM: VvalorCriticoMinRAM,
+                valorAlertMinDisco: VvalorAlertMinDisco,
+                valorCriticoMinDisco: VvalorCriticoMinDisco,
+                valorAlertMinCPU: VvalorAlertMinCPU,
+                valorCriticoMinCPU: VvalorCriticoMinCPU,
+                fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
+                numeroMinino: numeroMinino,
+                numeroMaximo: numeroMaximo,
+            }),
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (resposta) {
+                        console.log(resposta);
+                    });
+                } else {
+                    console.log("Erro de cadastro!");
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+    }
+
+    function editarAlertaGPU() {
+        Swal.fire({
+            title: "Tem certeza que deseja apagar o alerta de GPU?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: `Sim`,
+            denyButtonText: `Não`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                apagarAlertGPU();
+
+                Swal.fire("Apagado!", "", "success");
+            } else if (result.isDenied) {
+                Swal.fire("As alterações não foram salvas", "", "info");
+            }
+        });
+    }
+
+    function apagarAlertGPU() {
+        var numeroMinino = sessionStorage.getItem("ID_EMPRESA") * 8 - 1;
+        var numeroMaximo = sessionStorage.getItem("ID_EMPRESA") * 8;
+
+        fetch(`/empresas/apagarAlertGPU`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                numeroMinino: numeroMinino,
+                numeroMaximo: numeroMaximo,
+                fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
+            }),
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (resposta) {
+                        console.log(resposta);
+                    });
+                } else {
+                    console.log("Erro de cadastro!");
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+    }
+
+    function editarAlertaRAM() {
+        Swal.fire({
+            title: "Tem certeza que deseja apagar o alerta de RAM?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: `Sim`,
+            denyButtonText: `Não`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                apagarAlertRAM();
+
+                Swal.fire("Apagado!", "", "success");
+            } else if (result.isDenied) {
+                Swal.fire("As alterações não foram salvas", "", "info");
+            }
+        });
+    }
+
+    function apagarAlertRAM() {
+        var numeroMinino = sessionStorage.getItem("ID_EMPRESA") * 8 - 5;
+        var numeroMaximo = numeroMinino + 1;
+
+        fetch(`/empresas/apagarAlertRAM`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                numeroMinino: numeroMinino,
+                numeroMaximo: numeroMaximo,
+                fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
+            }),
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (resposta) {
+                        console.log(resposta);
+                    });
+                } else {
+                    console.log("Erro de cadastro!");
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+    }
+
+    function editarAlertaDISCO() {
+        Swal.fire({
+            title: "Tem certeza que deseja apagar o alerta de Disco?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: `Sim`,
+            denyButtonText: `Não`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                apagarAlertDISCO();
+
+                Swal.fire("Apagado!", "", "success");
+            } else if (result.isDenied) {
+                Swal.fire("As alterações não foram salvas", "", "info");
+            }
+        });
+    }
+
+    function apagarAlertDISCO() {
+        var numeroMinino = sessionStorage.getItem("ID_EMPRESA") * 8 - 3;
+        var numeroMaximo = numeroMinino + 1;
+
+        fetch(`/empresas/apagarAlertDISCO`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                numeroMinino: numeroMinino,
+                numeroMaximo: numeroMaximo,
+                fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
+            }),
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (resposta) {
+                        console.log(resposta);
+                    });
+                } else {
+                    console.log("Erro de cadastro!");
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+    }
+
+    function editarAlertaCPU() {
+        Swal.fire({
+            title: "Tem certeza que deseja apagar o alerta de CPU?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: `Sim`,
+            denyButtonText: `Não`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                apagarAlertCPU();
+
+                Swal.fire("Apagado!", "", "success");
+            } else if (result.isDenied) {
+                Swal.fire("As alterações não foram salvas", "", "info");
+            }
+        });
+    }
+
+    function apagarAlertCPU() {
+        var numeroMinino = sessionStorage.getItem("ID_EMPRESA") * 8 - 7;
+        var numeroMaximo = numeroMinino + 1;
+
+        fetch(`/empresas/apagarAlertCPU`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                numeroMinino: numeroMinino,
+                numeroMaximo: numeroMaximo,
+                fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
+            }),
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (resposta) {
+                        console.log(resposta);
+                    });
+                } else {
+                    console.log("Erro de cadastro!");
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+    }
+
 </script>
 
 </html>

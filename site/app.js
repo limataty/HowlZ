@@ -12,6 +12,7 @@ var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var medidasRouter = require("./src/routes/medidas");
 var processosRouter = require("./src/routes/processos");
+var empresaRouter = require("./src/routes/empresa");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -22,7 +23,8 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/medidas", medidasRouter);
-app.use("/processos", processosRouter)
+app.use("/processos", processosRouter);
+app.use("/empresas", empresaRouter);
 
 
 app.listen(PORTA, function () {

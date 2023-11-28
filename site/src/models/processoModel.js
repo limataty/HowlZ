@@ -136,7 +136,6 @@ LIMIT 1;
 }
 
 
-
 module.exports = {
     exibirProcesso,
     exibirJanela,

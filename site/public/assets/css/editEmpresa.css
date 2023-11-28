@@ -291,17 +291,19 @@ hr {
 
 .conteudoAlert label {
     font-weight: 500;
+    width: auto;
 }
 
 .botaoConfirmar {
     margin: 20px 0 15px;
     width: 100%;
     display: flex;
+    justify-content: flex-end;
 }
 
 .botaoConfirmar button {
-    height: 40px;
-    width: 100px;
+    height: 50px;
+    width: 130px;
     font-weight: 500;
     border: none;
     background-color: #7935a2;
