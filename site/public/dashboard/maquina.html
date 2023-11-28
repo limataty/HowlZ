@@ -381,9 +381,9 @@
                 .then(function (resposta) {
                     
                     if (resposta.ok) {
-                        resposta.JSON().then(function (resposta) {
-                            console.log(resposta);
-                        })
+                        console.log(resposta);
+                        console.log(resposta[0]);
+                    console.log(JSON.stringify(resposta));
 
                         bomCPU = resposta.alertaCPU - 0.01;
                         bomRAM = resposta.alertaRAM - 0.01;
