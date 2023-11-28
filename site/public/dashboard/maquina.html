@@ -366,27 +366,27 @@
             window.location = "/login";
         }
 
+        var bomCPU = 0;
+        var bomRAM = 0;
+        var bomDisco = 0;
+        var bomGPU = 0;
+
+        var alertaCPU = 0;
+        var alertaRAM = 0;
+        var alertaDisco = 0;
+        var alertaGPU = 0;
+
+        var ateCPU = 0;
+        var ateRAM = 0;
+        var ateDisco = 0;
+        var ateGPU = 0;
+
+        var ruimCPU = 0;
+        var ruimRAM = 0;
+        var ruimDisco = 0;
+        var ruimGPU = 0;
+
         function mostrarElemento(elementoID) {
-
-            var bomCPU = 0;
-            var bomRAM = 0;
-            var bomDisco = 0;
-            var bomGPU = 0;
-
-            var alertaCPU = 0;
-            var alertaRAM = 0;
-            var alertaDisco = 0;
-            var alertaGPU = 0;
-
-            var ateCPU = 0;
-            var ateRAM = 0;
-            var ateDisco = 0;
-            var ateGPU = 0;
-
-            var ruimCPU = 0;
-            var ruimRAM = 0;
-            var ruimDisco = 0;
-            var ruimGPU = 0;
 
             fetch("medidas/alertas", {
                 method: "POST",
@@ -423,7 +423,17 @@
                         ruimDisco = resposta.criticoDISCO;
                         ruimGPU = resposta.criticoGPU;
 
-                        var elementos = ["CPU", "RAM", "Disco", "GPU"];
+                    } else {
+                        resposta.text().then((texto) => {
+                            console.log(texto);
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                })
+
+            var elementos = ["CPU", "RAM", "Disco", "GPU"];
             elementos.forEach(function (elemento) {
                 var elementoAtual = document.getElementById(elemento);
                 if (elementoAtual) {
@@ -472,15 +482,6 @@
                     `
                 }
             }
-                    } else {
-                        resposta.text().then((texto) => {
-                            console.log(texto);
-                        });
-                    }
-                })
-                .catch(function (erro) {
-                    console.log(erro);
-                })
         }
 
         function pegarProcessos() {
