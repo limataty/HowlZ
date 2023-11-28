@@ -367,40 +367,41 @@
             window.location = "/login";
         }
 
-        var bomCPU = 0;
-        var bomRAM = 0;
-        var bomDisco = 0;
-        var bomGPU = 0;
+        var alertas = {
+            bomCPU: 0,
+            bomRAM: 0,
+            bomDisco: 0,
+            bomGPU: 0,
 
-        var ValertaCPU = 0;
-        var ValertaRAM = 0;
-        var ValertaDisco = 0;
-        var ValertaGPU = 0;
+            ValertaCPU: 0,
+            ValertaRAM: 0,
+            ValertaDisco: 0,
+            ValertaGPU: 0,
 
-        var ateCPU = 0;
-        var ateRAM = 0;
-        var ateDisco = 0;
-        var ateGPU = 0;
+            ateCPU: 0,
+            ateRAM: 0,
+            ateDisco: 0,
+            ateGPU: 0,
 
-        var ruimCPU = 0;
-        var ruimRAM = 0;
-        var ruimDisco = 0;
-        var ruimGPU = 0;
+            ruimCPU: 0,
+            ruimRAM: 0,
+            ruimDisco: 0,
+            ruimGPU: 0,
+        };
 
         function mostrarElemento(elementoID) {
-
             fetch("/medidas/alertas", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    fkEmpresa: sessionStorage.getItem("ID_EMPRESA")
-                })
+                    fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
+                }),
             })
                 .then(function (resposta) {
                     if (resposta.ok) {
-                        return resposta.json(); // Retorna uma Promise que resolve para o corpo JSON
+                        return resposta.json();
                     } else {
                         return resposta.text().then((texto) => {
                             console.log(texto);
@@ -409,27 +410,25 @@
                     }
                 })
                 .then(function (resposta) {
-                    console.log(resposta); // Examine a resposta para garantir que você está acessando as propriedades corretas
+                    alertas.bomCPU = resposta.alertaCPU - 0.01;
+                    alertas.bomRAM = resposta.alertaRAM - 0.01;
+                    alertas.bomDisco = resposta.alertaDISCO - 0.01;
+                    alertas.bomGPU = resposta.alertaGPU - 0.01;
 
-                    bomCPU = resposta.alertaCPU - 0.01;
-                    bomRAM = resposta.alertaRAM - 0.01;
-                    bomDisco = resposta.alertaDISCO - 0.01;
-                    bomGPU = resposta.alertaGPU - 0.01;
+                    alertas.ValertaCPU = resposta.alertaCPU;
+                    alertas.ValertaRAM = resposta.alertaRAM;
+                    alertas.ValertaDisco = resposta.alertaDISCO;
+                    alertas.ValertaGPU = resposta.alertaGPU;
 
-                    ValertaCPU = resposta.alertaCPU;
-                    ValertaRAM = resposta.alertaRAM;
-                    ValertaDisco = resposta.alertaDISCO;
-                    ValertaGPU = resposta.alertaGPU;
+                    alertas.ateCPU = resposta.criticoCPU - 0.01;
+                    alertas.ateRAM = resposta.criticoRAM - 0.01;
+                    alertas.ateDisco = resposta.criticoDISCO - 0.01;
+                    alertas.ateGPU = resposta.criticoGPU - 0.01;
 
-                    ateCPU = resposta.criticoCPU - 0.01;
-                    ateRAM = resposta.criticoRAM - 0.01;
-                    ateDisco = resposta.criticoDISCO - 0.01;
-                    ateGPU = resposta.criticoGPU - 0.01;
-
-                    ruimCPU = resposta.criticoCPU;
-                    ruimRAM = resposta.criticoRAM;
-                    ruimDisco = resposta.criticoDISCO;
-                    ruimGPU = resposta.criticoGPU;
+                    alertas.ruimCPU = resposta.criticoCPU;
+                    alertas.ruimRAM = resposta.criticoRAM;
+                    alertas.ruimDisco = resposta.criticoDISCO;
+                    alertas.ruimGPU = resposta.criticoGPU;
 
                     var elementos = ["CPU", "RAM", "Disco", "GPU"];
                     elementos.forEach(function (elemento) {
@@ -445,24 +444,24 @@
 
                         if (elementoID === 'CPU') {
                             obterDadosGrafico(testefk, 'CPU', '1', 'canvasCPU');
-                            alertaComp1.innerHTML = `Bom: Até ${bomCPU}%</span>`;
-                            alertaComp2.innerHTML = `Alerta: De ${ValertaCPU}% à ${ateCPU}%`;
-                            alertaComp3.innerHTML = `Ruim: A partir de ${ruimCPU}%`;
+                            alertaComp1.innerHTML = `Bom: Até ${alertas.bomCPU}%</span>`;
+                            alertaComp2.innerHTML = `Alerta: De ${alertas.ValertaCPU}% à ${alertas.ateCPU}%`;
+                            alertaComp3.innerHTML = `Ruim: A partir de ${alertas.ruimCPU}%`;
                         } else if (elementoID === 'RAM') {
                             obterDadosGrafico(testefk, 'RAM', '2', 'canvasRAM');
-                            alertaComp1.innerHTML = `Bom: Até ${bomRAM}%</span>`;
-                            alertaComp2.innerHTML = `Alerta: De ${ValertaRAM}% à ${ateRAM}%`;
-                            alertaComp3.innerHTML = `Ruim: A partir de ${ruimRAM}%`;
+                            alertaComp1.innerHTML = `Bom: Até ${alertas.bomRAM}%</span>`;
+                            alertaComp2.innerHTML = `Alerta: De ${alertas.ValertaRAM}% à ${alertas.ateRAM}%`;
+                            alertaComp3.innerHTML = `Ruim: A partir de ${alertas.ruimRAM}%`;
                         } else if (elementoID === 'Disco') {
                             obterDadosGrafico(testefk, 'Disco', '3', 'canvasDISCO');
-                            alertaComp1.innerHTML = `Bom: Até ${bomDisco}%</span>`;
-                            alertaComp2.innerHTML = `Alerta: De ${ValertaDisco}% à ${ateDisco}%`;
-                            alertaComp3.innerHTML = `Ruim: A partir de ${ruimDisco}%`;
+                            alertaComp1.innerHTML = `Bom: Até ${alertas.bomDisco}%</span>`;
+                            alertaComp2.innerHTML = `Alerta: De ${alertas.ValertaDisco}% à ${alertas.ateDisco}%`;
+                            alertaComp3.innerHTML = `Ruim: A partir de ${alertas.ruimDisco}%`;
                         } else if (elementoID === 'GPU') {
                             obterDadosGrafico(testefk, 'GPU', '4', 'canvasGPU');
-                            alertaComp1.innerHTML = `Bom: Até ${bomGPU}%</span>`;
-                            alertaComp2.innerHTML = `Alerta: De ${ValertaGPU}% à ${ateGPU}%`;
-                            alertaComp3.innerHTML = `Ruim: A partir de ${ruimGPU}%`;
+                            alertaComp1.innerHTML = `Bom: Até ${alertas.bomGPU}%</span>`;
+                            alertaComp2.innerHTML = `Alerta: De ${alertas.ValertaGPU}% à ${alertas.ateGPU}%`;
+                            alertaComp3.innerHTML = `Ruim: A partir de ${alertas.ruimGPU}%`;
                         }
                     }
                 })
@@ -713,35 +712,35 @@
     }, 5000);
 
     function atualizarBotoes() {
-    var idComputador = sessionStorage.getItem("ID_MAQUINA");
+        var idComputador = sessionStorage.getItem("ID_MAQUINA");
 
-    fetch(`/medidas/botoes/${idComputador}`, {
-        cache: "no-store",
-    })
-    .then(function (response) {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error(`Erro na requisição: ${response.statusText}`);
-        }
-    })
-    .then(function (resposta) {
-        console.log(JSON.stringify(resposta));
+        fetch(`/medidas/botoes/${idComputador}`, {
+            cache: "no-store",
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error(`Erro na requisição: ${response.statusText}`);
+                }
+            })
+            .then(function (resposta) {
+                console.log(JSON.stringify(resposta));
 
-        var statusGPU = obterStatus(resposta[0].monitoramentoGPU, alertas.criticoGPU, alertas.alertaGPU);
-        var statusRAM = obterStatus(resposta[0].monitoramentoRAM, alertas.criticoRAM, alertas.alertaRAM);
-        var statusCPU = obterStatus(resposta[0].MonitoramentoCPU, alertas.criticoCPU, alertas.alertaCPU);
-        var statusDisco = obterStatus(resposta[0].monitoramentoDISCO, alertas.criticoDISCO, alertas.alertaDISCO);
+                var statusGPU = obterStatus(resposta[0].monitoramentoGPU, alertas.criticoGPU, alertas.alertaGPU);
+                var statusRAM = obterStatus(resposta[0].monitoramentoRAM, alertas.criticoRAM, alertas.alertaRAM);
+                var statusCPU = obterStatus(resposta[0].MonitoramentoCPU, alertas.criticoCPU, alertas.alertaCPU);
+                var statusDisco = obterStatus(resposta[0].monitoramentoDISCO, alertas.criticoDISCO, alertas.alertaDISCO);
 
-        atualizarBotao(document.getElementById("botaoGraficoGPU"), statusGPU, resposta[0].monitoramentoGPU);
-        atualizarBotao(document.getElementById("botaoGraficoRAM"), statusRAM, resposta[0].monitoramentoRAM);
-        atualizarBotao(document.getElementById("botaoGraficoCPU"), statusCPU, resposta[0].MonitoramentoCPU);
-        atualizarBotao(document.getElementById("botaoGraficoDisco"), statusDisco, resposta[0].monitoramentoDISCO);
-    })
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados para botões: ${error.message}`);
-    });
-}
+                atualizarBotao(document.getElementById("botaoGraficoGPU"), statusGPU, resposta[0].monitoramentoGPU);
+                atualizarBotao(document.getElementById("botaoGraficoRAM"), statusRAM, resposta[0].monitoramentoRAM);
+                atualizarBotao(document.getElementById("botaoGraficoCPU"), statusCPU, resposta[0].MonitoramentoCPU);
+                atualizarBotao(document.getElementById("botaoGraficoDisco"), statusDisco, resposta[0].monitoramentoDISCO);
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados para botões: ${error.message}`);
+            });
+    }
     function obterStatus(valor, critico, alerta) {
         if (valor > critico) {
             return "ruim";
