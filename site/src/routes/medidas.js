@@ -11,4 +11,8 @@ router.get("/tempo-real/:idCaptacao", function (req, res) {
     medidaController.buscarMedidasEmTempoReal(req, res);
 });
 
+router.post("/alertas", function (req, res) {
+    medidaController.alertas(req, res);
+});
+
 module.exports = router;

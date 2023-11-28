@@ -367,6 +367,44 @@
         }
 
         function mostrarElemento(elementoID) {
+
+           fetch("medidas/alertas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                fkEmpresa: sessionStorage.getItem("ID_EMPRESA")
+            })
+            .then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!");
+                console.log(resposta);
+
+                var bomCPU = resposta.alertaCPU - 0.01;
+                var bomRAM = resposta.alertaRAM - 0.01;
+                var bomDisco = resposta.alertaDISCO - 0.01;
+                var bomGPU = resposta.alertaGPU - 0.01;
+
+                var alertaCPU = resposta.alertaCPU;
+                var alertaRAM = resposta.alertaRAM;
+                var alertaDisco = resposta.alertaDISCO;
+                var alertaGPU = resposta.alertaGPU;
+
+                var ateCPU = resposta.criticoCPU - 0.01;
+                var ateRAM = resposta.criticoRAM - 0.01;
+                var ateDisco = resposta.criticoDISCO - 0.01;
+                var ateGPU = resposta.criticoGPU - 0.01;
+
+                var ruimCPU = resposta.criticoCPU;
+                var ruimRAM = resposta.criticoRAM;
+                var ruimDisco = resposta.criticoDISCO;
+                var ruimGPU = resposta.criticoGPU;
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            })
+           })
+
             var elementos = ["CPU", "RAM", "Disco", "GPU"];
             elementos.forEach(function (elemento) {
                 var elementoAtual = document.getElementById(elemento);
@@ -381,38 +419,38 @@
                 if (elementoID === 'CPU') {
                     obterDadosGrafico(testefk, 'CPU', '1', 'canvasCPU');
                     alertaComp1.innerHTML = `
-                    Bom: Até 79.9%</span>`
+                    Bom: Até ${bomCPU}%</span>`
                     alertaComp2.innerHTML = `
-                    Alerta: De 80% à 90%`
+                    Alerta: De ${alertaCPU}% à ${ateCPU}%`
                     alertaComp3.innerHTML = `
-                    Ruim: A partir de 90%
+                    Ruim: A partir de ${ruimCPU}%
                     `
                 } else if (elementoID === 'RAM') {
                     obterDadosGrafico(testefk, 'RAM', '2', 'canvasRAM');
                     alertaComp1.innerHTML = `
-                    Bom: Até 89.9%</span>`
+                    Bom: Até ${bomRAM}%</span>`
                     alertaComp2.innerHTML = `
-                    Alerta: De 90% à 94.9%`
+                    Alerta: De ${alertaRAM}% à ${ateRAM}%`
                     alertaComp3.innerHTML = `
-                    Ruim: A partir de 95%
+                    Ruim: A partir de ${ruimRAM}%
                     `
                 } else if (elementoID === 'Disco') {
                     obterDadosGrafico(testefk, 'Disco' ,'3', 'canvasDISCO');
                     alertaComp1.innerHTML = `
-                    Bom: Até 84.9%</span>`
+                    Bom: Até ${bomDisco}%</span>`
                     alertaComp2.innerHTML = `
-                    Alerta: De 85% à 89.9%`
+                    Alerta: De ${alertaDisco}% à ${ateDisco}%`
                     alertaComp3.innerHTML = `
-                    Ruim: A partir de 90%
+                    Ruim: A partir de ${ruimDisco}%
                     `
                 } else if (elementoID === 'GPU') {
                     obterDadosGrafico(testefk, 'GPU', '4', 'canvasGPU');
                     alertaComp1.innerHTML = `
-                    Bom: Até 79.9%</span>`
+                    Bom: Até ${bomGPU}%</span>`
                     alertaComp2.innerHTML = `
-                    Alerta: De 80% à 89.9%`
+                    Alerta: De ${alertaGPU}% à ${ateGPU}%`
                     alertaComp3.innerHTML = `
-                    Ruim: A partir de 90%
+                    Ruim: A partir de ${ruimGPU}%
                     `
                 }
             }

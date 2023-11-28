@@ -121,8 +121,30 @@ FETCH FIRST 1 ROW ONLY;
   return database.executar(instrucaoSql);
 }
 
+function alertas(fkEmpresa){
+  instrucaoSql = `
+  SELECT
+    MIN(CASE WHEN fkTipoAlerta = 1 AND fkTipoMonitoramentoComponente = 1 THEN minimo END) AS alertaCPU,
+    MIN(CASE WHEN fkTipoAlerta = 2 AND fkTipoMonitoramentoComponente = 1 THEN minimo END) AS criticoCPU,
+    MIN(CASE WHEN fkTipoAlerta = 1 AND fkTipoMonitoramentoComponente = 2 THEN minimo END) AS alertaRAM,
+    MIN(CASE WHEN fkTipoAlerta = 2 AND fkTipoMonitoramentoComponente = 2 THEN minimo END) AS criticoRAM,
+    MIN(CASE WHEN fkTipoAlerta = 1 AND fkTipoMonitoramentoComponente = 3 THEN minimo END) AS alertaDISCO,
+    MIN(CASE WHEN fkTipoAlerta = 2 AND fkTipoMonitoramentoComponente = 3 THEN minimo END) AS criticoDISCO,
+    MIN(CASE WHEN fkTipoAlerta = 1 AND fkTipoMonitoramentoComponente = 4 THEN minimo END) AS alertaGPU,
+    MIN(CASE WHEN fkTipoAlerta = 2 AND fkTipoMonitoramentoComponente = 4 THEN minimo END) AS criticoGPU
+FROM
+    Alerta
+WHERE
+    fkEmpresa = ${fkEmpresa}};
+  `;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   buscarUltimasMedidas,
   buscarMedidasEmTempoReal,
   buscarMedidasEmTempoRealDisparos,
+  alertas
 };
