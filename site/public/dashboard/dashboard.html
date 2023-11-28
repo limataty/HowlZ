@@ -180,7 +180,9 @@
                                 }),
                             });
                         })
+                        
                         .then(function (json) {
+                            json = json[0];
                             console.log(json);
                             console.log(JSON.stringify(json));
                             
