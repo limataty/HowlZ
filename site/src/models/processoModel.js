@@ -34,30 +34,30 @@ function contarProcesso(idMaquina) {
     
 }
 
-function contarJanela(idMaquina) {
-    var instrucao = ""
-    if(process.env.AMBIENTE_PROCESSO == "producao"){
-        instrucao = `
-        SELECT 
-    COUNT(*) AS TotalLinhas
-    FROM 
-    Janela
-    WHERE 
-    dataHora >= DATEADD(DAY, -3, GETDATE()) AND fkComputador = ${idMaquina};
-        `;
-    }else if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
-        instrucao = `
-    SELECT 
-    COUNT(*) AS TotalLinhas
-FROM 
-    Janela
-WHERE 
-    dataHora >= CURDATE() - INTERVAL 1 WEEK AND fkComputador = ${idMaquina};
-    `;
-    }
-    console.log(instrucao);
-    return database.executar(instrucao);
-}
+// function contarJanela(idMaquina) {
+//     var instrucao = ""
+//     if(process.env.AMBIENTE_PROCESSO == "producao"){
+//         instrucao = `
+//         SELECT 
+//     COUNT(*) AS TotalLinhas
+//     FROM 
+//     Janela
+//     WHERE 
+//     dataHora >= DATEADD(DAY, -3, GETDATE()) AND fkComputador = ${idMaquina};
+//         `;
+//     }else if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
+//         instrucao = `
+//     SELECT 
+//     COUNT(*) AS TotalLinhas
+// FROM 
+//     Janela
+// WHERE 
+//     dataHora >= CURDATE() - INTERVAL 1 WEEK AND fkComputador = ${idMaquina};
+//     `;
+//     }
+//     console.log(instrucao);
+//     return database.executar(instrucao);
+// }
 
 function exibirProcesso(fkGestor, idMaquina) {
     var instrucao = "";
@@ -125,43 +125,43 @@ function exibirProcesso(fkGestor, idMaquina) {
     return database.executar(instrucao);
 }
 
-function exibirJanela(fkGestor, idMaquina) {
-    var instrucao = ""
-    if(process.env.AMBIENTE_PROCESSO == "producao"){
-        instrucao = `
-        WITH RankedJanelas AS (
-            SELECT
-                titulo,
-                dataHora,
-                ROW_NUMBER() OVER (PARTITION BY titulo ORDER BY dataHora DESC) AS RowNum
-            FROM 
-                Janela
-            WHERE 
-                dataHora >= DATEADD(DAY, -3, GETDATE()) AND 
-                fkComputador = ${idMaquina} AND 
-                titulo IS NOT NULL
-        )
-        SELECT
-            titulo,
-            dataHora
-        FROM 
-            RankedJanelas
-        WHERE 
-            RowNum = 1
-        ORDER BY 
-            dataHora DESC;
-        `;
-    } else if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
-        instrucao = `
-    SELECT DISTINCT titulo, dataHora FROM Janela
-    WHERE dataHora >= CURDATE() - INTERVAL 1 WEEK AND fkComputador = ${idMaquina} AND titulo IS NOT NULL
-LIMIT 1;
-    `;
-    }
+// function exibirJanela(fkGestor, idMaquina) {
+//     var instrucao = ""
+//     if(process.env.AMBIENTE_PROCESSO == "producao"){
+//         instrucao = `
+//         WITH RankedJanelas AS (
+//             SELECT
+//                 titulo,
+//                 dataHora,
+//                 ROW_NUMBER() OVER (PARTITION BY titulo ORDER BY dataHora DESC) AS RowNum
+//             FROM 
+//                 Janela
+//             WHERE 
+//                 dataHora >= DATEADD(DAY, -3, GETDATE()) AND 
+//                 fkComputador = ${idMaquina} AND 
+//                 titulo IS NOT NULL
+//         )
+//         SELECT
+//             titulo,
+//             dataHora
+//         FROM 
+//             RankedJanelas
+//         WHERE 
+//             RowNum = 1
+//         ORDER BY 
+//             dataHora DESC;
+//         `;
+//     } else if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
+//         instrucao = `
+//     SELECT DISTINCT titulo, dataHora FROM Janela
+//     WHERE dataHora >= CURDATE() - INTERVAL 1 WEEK AND fkComputador = ${idMaquina} AND titulo IS NOT NULL
+// LIMIT 1;
+//     `;
+//     }
     
-    console.log(instrucao);
-    return database.executar(instrucao);
-}
+//     console.log(instrucao);
+//     return database.executar(instrucao);
+// }
 
 
 module.exports = {
