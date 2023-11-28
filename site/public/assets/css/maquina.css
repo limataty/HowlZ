@@ -163,12 +163,12 @@ ul {
     margin: 50px 0 0;
 }
 
-.botoesGraph{
+.botoesGraph {
     display: flex;
     flex-direction: row;
 }
 
-.botoes{
+.botoes {
     display: flex;
     flex-direction: column;
 }
@@ -177,23 +177,24 @@ ul {
     position: fixed;
     top: 20px;
     left: 100px;
-    z-index: 999; /* Certifica-se de que o botão fica acima de outros elementos, se houver */
-    color: #fff; 
+    z-index: 999;
+    /* Certifica-se de que o botão fica acima de outros elementos, se houver */
+    color: #fff;
     background-color: #ffffff22;
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
-    
+
 }
 
 .voltar a {
-    color: #fff; 
+    color: #fff;
     text-decoration: none;
 }
 
-.containerAlertas{
+.containerAlertas {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -205,77 +206,84 @@ ul {
     padding: 10px;
 }
 
-.alertas1{
+.alertas1 {
     display: flex;
     padding: 5px;
     border-radius: 4px;
     background-color: rgba(0, 128, 0, 0.897);
 }
 
-.alertas2{
+.alertas2 {
     display: flex;
     padding: 5px;
     border-radius: 4px;
     background-color: rgba(255, 166, 0, 0.911);
 }
 
-.alertas3{
+.alertas3 {
     display: flex;
     padding: 5px;
     border-radius: 4px;
     background-color: rgba(255, 0, 0, 0.76);
 }
 
-.containerDash{
+.containerDash {
     display: flex;
     flex-direction: row;
     align-items: center;
     align-content: center;
 }
 
-.caixaLogs{
+.caixaLogs {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.caixaJanelas{
+.caixaJanelas {
     display: flex;
     flex-direction: column;
-    max-height: 200px; /* Defina a altura máxima desejada para o contêiner */
-    overflow-y: auto;  /* Adiciona uma barra de rolagem vertical quando necessário */
-    
+    max-height: 200px;
+    /* Defina a altura máxima desejada para o contêiner */
+    overflow-y: auto;
+    /* Adiciona uma barra de rolagem vertical quando necessário */
+
 }
 
-.caixaProcessos{
+.caixaProcessos {
     display: flex;
     flex-direction: column;
-    max-height: 200px; /* Defina a altura máxima desejada para o contêiner */
-    overflow-y: auto;  /* Adiciona uma barra de rolagem vertical quando necessário */
+    max-height: 200px;
+    /* Defina a altura máxima desejada para o contêiner */
+    overflow-y: auto;
+    /* Adiciona uma barra de rolagem vertical quando necessário */
     margin-top: 10px;
-    
+
 }
 
 .caixaLogs::-webkit-scrollbar,
 .caixaJanelas::-webkit-scrollbar,
 .caixaProcessos::-webkit-scrollbar {
-    width: 8px; /* Largura da barra de rolo */
+    width: 8px;
+    /* Largura da barra de rolo */
 }
 
 .caixaLogs::-webkit-scrollbar-thumb,
 .caixaJanelas::-webkit-scrollbar-thumb,
 .caixaProcessos::-webkit-scrollbar-thumb {
-    background-color: #888; /* Cor da barra de rolo */
-    border-radius: 4px; /* Borda arredondada */
+    background-color: #888;
+    /* Cor da barra de rolo */
+    border-radius: 4px;
+    /* Borda arredondada */
 }
 
 
-table{
+table {
     display: flex;
     border-style: none;
     border-color: #141619;
     border-radius: 5px;
-    margin: 0 20px 10px 10px ;
+    margin: 0 20px 10px 10px;
     border-spacing: 4px;
 }
 
@@ -283,21 +291,21 @@ th {
     border-radius: 4px;
     border-style: groove;
     border-color: #4b0975;
-    background-color:#3a0859;
+    background-color: #3a0859;
     text-align: left;
 }
 
-td{
+td {
     border-radius: 4px;
     border-style: groove;
     border-color: #4b0975;
-    background-color:#7a0bc0;
+    background-color: #7a0bc0;
     text-align: left;
-    word-wrap: break-word ;
+    word-wrap: break-word;
     max-width: 200px;
 }
 
-.dashboard .alertas{
+.dashboard .alertas {
     display: flex;
     flex-direction: row;
     background-color: #202225;
@@ -307,14 +315,17 @@ td{
     margin-right: 8px;
 }
 
-.dashboard{
+.dashboard {
     display: flex;
     flex-direction: column;
     height: 50%;
     margin: 0 2% 2% 2%;
 }
 
-.CPU, .elementoRAM, .elementoDisco, .elementoGPU{
+.CPU,
+.elementoRAM,
+.elementoDisco,
+.elementoGPU {
     display: flex;
     justify-content: end;
     background-color: #ffffff08;
@@ -322,11 +333,11 @@ td{
     padding: 15px;
 }
 
-.botoes{
+.botoes {
     gap: 10px;
 }
 
-.botoes button{
+.botoes button {
     background-color: #4b0975;
     color: #fff;
     border: none;
@@ -337,22 +348,33 @@ td{
     transition: all .3s ease-in-out;
 }
 
-.botoes button:hover{
+.botoes button:hover {
     filter: brightness(70%);
     transform: scale(.9);
     border-radius: 10px;
-    
+
 }
 
-.botoes:disabled{
+.botoes:disabled {
     background-color: #202225;
 }
 
-.textoEdit img{
+.textoEdit img {
     width: 15px;
 }
 
-.textoEdit:hover{
+.textoEdit:hover {
     color: #913cc5;
 }
 
+.ruim {
+    background-color: red;
+}
+
+.medio {
+    background-color: orange;
+}
+
+.bom {
+    /* estilo para o status bom */
+}
