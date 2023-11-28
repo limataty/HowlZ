@@ -1,6 +1,4 @@
-const e = require("express");
 var database = require("../database/config");
-const { escape } = require("mysql2");
 
 function contarProcesso(idMaquina) {
     var instrucao = "";
