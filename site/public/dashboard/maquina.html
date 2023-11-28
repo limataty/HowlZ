@@ -471,6 +471,73 @@
                 });
         }
 
+        function pegarProcessos() {
+            idMaquina = sessionStorage.getItem("ID_MAQUINA");
+            fetch(`/processos/contarProcesso/${idMaquina}`, {
+                cache: "no-store",
+            })
+                .then(function (retorno) {
+                    console.log("ESTOU NO THEN DO entrar do Processo()!");
+                    var processosHTML = "";
+                    if (retorno.ok) {
+                        console.log(retorno);
+                        for (let i = 0; i < retorno; i++) {
+                            fetch("/processos/exibirProcesso", {
+
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
+                                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
+                                }),
+                            })
+                                .then(function (resposta) {
+                                    if (resposta.ok) {
+                                        return resposta.json(); // Retorna uma Promise que resolve para o corpo JSON
+                                    } else {
+                                        return resposta.text().then((texto) => {
+                                            console.log(texto);
+                                            throw new Error("Erro na requisição: " + resposta.status);
+                                        });
+                                    }
+                                })
+                                .then(function (resposta) {
+                                    console.log("ESTOU NO THEN DO entrar do Exibir Processo()!");
+
+                                    if (resposta.ok) {
+                                        console.log(resposta);
+                                        processosHTML += `<tr>
+                                            <td>${resposta[0].NomeProcesso}</td>
+                                            <td>${resposta[0].dataHora}</td>
+                                            <td>${resposta[0].uso} ${resposta[0].simbolo}</td>
+                                            </tr>`
+                                        tabelaProcessos.innerHTML = processosHTML;
+                                    } else {
+                                        resposta.text().then((texto) => {
+                                            console.log(texto);
+                                        });
+                                    }
+                                })
+                                .catch(function (erro) {
+                                    console.log(erro);
+                                });
+                        }
+                    } else {
+                        retorno.text().then((texto) => {
+                            console.log(texto);
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                });
+
+        }
+
+        pegarProcessos();
+
         
         // function pegarJanela() {
         //     fetch("/processos/contarJanela", {
