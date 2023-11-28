@@ -1,10 +1,10 @@
 var processoModel = require("../models/processoModel");
 
-function exibirProcesso(req, res){
-    var fkGestor = req.body.fkGestorServer;
-    var idMaquina = req.body.idMaquina;
+function exibirProcesso(req, res) {
+  var fkGestor = req.body.fkGestorServer;
+  var idMaquina = req.body.idMaquina;
 
-    processoModel
+  processoModel
     .exibirProcesso(fkGestor, idMaquina)
     .then(function (resultado) {
       console.log("resultado: " + resultado[0].NomeProcesso + " " + resultado[0].dataHora + " " + resultado[0].uso + resultado[0].simbolo);
@@ -20,11 +20,11 @@ function exibirProcesso(req, res){
     });
 }
 
-function exibirJanela(req, res){
-    var fkGestor = req.body.fkGestorServer;
-    var idMaquina = req.body.idMaquina;
+function exibirJanela(req, res) {
+  var fkGestor = req.body.fkGestorServer;
+  var idMaquina = req.body.idMaquina;
 
-    processoModel
+  processoModel
     .exibirJanela(fkGestor, idMaquina)
     .then(function (resultado) {
       console.log("resultado: " + resultado[0].titulo + " " + resultado[0].dataHora);
@@ -40,13 +40,14 @@ function exibirJanela(req, res){
     });
 }
 
-function contarProcesso(req, res){
-    var idMaquina = req.body.idMaquina;
-    processoModel
+function contarProcesso(req, res) {
+  var idMaquina = req.body.idMaquina;
+
+  processoModel
     .contarProcesso(idMaquina)
     .then(function (resultado) {
-      console.log("resultado: " + resultado[0].TotalLinhas);
-      res.json(resultado[0].TotalLinhas);
+      console.log("resultado: " + resultado.TotalLinhas);
+      res.json(resultado.TotalLinhas);
     })
     .catch(function (erro) {
       console.log(erro);
@@ -58,9 +59,9 @@ function contarProcesso(req, res){
     });
 }
 
-function contarJanela(req, res){
-    var idMaquina = req.body.idMaquina;
-    processoModel
+function contarJanela(req, res) {
+  var idMaquina = req.body.idMaquina;
+  processoModel
     .contarJanela(idMaquina)
     .then(function (resultado) {
       console.log("resultado: " + resultado[0].TotalLinhas);
@@ -77,9 +78,9 @@ function contarJanela(req, res){
 }
 
 module.exports = {
-    exibirProcesso,
-    exibirJanela,
-    contarProcesso,
-    contarJanela
-  };
+  exibirProcesso,
+  exibirJanela,
+  contarProcesso,
+  contarJanela
+};
 
