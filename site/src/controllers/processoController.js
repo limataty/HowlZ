@@ -43,8 +43,7 @@ function exibirJanela(req, res) {
 function contarProcesso(req, res) {
   var idMaquina = req.params.idMaquina;
 
-  processoModel
-    .contarProcessoModel(idMaquina)
+  processoModel.contarProcessoModel(idMaquina)
     .then(function (resultado) {
       console.log("resultado da contagem de Processos: " + resultado.TotalLinhas);
       res.json(resultado.TotalLinhas);
