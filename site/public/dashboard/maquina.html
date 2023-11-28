@@ -481,12 +481,19 @@
                     idMaquina: sessionStorage.getItem("ID_MAQUINA")
                 }),
             })
-                .then(function (retorno) {
+                .then(function (json) {
+                    if (!json.ok) {
+                        throw new Error("Erro na requisição: " + json.status);
+                    }
+                    return json.json(); // Retorna a promessa do corpo JSON
+                })
+
+                .then(function (json) {
                     console.log("ESTOU NO THEN DO entrar do Processo()!");
                     var processosHTML = "";
-                    if (retorno.ok) {
-                        console.log(retorno);
-                        for (let i = 0; i < retorno; i++) {
+                    if (json.ok) {
+                        console.log(json);
+                        for (let i = 0; i < json; i++) {
                             fetch("/processos/exibirProcesso", {
 
                                 method: "POST",
@@ -530,7 +537,7 @@
                                 });
                         }
                     } else {
-                        retorno.text().then((texto) => {
+                        json.text().then((texto) => {
                             console.log(texto);
                         });
                     }
@@ -544,7 +551,7 @@
         pegarProcessos();
 
 
-        
+
         // function pegarJanela() {
         //     fetch("/processos/contarJanela", {
         //         method: "POST",
