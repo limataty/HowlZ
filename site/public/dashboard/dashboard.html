@@ -119,7 +119,9 @@
 
         var fkGestorServer = sessionStorage.getItem("ID_USUARIO");
 
-        fetch("/usuarios/contar", {
+async function obterContagemUsuarios() {
+    try {
+        const resposta = await fetchData("/usuarios/contar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -127,121 +129,97 @@
             body: JSON.stringify({
                 fkGestorServer: fkGestorServer,
             }),
-        })
-            .then(function (resposta) {
-                if (resposta.ok) {
-                    return resposta.json();
-                } else {
-                    throw new Error("Erro ao contar usuários");
-                }
-            })
-            .then(function (json) {
-                console.log(json);
+        });
 
-                var maquinasHTML = "";
-                var vermelho = 0;
-                var laranja = 0;
+        console.log(resposta);
 
-                for (let i = 0; i < json; i++) {
-                    if (i % 5 === 0) {
-                        maquinasHTML += '<div class="maquinasLinha">';
-                    }
+        let maquinasHTML = "";
+        let vermelho = 0;
+        let laranja = 0;
 
-                    fetch("/usuarios/idMaquina", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            fkGestorServer: fkGestorServer,
-                            contagem: i,
-                        }),
-                    })
-                        .then(function (retorno) {
-                            if (retorno.ok) {
-                                return retorno.json();
-                            } else {
-                                throw new Error("Erro ao obter ID da máquina");
-                            }
-                        })
-                        .then(function (item) {
-                            console.log(item);
-                            console.log(JSON.stringify(item));
+        for (let i = 0; i < resposta; i++) {
+            if (i % 5 === 0) {
+                maquinasHTML += '<div class="maquinasLinha">';
+            }
 
-                            console.log(item + "  id da maquina");
-
-                            fetch("/usuarios/maquinas", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({
-                                    fkMaquina: item, // colocar o Item aqui
-                                }),
-                            });
-                        })
-                        .then(function (resposta) {
-                            if (resposta.ok) {
-                                return resposta.json();
-                            } else {
-                                throw new Error("Erro ao contar usuários");
-                            }
-                        })
-                        .then(function (json) {
-                            console.log(json[0]);
-                            console.log(JSON.stringify(json));
-
-                            if (json.UsoCPU == null) {
-                                json.UsoCPU = 0;
-                            } else if (json.Memoria == null) {
-                                json.Memoria = 0;
-                            } else if (json.Disco == null) {
-                                json.Disco = 0;
-                            }
-
-                            maquinasHTML += `
-                                <div id="maquina" class="maquina ${i % 5 === 0 ? 'primeiraNaLinha' : ''}" 
-                                    style="${json.UsoCPU > 80 ? 'border-color: red;' : ''} ${json.UsoCPU > 2 && json.UsoCPU <= 80 ? 'border-color: orange;' : ''}">
-                                    <h3>Máquina ${json.idComputador}</h3>
-                                    <p class="status ativa">Status: Ativa</p>
-                                    <p>Uso de CPU: ${json.UsoCPU}</p>
-                                    <p>Memória RAM: ${json.Memoria}</p>
-                                    <p>Espaço em Disco: ${json.Disco}</p>
-                                    <button onclick="mudarPagina(${json.idComputador})">Monitorar</button>
-                                </div>
-                            `;
-
-                            if (json.UsoCPU > 80) {
-                                vermelho++;
-                            } else if (json.UsoCPU > 2 && json.UsoCPU <= 80) {
-                                laranja++;
-                            }
-
-                            if ((i + 1) % 5 === 0) {
-                                maquinasHTML += '</div>';
-                            }
-
-                            maquinas.innerHTML = maquinasHTML;
-                            alertass.innerHTML = `
-                                <h3>Máquinas em Alerta</h3>
-                                <p style="Color: red;">Risco: <b>${vermelho}</b></p>
-                                <p style="Color: orange;">Alerta: <b>${laranja}</b></p>
-                            `;
-                        })
-                        .catch(function (erro) {
-                            console.error(erro);
-                        });
-                }
-
-                tipoAlertass.innerHTML = `
-                <h3>Tipo Alerta</h3>
-                <p style="Color: red;">Risco <br> <b>↑80</b></p>
-                <p style="Color: orange;">Alerta <br> <b>↑60 e ↓80</b></p>
-                `;
-            })
-            .catch(function (erro) {
-                console.error(erro);
+            const idMaquina = await fetchData("/usuarios/idMaquina", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    fkGestorServer: fkGestorServer,
+                    contagem: i,
+                }),
             });
+
+            console.log(idMaquina);
+            console.log(JSON.stringify(idMaquina));
+
+            console.log(idMaquina + "  id da maquina");
+
+            const maquinaInfo = await fetchData("/usuarios/maquinas", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    fkMaquina: idMaquina,
+                }),
+            });
+
+            console.log(maquinaInfo[0]);
+            console.log(JSON.stringify(maquinaInfo));
+
+            if (maquinaInfo.UsoCPU == null) {
+                maquinaInfo.UsoCPU = 0;
+            } else if (maquinaInfo.Memoria == null) {
+                maquinaInfo.Memoria = 0;
+            } else if (maquinaInfo.Disco == null) {
+                maquinaInfo.Disco = 0;
+            }
+
+            maquinasHTML += `
+                <div id="maquina" class="maquina ${i % 5 === 0 ? 'primeiraNaLinha' : ''}" 
+                    style="${maquinaInfo.UsoCPU > 80 ? 'border-color: red;' : ''} ${maquinaInfo.UsoCPU > 2 && maquinaInfo.UsoCPU <= 80 ? 'border-color: orange;' : ''}">
+                    <h3>Máquina ${maquinaInfo.idComputador}</h3>
+                    <p class="status ativa">Status: Ativa</p>
+                    <p>Uso de CPU: ${maquinaInfo.UsoCPU}</p>
+                    <p>Memória RAM: ${maquinaInfo.Memoria}</p>
+                    <p>Espaço em Disco: ${maquinaInfo.Disco}</p>
+                    <button onclick="mudarPagina(${maquinaInfo.idComputador})">Monitorar</button>
+                </div>
+            `;
+
+            if (maquinaInfo.UsoCPU > 80) {
+                vermelho++;
+            } else if (maquinaInfo.UsoCPU > 2 && maquinaInfo.UsoCPU <= 80) {
+                laranja++;
+            }
+
+            if ((i + 1) % 5 === 0) {
+                maquinasHTML += '</div>';
+            }
+
+            maquinas.innerHTML = maquinasHTML;
+            alertass.innerHTML = `
+                <h3>Máquinas em Alerta</h3>
+                <p style="Color: red;">Risco: <b>${vermelho}</b></p>
+                <p style="Color: orange;">Alerta: <b>${laranja}</b></p>
+            `;
+        }
+
+        tipoAlertass.innerHTML = `
+            <h3>Tipo Alerta</h3>
+            <p style="Color: red;">Risco <br> <b>↑80</b></p>
+            <p style="Color: orange;">Alerta <br> <b>↑60 e ↓80</b></p>
+        `;
+    } catch (erro) {
+        console.error(erro);
+    }
+}
+
+obterContagemUsuarios();
 
 
         function mudarPagina(idComputador) {
