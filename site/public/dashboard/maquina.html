@@ -164,414 +164,411 @@
         </div>
         <span style="color:forestgreen;"></span>
     </div>
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-        //PARA OS GRAFICOS CPU
-        var ctx = document.getElementById("0").getContext("2d");
-
-        var data = {
-            labels: [], //dados de horario
-            datasets: [
-                {
-                    label: "CPU",
-                    data: [], //dados de %
-                    backgroundColor: "rgba(123, 11, 192, 0.514)",
-                    borderColor: "rgb(122, 11, 192)",
-                    fill: true,
-                    hoverBorderWidth: 10,
-                    borderWidth: 3,
-                },
-            ],
-        };
-
-        var options = {
-            responsive: true,
-            maintainAspectRatio: false,
-            title: {
-                display: true,
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            family: "Poppins",
-                        },
-                    },
-                },
-            },
-            defaultFontFamily: "Poppins",
-        };
-
-        var myLineChart = new Chart(ctx, {
-            type: "line",
-            data: data,
-            options: options,
-        });
-
-        //GRAFICO DA RAM
-
-        var ctxRAM = document.getElementById("1").getContext("2d");
-
-        var dataRAM = {
-            labels: [], //dados de horário
-            datasets: [
-                {
-                    label: "RAM",
-                    data: [], //dados de %
-                    backgroundColor: "rgba(123, 11, 192, 0.514)",
-                    borderColor: "rgb(122, 11, 192)",
-                    fill: true,
-                    hoverBorderWidth: 10,
-                    borderWidth: 3,
-                },
-            ],
-        };
-
-        var optionsRAM = {
-            responsive: true,
-            maintainAspectRatio: false,
-            title: {
-                display: true,
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            family: "Poppins",
-                        },
-                    },
-                },
-            },
-            defaultFontFamily: "Poppins",
-        };
-
-        var myLineChartRAM = new Chart(ctxRAM, {
-            type: "line",
-            data: dataRAM,
-            options: optionsRAM,
-        });
-
-        //GRAFICO DO DISCO
-        var ctxDisco = document.getElementById("2").getContext("2d");
-
-        var dataDisco = {
-            labels: [], //dados de horário
-            datasets: [
-                {
-                    label: "Disco",
-                    data: [], //dados de %
-                    backgroundColor: "rgba(123, 11, 192, 0.514)",
-                    borderColor: "rgb(122, 11, 192)",
-                    fill: true,
-                    hoverBorderWidth: 10,
-                    borderWidth: 3,
-                },
-            ],
-        };
-
-        var optionsDisco = {
-            responsive: true,
-            maintainAspectRatio: false,
-            title: {
-                display: true,
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            family: "Poppins",
-                        },
-                    },
-                },
-            },
-            defaultFontFamily: "Poppins",
-        };
-
-        var myLineChartDisco = new Chart(ctxDisco, {
-            type: "line",
-            data: dataDisco,
-            options: optionsDisco,
-        });
-
-        //GRAFICO DA GPU
-        var ctxGPU = document.getElementById("3").getContext("2d");
-
-        var dataGPU = {
-            labels: [], //dados de horário
-            datasets: [
-                {
-                    label: "GPU",
-                    data: [], //dados de %
-                    backgroundColor: "rgba(123, 11, 192, 0.514)",
-                    borderColor: "rgb(122, 11, 192)",
-                    fill: true,
-                    hoverBorderWidth: 10,
-                    borderWidth: 3,
-                },
-            ],
-        };
-
-        var optionsGPU = {
-            responsive: true,
-            maintainAspectRatio: false,
-            title: {
-                display: true,
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            family: "Poppins",
-                        },
-                    },
-                },
-            },
-            defaultFontFamily: "Poppins",
-        };
-
-        var myLineChartGPU = new Chart(ctxGPU, {
-            type: "line",
-            data: dataGPU,
-            options: optionsGPU,
-        });
-
-        //PARA FAZER MENU HAMBURGUER
-        function botaoMenu() {
-            var menuLateral = document.getElementById("menuLateral");
-            var botaoMenuImg = document.getElementById("botaoMenuImg");
-
-            menuLateral.classList.toggle("ver-menu");
-            botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu")
-                ? "none"
-                : "block";
-
-            var content = document.querySelector(".content");
-            content.classList.toggle("content-shift");
-        }
-
-        //PARA PUXAR DADO DO USUARIO
-        var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
-        document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
-
-        var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
-        document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
-
-        function limparSessao() {
-            sessionStorage.clear();
-
-            window.location = "/login";
-        }
-
-        function mostrarElemento(elementoID) {
-    var bomCPU, bomRAM, bomDisco, bomGPU;
-    var alertaCPU, alertaRAM, alertaDisco, alertaGPU;
-    var ateCPU, ateRAM, ateDisco, ateGPU;
-    var ruimCPU, ruimRAM, ruimDisco, ruimGPU;
-
-    fetch("/medidas/alertas", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            fkEmpresa: sessionStorage.getItem("ID_EMPRESA")
-        })
-    })
-    .then(function (resposta) {
-        if (resposta.ok) {
-            return resposta.json();
-        } else {
-            return resposta.text().then((texto) => {
-                console.log(texto);
-                throw new Error("Erro na requisição: " + resposta.status);
-            });
-        }
-    })
-    .then(function (resposta) {
-        bomCPU = resposta.alertaCPU - 0.01;
-        bomRAM = resposta.alertaRAM - 0.01;
-        bomDisco = resposta.alertaDISCO - 0.01;
-        bomGPU = resposta.alertaGPU - 0.01;
-
-        alertaCPU = resposta.alertaCPU;
-        alertaRAM = resposta.alertaRAM;
-        alertaDisco = resposta.alertaDISCO;
-        alertaGPU = resposta.alertaGPU;
-
-        ateCPU = resposta.criticoCPU - 0.01;
-        ateRAM = resposta.criticoRAM - 0.01;
-        ateDisco = resposta.criticoDISCO - 0.01;
-        ateGPU = resposta.criticoGPU - 0.01;
-
-        ruimCPU = resposta.criticoCPU;
-        ruimRAM = resposta.criticoRAM;
-        ruimDisco = resposta.criticoDISCO;
-        ruimGPU = resposta.criticoGPU;
-    })
-    .catch(function (erro) {
-        console.log(erro);
-    });
-
-    var elementos = ["CPU", "RAM", "Disco", "GPU"];
-    elementos.forEach(function (elemento) {
-        var elementoAtual = document.getElementById(elemento);
-        if (elementoAtual) {
-            elementoAtual.style.display = 'none';
-        }
-    });
-
-    var elementoSelecionado = document.getElementById(elementoID);
-    if (elementoSelecionado) {
-        elementoSelecionado.style.display = 'block';
-
-        if (elementoID === 'CPU') {
-            obterDadosGrafico(testefk, 'CPU', '1', 'canvasCPU');
-            atualizarAlertas(alertaCPU, bomCPU, ateCPU, ruimCPU, 'alertaComp1', 'alertaComp2', 'alertaComp3');
-        } else if (elementoID === 'RAM') {
-            obterDadosGrafico(testefk, 'RAM', '2', 'canvasRAM');
-            atualizarAlertas(alertaRAM, bomRAM, ateRAM, ruimRAM, 'alertaComp1', 'alertaComp2', 'alertaComp3');
-        } else if (elementoID === 'Disco') {
-            obterDadosGrafico(testefk, 'Disco', '3', 'canvasDISCO');
-            atualizarAlertas(alertaDisco, bomDisco, ateDisco, ruimDisco, 'alertaComp1', 'alertaComp2', 'alertaComp3');
-        } else if (elementoID === 'GPU') {
-            obterDadosGrafico(testefk, 'GPU', '4', 'canvasGPU');
-            atualizarAlertas(alertaGPU, bomGPU, ateGPU, ruimGPU, 'alertaComp1', 'alertaComp2', 'alertaComp3');
-        }
-    }
-}
-
-function atualizarAlertas(alerta, bom, ate, ruim, comp1, comp2, comp3) {
-    document.getElementById(comp1).innerHTML = `Bom: Até ${bom}%</span>`;
-    document.getElementById(comp2).innerHTML = `Alerta: De ${alerta}% à ${ate}%`;
-    document.getElementById(comp3).innerHTML = `Ruim: A partir de ${ruim}%`;
-}
-
-        function pegarProcessos() {
-            fetch("/processos/contarProcesso", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
-                }),
-            })
-                .then(function (json) {
-                    console.log("ESTOU NO THEN DO entrar()!");
-                    var processosHTML = "";
-                    if (json.ok) {
-                        console.log(json);
-                        for (let i = 0; i < json.length; i++) {
-                            fetch("/processos/exibirProcesso", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({
-                                    fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
-                                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
-                                }),
-                            })
-                                .then(function (resposta) {
-                                    console.log("ESTOU NO THEN DO entrar()!");
-
-                                    if (resposta.ok) {
-                                        console.log(resposta);
-                                        processosHTML += `<tr>
-                                            <td>${resposta[0].NomeProcesso}</td>
-                                            <td>${resposta[0].dataHora}</td>
-                                            <td>${resposta[0].uso} ${resposta[0].simbolo}</td>
-                                            </tr>`
-                                        tabelaProcessos.innerHTML = processosHTML;
-                                    } else {
-                                        resposta.text().then((texto) => {
-                                            console.log(texto);
-                                        });
-                                    }
-                                })
-                                .catch(function (erro) {
-                                    console.log(erro);
-                                });
-                        }
-                    } else {
-                        json.text().then((texto) => {
-                            console.log(texto);
-                        });
-                    }
-                })
-                .catch(function (erro) {
-                    console.log(erro);
-                });
-
-        }
-
-        function pegarJanela() {
-            fetch("/processos/contarJanela", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
-                }),
-            })
-                .then(function (json) {
-                    console.log("ESTOU NO THEN DO entrar()!");
-                    var janelasHTML = "";
-                    if (json.ok) {
-                        console.log(json);
-                        for (let i = 0; i < json.length; i++) {
-                            fetch("/processos/exibirJanela", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({
-                                    fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
-                                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
-                                }),
-                            })
-                                .then(function (resposta) {
-                                    console.log("ESTOU NO THEN DO entrar()!");
-
-                                    if (resposta.ok) {
-                                        console.log(resposta);
-                                        janelasHTML += `<tr>
-                                            <td>${resposta[0].titulo}</td>
-                                            <td>${resposta[0].dataHora}</td>
-                                            </tr>`
-                                        tabelaJanela.innerHTML = janelasHTML;
-                                    } else {
-                                        resposta.text().then((texto) => {
-                                            console.log(texto);
-                                        });
-                                    }
-                                })
-                                .catch(function (erro) {
-                                    console.log(erro);
-                                });
-                        }
-
-                    } else {
-                        json.text().then((texto) => {
-                            console.log(texto);
-                        });
-                    }
-                })
-                .catch(function (erro) {
-                    console.log(erro);
-                });
-        }
-    </script>
 </body>
 
 </html>
 
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
+    //PARA OS GRAFICOS CPU
+    var ctx = document.getElementById("0").getContext("2d");
+
+    var data = {
+        labels: [], //dados de horario
+        datasets: [
+            {
+                label: "CPU",
+                data: [], //dados de %
+                backgroundColor: "rgba(123, 11, 192, 0.514)",
+                borderColor: "rgb(122, 11, 192)",
+                fill: true,
+                hoverBorderWidth: 10,
+                borderWidth: 3,
+            },
+        ],
+    };
+
+    var options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+            display: true,
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        family: "Poppins",
+                    },
+                },
+            },
+        },
+        defaultFontFamily: "Poppins",
+    };
+
+    var myLineChart = new Chart(ctx, {
+        type: "line",
+        data: data,
+        options: options,
+    });
+
+    //GRAFICO DA RAM
+
+    var ctxRAM = document.getElementById("1").getContext("2d");
+
+    var dataRAM = {
+        labels: [], //dados de horário
+        datasets: [
+            {
+                label: "RAM",
+                data: [], //dados de %
+                backgroundColor: "rgba(123, 11, 192, 0.514)",
+                borderColor: "rgb(122, 11, 192)",
+                fill: true,
+                hoverBorderWidth: 10,
+                borderWidth: 3,
+            },
+        ],
+    };
+
+    var optionsRAM = {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+            display: true,
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        family: "Poppins",
+                    },
+                },
+            },
+        },
+        defaultFontFamily: "Poppins",
+    };
+
+    var myLineChartRAM = new Chart(ctxRAM, {
+        type: "line",
+        data: dataRAM,
+        options: optionsRAM,
+    });
+
+    //GRAFICO DO DISCO
+    var ctxDisco = document.getElementById("2").getContext("2d");
+
+    var dataDisco = {
+        labels: [], //dados de horário
+        datasets: [
+            {
+                label: "Disco",
+                data: [], //dados de %
+                backgroundColor: "rgba(123, 11, 192, 0.514)",
+                borderColor: "rgb(122, 11, 192)",
+                fill: true,
+                hoverBorderWidth: 10,
+                borderWidth: 3,
+            },
+        ],
+    };
+
+    var optionsDisco = {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+            display: true,
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        family: "Poppins",
+                    },
+                },
+            },
+        },
+        defaultFontFamily: "Poppins",
+    };
+
+    var myLineChartDisco = new Chart(ctxDisco, {
+        type: "line",
+        data: dataDisco,
+        options: optionsDisco,
+    });
+
+    //GRAFICO DA GPU
+    var ctxGPU = document.getElementById("3").getContext("2d");
+
+    var dataGPU = {
+        labels: [], //dados de horário
+        datasets: [
+            {
+                label: "GPU",
+                data: [], //dados de %
+                backgroundColor: "rgba(123, 11, 192, 0.514)",
+                borderColor: "rgb(122, 11, 192)",
+                fill: true,
+                hoverBorderWidth: 10,
+                borderWidth: 3,
+            },
+        ],
+    };
+
+    var optionsGPU = {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+            display: true,
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        family: "Poppins",
+                    },
+                },
+            },
+        },
+        defaultFontFamily: "Poppins",
+    };
+
+    var myLineChartGPU = new Chart(ctxGPU, {
+        type: "line",
+        data: dataGPU,
+        options: optionsGPU,
+    });
+
+    //PARA FAZER MENU HAMBURGUER
+    function botaoMenu() {
+        var menuLateral = document.getElementById("menuLateral");
+        var botaoMenuImg = document.getElementById("botaoMenuImg");
+
+        menuLateral.classList.toggle("ver-menu");
+        botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu")
+            ? "none"
+            : "block";
+
+        var content = document.querySelector(".content");
+        content.classList.toggle("content-shift");
+    }
+
+    //PARA PUXAR DADO DO USUARIO
+    var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
+    document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;
+
+    var nomeDoUsuario = sessionStorage.getItem("NOME_USUARIO");
+    document.getElementById("nomeDoUsuario").innerHTML = nomeDoUsuario;
+
+    function limparSessao() {
+        sessionStorage.clear();
+
+        window.location = "/login";
+    }
+
+    function mostrarElemento(elementoID) {
+        var bomCPU, bomRAM, bomDisco, bomGPU;
+        var alertaCPU, alertaRAM, alertaDisco, alertaGPU;
+        var ateCPU, ateRAM, ateDisco, ateGPU;
+        var ruimCPU, ruimRAM, ruimDisco, ruimGPU;
+
+        fetch("/medidas/alertas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                fkEmpresa: sessionStorage.getItem("ID_EMPRESA")
+            })
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    return resposta.text().then((texto) => {
+                        console.log(texto);
+                        throw new Error("Erro na requisição: " + resposta.status);
+                    });
+                }
+            })
+            .then(function (resposta) {
+                bomCPU = resposta.alertaCPU - 0.01;
+                bomRAM = resposta.alertaRAM - 0.01;
+                bomDisco = resposta.alertaDISCO - 0.01;
+                bomGPU = resposta.alertaGPU - 0.01;
+
+                alertaCPU = resposta.alertaCPU;
+                alertaRAM = resposta.alertaRAM;
+                alertaDisco = resposta.alertaDISCO;
+                alertaGPU = resposta.alertaGPU;
+
+                ateCPU = resposta.criticoCPU - 0.01;
+                ateRAM = resposta.criticoRAM - 0.01;
+                ateDisco = resposta.criticoDISCO - 0.01;
+                ateGPU = resposta.criticoGPU - 0.01;
+
+                ruimCPU = resposta.criticoCPU;
+                ruimRAM = resposta.criticoRAM;
+                ruimDisco = resposta.criticoDISCO;
+                ruimGPU = resposta.criticoGPU;
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+
+        var elementos = ["CPU", "RAM", "Disco", "GPU"];
+        elementos.forEach(function (elemento) {
+            var elementoAtual = document.getElementById(elemento);
+            if (elementoAtual) {
+                elementoAtual.style.display = 'none';
+            }
+        });
+
+        var elementoSelecionado = document.getElementById(elementoID);
+        if (elementoSelecionado) {
+            elementoSelecionado.style.display = 'block';
+
+            if (elementoID === 'CPU') {
+                obterDadosGrafico(testefk, 'CPU', '1', 'canvasCPU');
+                atualizarAlertas(alertaCPU, bomCPU, ateCPU, ruimCPU, 'alertaComp1', 'alertaComp2', 'alertaComp3');
+            } else if (elementoID === 'RAM') {
+                obterDadosGrafico(testefk, 'RAM', '2', 'canvasRAM');
+                atualizarAlertas(alertaRAM, bomRAM, ateRAM, ruimRAM, 'alertaComp1', 'alertaComp2', 'alertaComp3');
+            } else if (elementoID === 'Disco') {
+                obterDadosGrafico(testefk, 'Disco', '3', 'canvasDISCO');
+                atualizarAlertas(alertaDisco, bomDisco, ateDisco, ruimDisco, 'alertaComp1', 'alertaComp2', 'alertaComp3');
+            } else if (elementoID === 'GPU') {
+                obterDadosGrafico(testefk, 'GPU', '4', 'canvasGPU');
+                atualizarAlertas(alertaGPU, bomGPU, ateGPU, ruimGPU, 'alertaComp1', 'alertaComp2', 'alertaComp3');
+            }
+        }
+    }
+
+    function atualizarAlertas(alerta, bom, ate, ruim, comp1, comp2, comp3) {
+        document.getElementById(comp1).innerHTML = `Bom: Até ${bom}%</span>`;
+        document.getElementById(comp2).innerHTML = `Alerta: De ${alerta}% à ${ate}%`;
+        document.getElementById(comp3).innerHTML = `Ruim: A partir de ${ruim}%`;
+    }
+
+    function pegarProcessos() {
+        fetch("/processos/contarProcesso", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idMaquina: sessionStorage.getItem("ID_MAQUINA")
+            }),
+        })
+            .then(function (json) {
+                console.log("ESTOU NO THEN DO entrar()!");
+                var processosHTML = "";
+                if (json.ok) {
+                    console.log(json);
+                    for (let i = 0; i < json.length; i++) {
+                        fetch("/processos/exibirProcesso", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
+                                idMaquina: sessionStorage.getItem("ID_MAQUINA")
+                            }),
+                        })
+                            .then(function (resposta) {
+                                console.log("ESTOU NO THEN DO entrar()!");
+
+                                if (resposta.ok) {
+                                    console.log(resposta);
+                                    processosHTML += `<tr>
+                                            <td>${resposta[0].NomeProcesso}</td>
+                                            <td>${resposta[0].dataHora}</td>
+                                            <td>${resposta[0].uso} ${resposta[0].simbolo}</td>
+                                            </tr>`
+                                    tabelaProcessos.innerHTML = processosHTML;
+                                } else {
+                                    resposta.text().then((texto) => {
+                                        console.log(texto);
+                                    });
+                                }
+                            })
+                            .catch(function (erro) {
+                                console.log(erro);
+                            });
+                    }
+                } else {
+                    json.text().then((texto) => {
+                        console.log(texto);
+                    });
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+
+    }
+
+    function pegarJanela() {
+        fetch("/processos/contarJanela", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idMaquina: sessionStorage.getItem("ID_MAQUINA")
+            }),
+        })
+            .then(function (json) {
+                console.log("ESTOU NO THEN DO entrar()!");
+                var janelasHTML = "";
+                if (json.ok) {
+                    console.log(json);
+                    for (let i = 0; i < json.length; i++) {
+                        fetch("/processos/exibirJanela", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
+                                idMaquina: sessionStorage.getItem("ID_MAQUINA")
+                            }),
+                        })
+                            .then(function (resposta) {
+                                console.log("ESTOU NO THEN DO entrar()!");
+
+                                if (resposta.ok) {
+                                    console.log(resposta);
+                                    janelasHTML += `<tr>
+                                            <td>${resposta[0].titulo}</td>
+                                            <td>${resposta[0].dataHora}</td>
+                                            </tr>`
+                                    tabelaJanela.innerHTML = janelasHTML;
+                                } else {
+                                    resposta.text().then((texto) => {
+                                        console.log(texto);
+                                    });
+                                }
+                            })
+                            .catch(function (erro) {
+                                console.log(erro);
+                            });
+                    }
+
+                } else {
+                    json.text().then((texto) => {
+                        console.log(texto);
+                    });
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+    }
+
     console.log("Cheguei!");
 
     var testefk = sessionStorage.getItem("ID_MAQUINA");
