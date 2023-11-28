@@ -376,42 +376,42 @@
                 body: JSON.stringify({
                     fkEmpresa: sessionStorage.getItem("ID_EMPRESA")
                 })
-                    .then(function (resposta) {
-                        console.log("ESTOU NO THEN DO entrar()!");
-
-                        if (resposta.ok) {
-                            console.log(resposta);
-
-                            var bomCPU = resposta.alertaCPU - 0.01;
-                            var bomRAM = resposta.alertaRAM - 0.01;
-                            var bomDisco = resposta.alertaDISCO - 0.01;
-                            var bomGPU = resposta.alertaGPU - 0.01;
-
-                            var alertaCPU = resposta.alertaCPU;
-                            var alertaRAM = resposta.alertaRAM;
-                            var alertaDisco = resposta.alertaDISCO;
-                            var alertaGPU = resposta.alertaGPU;
-
-                            var ateCPU = resposta.criticoCPU - 0.01;
-                            var ateRAM = resposta.criticoRAM - 0.01;
-                            var ateDisco = resposta.criticoDISCO - 0.01;
-                            var ateGPU = resposta.criticoGPU - 0.01;
-
-                            var ruimCPU = resposta.criticoCPU;
-                            var ruimRAM = resposta.criticoRAM;
-                            var ruimDisco = resposta.criticoDISCO;
-                            var ruimGPU = resposta.criticoGPU;
-                            
-                        } else {
-                            resposta.text().then((texto) => {
-                                console.log(texto);
-                            });
-                        }
-                    })
-                    .catch(function (erro) {
-                        console.log(erro);
-                    })
             })
+                .then(function (resposta) {
+                    console.log("ESTOU NO THEN DO entrar()!");
+
+                    if (resposta.ok) {
+                        console.log(resposta);
+
+                        var bomCPU = resposta.alertaCPU - 0.01;
+                        var bomRAM = resposta.alertaRAM - 0.01;
+                        var bomDisco = resposta.alertaDISCO - 0.01;
+                        var bomGPU = resposta.alertaGPU - 0.01;
+
+                        var alertaCPU = resposta.alertaCPU;
+                        var alertaRAM = resposta.alertaRAM;
+                        var alertaDisco = resposta.alertaDISCO;
+                        var alertaGPU = resposta.alertaGPU;
+
+                        var ateCPU = resposta.criticoCPU - 0.01;
+                        var ateRAM = resposta.criticoRAM - 0.01;
+                        var ateDisco = resposta.criticoDISCO - 0.01;
+                        var ateGPU = resposta.criticoGPU - 0.01;
+
+                        var ruimCPU = resposta.criticoCPU;
+                        var ruimRAM = resposta.criticoRAM;
+                        var ruimDisco = resposta.criticoDISCO;
+                        var ruimGPU = resposta.criticoGPU;
+
+                    } else {
+                        resposta.text().then((texto) => {
+                            console.log(texto);
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                })
 
             var elementos = ["CPU", "RAM", "Disco", "GPU"];
             elementos.forEach(function (elemento) {
