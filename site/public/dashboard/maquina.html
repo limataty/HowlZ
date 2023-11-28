@@ -483,6 +483,7 @@
                         console.log(retorno);
                         for (let i = 0; i < retorno; i++) {
                             fetch("/processos/exibirProcesso", {
+
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json",
