@@ -6,8 +6,8 @@ function exibirProcesso(req, res) {
   processoModel
     .exibirProcesso(idMaquina)
     .then(function (resultado) {
-      console.log("resultado: " + resultado[0].NomeProcesso + " " + resultado[0].dataHora + " " + resultado[0].uso + resultado[0].simbolo);
-      res.json(resultado[0]);
+      console.log("resultado do Processo: " + resultado[0].NomeProcesso + " " + resultado[0].dataHora + " " + resultado[0].uso + resultado[0].simbolo);
+      res.json(resultado);
     })
     .catch(function (erro) {
       console.log(erro);
