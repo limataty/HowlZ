@@ -537,65 +537,65 @@
 
         pegarProcessos();
 
-        function pegarJanela() {
-            fetch("/processos/contarJanela", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
-                }),
-            })
-                .then(function (json) {
-                    console.log("ESTOU NO THEN DO entrar()!");
-                    var janelasHTML = "";
-                    if (json.ok) {
-                        console.log(json);
-                        for (let i = 0; i < json.length; i++) {
-                            fetch("/processos/exibirJanela", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({
-                                    fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
-                                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
-                                }),
-                            })
-                                .then(function (resposta) {
-                                    console.log("ESTOU NO THEN DO entrar()!");
+        // function pegarJanela() {
+        //     fetch("/processos/contarJanela", {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({
+        //             idMaquina: sessionStorage.getItem("ID_MAQUINA")
+        //         }),
+        //     })
+        //         .then(function (json) {
+        //             console.log("ESTOU NO THEN DO entrar()!");
+        //             var janelasHTML = "";
+        //             if (json.ok) {
+        //                 console.log(json);
+        //                 for (let i = 0; i < json.length; i++) {
+        //                     fetch("/processos/exibirJanela", {
+        //                         method: "POST",
+        //                         headers: {
+        //                             "Content-Type": "application/json",
+        //                         },
+        //                         body: JSON.stringify({
+        //                             fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
+        //                             idMaquina: sessionStorage.getItem("ID_MAQUINA")
+        //                         }),
+        //                     })
+        //                         .then(function (resposta) {
+        //                             console.log("ESTOU NO THEN DO entrar()!");
 
-                                    if (resposta.ok) {
-                                        console.log(resposta);
-                                        janelasHTML += `<tr>
-                                            <td>${resposta[0].titulo}</td>
-                                            <td>${resposta[0].dataHora}</td>
-                                            </tr>`
-                                        tabelaJanela.innerHTML = janelasHTML;
-                                    } else {
-                                        resposta.text().then((texto) => {
-                                            console.log(texto);
-                                        });
-                                    }
-                                })
-                                .catch(function (erro) {
-                                    console.log(erro);
-                                });
-                        }
+        //                             if (resposta.ok) {
+        //                                 console.log(resposta);
+        //                                 janelasHTML += `<tr>
+        //                                     <td>${resposta[0].titulo}</td>
+        //                                     <td>${resposta[0].dataHora}</td>
+        //                                     </tr>`
+        //                                 tabelaJanela.innerHTML = janelasHTML;
+        //                             } else {
+        //                                 resposta.text().then((texto) => {
+        //                                     console.log(texto);
+        //                                 });
+        //                             }
+        //                         })
+        //                         .catch(function (erro) {
+        //                             console.log(erro);
+        //                         });
+        //                 }
 
-                    } else {
-                        json.text().then((texto) => {
-                            console.log(texto);
-                        });
-                    }
-                })
-                .catch(function (erro) {
-                    console.log(erro);
-                });
-        }
+        //             } else {
+        //                 json.text().then((texto) => {
+        //                     console.log(texto);
+        //                 });
+        //             }
+        //         })
+        //         .catch(function (erro) {
+        //             console.log(erro);
+        //         });
+        // }
 
-        pegarJanela();
+        // pegarJanela();
     </script>
 </body>
 
