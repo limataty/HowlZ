@@ -180,13 +180,6 @@
                                 }),
                             });
                         })
-                        .then(function (volta) {
-                            if (volta.ok) {
-                                return volta.json();
-                            } else {
-                                throw new Error("Erro ao obter informações da máquina");
-                            }
-                        })
                         .then(function (json) {
                             console.log(json);
                             console.log(JSON.stringify(json));
