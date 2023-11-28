@@ -75,7 +75,7 @@ function alertas(req, res) {
 }
 
 function botoes(req, res){
-  var idComputador = req.params.idCaptacao; 
+  var idComputador = req.params.idComputador; 
 
   console.log(`Recuperando medidas em tempo real para os botoes`);
 
@@ -98,5 +98,5 @@ module.exports = {
   buscarMedidasEmTempoRealDisparos,
   alertas,
   botoes,
-  
+
 };
