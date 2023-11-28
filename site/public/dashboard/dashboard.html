@@ -182,11 +182,17 @@
                         })
                         
                         .then(function (json) {
-                            json = json[0];
                             console.log(json);
                             console.log(JSON.stringify(json));
-                            
 
+                            if (json.UsoCPU == null) {
+                                json.UsoCPU = 0;
+                            } else if(json.Memoria == null) {
+                                json.Memoria = 0;
+                            } else if(json.Disco == null) {
+                                json.Disco = 0;
+                            } 
+                            
                             maquinasHTML += `
                                 <div id="maquina" class="maquina ${i % 5 === 0 ? 'primeiraNaLinha' : ''}" 
                                     style="${json.UsoCPU > 80 ? 'border-color: red;' : ''} ${json.UsoCPU > 2 && json.UsoCPU <= 80 ? 'border-color: orange;' : ''}">
