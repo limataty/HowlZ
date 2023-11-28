@@ -454,14 +454,6 @@
                 if (elementoSelecionado) {
                     elementoSelecionado.style.display = 'block';
 
-
-                    const obterDadosGrafico = (testefk, componente, numero, canvasID) => {
-                        // Implemente a lógica necessária para obter os dados do gráfico
-                        // Este trecho de código está comentado, pois a função obterDadosGrafico não foi fornecida
-                        // Substitua este comentário pela lógica real para obter os dados do gráfico
-                        // obterDadosGrafico(testefk, componente, numero, canvasID);
-                    };
-
                     const alertaComp1 = document.getElementById('alertaComp1');
                     const alertaComp2 = document.getElementById('alertaComp2');
                     const alertaComp3 = document.getElementById('alertaComp3');
@@ -623,23 +615,6 @@
 
     window.onload = obterDadosGraficos;
 
-    function obterDadosGraficos() {
-
-        // if (document.getElementById('CPU').style.display === "block") {
-        //     obterDadosGrafico(testefk, 'CPU', 'CPU');
-        // } else if (RAM.style.display === "block") {
-        //     obterDadosGrafico(testefk, 'RAM', 'RAM');
-        // } else if (Disco.style.display === "block") {
-        //     obterDadosGrafico(testefk, 'Disco', 'DISCO');
-        // } else if (GPU.style.display === "block") {
-        //     obterDadosGrafico(testefk, 'GPU', 'GPU');
-        // }
-
-        // obterDadosGrafico(testefk, 'CPU', 'canvasCPU');
-        // obterDadosGrafico(testefk, 'RAM', 'canvasRAM');
-        // obterDadosGrafico(testefk, 'Disco', 'canvasDISCO');
-        // obterDadosGrafico(testefk, 'GPU', 'canvasGPU');
-    }
 
     function obterDadosGrafico(testefk, nomeGrafico, tipoGrafico, idCanvas) {
         if (proximaAtualizacao != undefined) {
