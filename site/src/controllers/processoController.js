@@ -6,7 +6,14 @@ function exibirProcesso(req, res) {
   processoModel
     .exibirProcesso(idMaquina)
     .then(function (resultado) {
-      console.log("resultado do Processo: " + resultado[0].NomeProcesso + " " + resultado[0].dataHora + " " + resultado[0].uso + resultado[0].simbolo);
+      console.log("resultado do Processo: " + resultado.NomeProcesso + " " + resultado.dataHora + " " + resultado.NomeComponente+ " " + resultado.uso + resultado.simbolo);
+      //  NomeProcesso: 'java',
+      // dataHora: 2023-11-27T20:12:38.083Z,
+      // fkTipoComponente: 2,
+      // NomeComponente: 'RAM',
+      // uso: 1.58,
+      // simbolo: 'GB'
+
       res.json(resultado);
     })
     .catch(function (erro) {
