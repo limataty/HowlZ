@@ -203,7 +203,7 @@
                     maquinasHTML += `
                 <div id="maquina" class="maquina ${i % 5 === 0 ? 'primeiraNaLinha' : ''}" 
                     style="${maquinaInfo.UsoCPU > alertaInfo.criticoCPU || maquinaInfo.Memoria > alertaInfo.criticoRAM || maquinaInfo.Disco > alertaInfo.criticoDISCO ? 'border-color: red;' : ''} ${(maquinaInfo.UsoCPU > alertaInfo.alertaCPU && maquinaInfo.UsoCPU <= alertaInfo.criticoCPU) || (maquinaInfo.Memoria > alertaInfo.alertaRAM && maquinaInfo.Memoria <= alertaInfo.criticoRAM) || (maquinaInfo.Disco > alertaInfo.alertaDISCO && maquinaInfo.Disco <= alertaInfo.criticoDISCO) ? 'border-color: orange;' : ''}">
-                    <h3>Máquina ${maquinaInfo.idComputador}</h3>
+                    <h3>Máquina ${maquinaInfo.codigoPatrimonio}</h3>
                     <p class="status ativa">Status: Ativa</p>
                     <p>Uso de CPU: ${maquinaInfo.UsoCPU}</p>
                     <p>Memória RAM: ${maquinaInfo.Memoria}</p>

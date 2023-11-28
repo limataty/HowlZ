@@ -100,6 +100,7 @@ function maquinas(idMaquina) {
         SELECT TOP 1
         FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:') AS momento_grafico, 
         Componente.fkComputador AS idComputador,
+        Computador.codigoPatrimonio,
         MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 1 THEN MonitoramentoComponente.valor END) AS UsoCPU,
         MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 2 THEN MonitoramentoComponente.valor END) AS Memoria,
         MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 3 THEN MonitoramentoComponente.valor END) AS Disco
@@ -107,6 +108,8 @@ function maquinas(idMaquina) {
         Componente
     JOIN 
         MonitoramentoComponente ON Componente.idComponente = MonitoramentoComponente.fkComponente
+    JOIN 
+		Computador ON Computador.idComputador = Componente.fkComputador
     WHERE 
         Componente.fkComputador = ${idMaquina}
     GROUP BY 
@@ -119,6 +122,7 @@ function maquinas(idMaquina) {
     SELECT 
     DATE_FORMAT(MonitoramentoComponente.dataHora, '%H:%i') AS momento_grafico, 
     Componente.fkComputador AS idComputador,
+    Computador.codigoPatrimonio,
     MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 1 THEN MonitoramentoComponente.valor END) AS UsoCPU,
     MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 2 THEN MonitoramentoComponente.valor END) AS Memoria,
     MAX(CASE WHEN MonitoramentoComponente.fkTipoMonitoramentoComponente = 3 THEN MonitoramentoComponente.valor END) AS Disco
@@ -126,6 +130,8 @@ function maquinas(idMaquina) {
         Componente
     JOIN 
         MonitoramentoComponente ON Componente.idComponente = MonitoramentoComponente.fkComponente
+	JOIN 
+		Computador ON Computador.idComputador = Componente.fkComputador
     WHERE 
         Componente.fkComputador = ${idMaquina}
     GROUP BY 
