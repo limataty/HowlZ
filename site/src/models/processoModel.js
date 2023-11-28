@@ -13,7 +13,7 @@ function contarProcessoModel(idMaquina) {
         JOIN UnidadeMedida ON UnidadeMedida.idUnidadeMedida = MonitoramentoProcesso.fkUnidadeMedida
         JOIN TipoComponente ON TipoComponente.idTipoComponente = MonitoramentoProcesso.fkTipoComponente
         WHERE 
-        MonitoramentoProcesso.dataHora >= DATEADD(DAY, -3, GETDATE()) AND fkComputador = ${idMaquina};
+        MonitoramentoProcesso.dataHora >= DATEADD(DAY, -2, GETDATE()) AND fkComputador = ${idMaquina};
         `;
     } else if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
     instrucao = `
@@ -65,7 +65,7 @@ function exibirProcesso(idMaquina) {
     if(process.env.AMBIENTE_PROCESSO == "producao"){
         instrucao = `
         WITH RankedMonitoramento AS (
-            SELECT
+            SELECT TOP 1 
                 Processo.nome AS NomeProcesso, 
                 MonitoramentoProcesso.dataHora,
                 fkTipoComponente,
@@ -83,7 +83,7 @@ function exibirProcesso(idMaquina) {
                 TipoComponente ON TipoComponente.idTipoComponente = MonitoramentoProcesso.fkTipoComponente
             WHERE 
                 Processo.fkComputador = ${idMaquina} AND
-                MonitoramentoProcesso.dataHora >= DATEADD(DAY, -3, GETDATE())
+                MonitoramentoProcesso.dataHora >= DATEADD(DAY, -2, GETDATE())
         )
         SELECT
             NomeProcesso,
