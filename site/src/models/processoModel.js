@@ -15,7 +15,7 @@ function contarProcesso(idMaquina) {
         JOIN UnidadeMedida ON UnidadeMedida.idUnidadeMedida = MonitoramentoProcesso.fkUnidadeMedida
         JOIN TipoComponente ON TipoComponente.idTipoComponente = MonitoramentoProcesso.fkTipoComponente
         WHERE 
-        MonitoramentoProcesso.dataHora >= DATEADD(WEEK, -1, GETDATE()) AND fkComputador = 1;
+        MonitoramentoProcesso.dataHora >= DATEADD(DAY, -3, GETDATE()) AND fkComputador = ${idMaquina};
         `;
     } else if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
     instrucao = `
@@ -43,7 +43,7 @@ function contarJanela(idMaquina) {
     FROM 
     Janela
     WHERE 
-    dataHora >= DATEADD(WEEK, -1, GETDATE()) AND fkComputador = 1;
+    dataHora >= DATEADD(DAY, -3, GETDATE()) AND fkComputador = ${idMaquina};
         `;
     }else if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
         instrucao = `
@@ -63,26 +63,41 @@ function exibirProcesso(fkGestor, idMaquina) {
 
     if(process.env.AMBIENTE_PROCESSO == "producao"){
         instrucao = `
-        SELECT TOP 1
-    Processo.nome AS NomeProcesso, 
-    MonitoramentoProcesso.dataHora,
-    fkTipoComponente,
-    TipoComponente.nome as NomeComponente,
-    uso,
-    UnidadeMedida.simbolo
-    FROM 
-    Processo
-    JOIN 
-    MonitoramentoProcesso ON Processo.idProcesso = MonitoramentoProcesso.fkProcesso
-    JOIN 
-    UnidadeMedida ON UnidadeMedida.idUnidadeMedida = MonitoramentoProcesso.fkUnidadeMedida
-    JOIN 
-    TipoComponente ON TipoComponente.idTipoComponente = MonitoramentoProcesso.fkTipoComponente
-    WHERE 
-    Processo.fkComputador = 1 AND
-    MonitoramentoProcesso.dataHora >= DATEADD(WEEK, -1, GETDATE())
-    ORDER BY 
-    MonitoramentoProcesso.dataHora DESC;
+        WITH RankedMonitoramento AS (
+            SELECT
+                Processo.nome AS NomeProcesso, 
+                MonitoramentoProcesso.dataHora,
+                fkTipoComponente,
+                TipoComponente.nome as NomeComponente,
+                MonitoramentoProcesso.valor as uso,
+                UnidadeMedida.simbolo,
+                ROW_NUMBER() OVER (PARTITION BY Processo.idProcesso ORDER BY MonitoramentoProcesso.dataHora DESC) AS RowNum
+            FROM 
+                Processo
+            JOIN 
+                MonitoramentoProcesso ON Processo.idProcesso = MonitoramentoProcesso.fkProcesso
+            JOIN 
+                UnidadeMedida ON UnidadeMedida.idUnidadeMedida = MonitoramentoProcesso.fkUnidadeMedida
+            JOIN 
+                TipoComponente ON TipoComponente.idTipoComponente = MonitoramentoProcesso.fkTipoComponente
+            WHERE 
+                Processo.fkComputador = ${idMaquina} AND
+                MonitoramentoProcesso.dataHora >= DATEADD(DAY, -3, GETDATE())
+        )
+        SELECT
+            NomeProcesso,
+            dataHora,
+            fkTipoComponente,
+            NomeComponente,
+            uso,
+            simbolo
+        FROM 
+            RankedMonitoramento
+        WHERE 
+            RowNum = 1
+        ORDER BY 
+            dataHora DESC;
+        
         `;
     } else if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
         instrucao = `
@@ -112,17 +127,27 @@ function exibirJanela(fkGestor, idMaquina) {
     var instrucao = ""
     if(process.env.AMBIENTE_PROCESSO == "producao"){
         instrucao = `
-        SELECT TOP 1
-    titulo,
-    dataHora
-    FROM 
-    Janela
-    WHERE 
-    dataHora >= DATEADD(WEEK, -1, GETDATE()) AND 
-    fkComputador = 1 AND 
-    titulo IS NOT NULL
-    ORDER BY 
-    dataHora DESC;
+        WITH RankedJanelas AS (
+            SELECT
+                titulo,
+                dataHora,
+                ROW_NUMBER() OVER (PARTITION BY titulo ORDER BY dataHora DESC) AS RowNum
+            FROM 
+                Janela
+            WHERE 
+                dataHora >= DATEADD(DAY, -3, GETDATE()) AND 
+                fkComputador = ${idMaquina} AND 
+                titulo IS NOT NULL
+        )
+        SELECT
+            titulo,
+            dataHora
+        FROM 
+            RankedJanelas
+        WHERE 
+            RowNum = 1
+        ORDER BY 
+            dataHora DESC;
         `;
     } else if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
         instrucao = `
