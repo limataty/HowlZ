@@ -366,6 +366,27 @@
             window.location = "/login";
         }
 
+        let bomCPU = 0;
+        let bomRAM = 0;
+        let bomDisco = 0;
+        let bomGPU = 0;
+
+        let alertaCPU = 0;
+        let alertaRAM = 0;
+        let alertaDisco = 0;
+        let alertaGPU = 0;
+
+        let ateCPU = 0;
+        let ateRAM = 0;
+        let ateDisco = 0;
+        let ateGPU = 0;
+
+        let ruimCPU = 0;
+        let ruimRAM = 0;
+        let ruimDisco = 0;
+        let ruimGPU = 0;
+
+
         async function obterAlertas() {
             try {
                 const resposta = await fetch("/medidas/alertas", {
