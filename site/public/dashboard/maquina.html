@@ -111,23 +111,24 @@
                     </div>
 
                     <div class="botoes">
-                        <button onclick="mostrarElemento('GPU')" id="botaoGrafico">
+                        <button onclick="mostrarElemento('GPU')" id="botaoGraficoGPU">
                             GPU
-                            <div id="botaoGraficoGPU" class="botao"></div>
+                            <div class="botao" id="botaoGraficoGPU"></div>
                         </button>
-                        <button onclick="mostrarElemento('RAM')" id="botaoGrafico">
+                        <button onclick="mostrarElemento('RAM')" id="botaoGraficoRAM">
                             RAM
-                            <div id="botaoGraficoRAM" class="botao"></div>
+                            <div class="botao" id="botaoGraficoRAM"></div>
                         </button>
-                        <button onclick="mostrarElemento('CPU')" id="botaoGrafico">
+                        <button onclick="mostrarElemento('CPU')" id="botaoGraficoCPU">
                             CPU
-                            <div id="botaoGraficoGPU" class="botao"></div>
+                            <div class="botao" id="botaoGraficoCPU"></div>
                         </button>
-                        <button onclick="mostrarElemento('Disco')" id="botaoGrafico">
+                        <button onclick="mostrarElemento('Disco')" id="botaoGraficoDisco">
                             Disco
-                            <div id="botaoGraficoDisco" class="botao"></div>
+                            <div class="botao" id="botaoGraficoDisco"></div>
                         </button>
                     </div>
+
 
                     <div class="legendas">
                         <div class="Bom">
@@ -712,36 +713,35 @@
     }, 5000);
 
     function atualizarBotoes() {
-        var idComputador = sessionStorage.getItem("ID_MAQUINA");
+    var idComputador = sessionStorage.getItem("ID_MAQUINA");
 
-        fetch(`/medidas/botoes/${idComputador}`, {
-            cache: "no-store",
-        })
-            .then(function (response) {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error(`Erro na requisição: ${response.statusText}`);
-                }
-            })
-            .then(function (resposta) {
-                console.log(JSON.stringify(resposta));
+    fetch(`/medidas/botoes/${idComputador}`, {
+        cache: "no-store",
+    })
+    .then(function (response) {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error(`Erro na requisição: ${response.statusText}`);
+        }
+    })
+    .then(function (resposta) {
+        console.log(JSON.stringify(resposta));
 
-                var statusGPU = obterStatus(resposta[0].monitoramentoGPU, criticoGPU, alertaGPU);
-                var statusRAM = obterStatus(resposta[0].monitoramentoRAM, criticoRAM, alertaRAM);
-                var statusCPU = obterStatus(resposta[0].MonitoramentoCPU, criticoCPU, alertaCPU);
-                var statusDisco = obterStatus(resposta[0].monitoramentoDISCO, criticoDISCO, alertaDISCO);
+        var statusGPU = obterStatus(resposta[0].monitoramentoGPU, alertas.criticoGPU, alertas.alertaGPU);
+        var statusRAM = obterStatus(resposta[0].monitoramentoRAM, alertas.criticoRAM, alertas.alertaRAM);
+        var statusCPU = obterStatus(resposta[0].MonitoramentoCPU, alertas.criticoCPU, alertas.alertaCPU);
+        var statusDisco = obterStatus(resposta[0].monitoramentoDISCO, alertas.criticoDISCO, alertas.alertaDISCO);
 
-                atualizarBotao(document.getElementById("botaoGraficoGPU"), statusGPU, resposta[0].monitoramentoGPU);
-                atualizarBotao(document.getElementById("botaoGraficoRAM"), statusRAM, resposta[0].monitoramentoRAM);
-                atualizarBotao(document.getElementById("botaoGraficoCPU"), statusCPU, resposta[0].MonitoramentoCPU);
-                atualizarBotao(document.getElementById("botaoGraficoDisco"), statusDisco, resposta[0].monitoramentoDISCO);
-            })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados para botões: ${error.message}`);
-            });
-    }
-
+        atualizarBotao(document.getElementById("botaoGraficoGPU"), statusGPU, resposta[0].monitoramentoGPU);
+        atualizarBotao(document.getElementById("botaoGraficoRAM"), statusRAM, resposta[0].monitoramentoRAM);
+        atualizarBotao(document.getElementById("botaoGraficoCPU"), statusCPU, resposta[0].MonitoramentoCPU);
+        atualizarBotao(document.getElementById("botaoGraficoDisco"), statusDisco, resposta[0].monitoramentoDISCO);
+    })
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados para botões: ${error.message}`);
+    });
+}
     function obterStatus(valor, critico, alerta) {
         if (valor > critico) {
             return "ruim";
