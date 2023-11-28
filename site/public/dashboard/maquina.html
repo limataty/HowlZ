@@ -366,86 +366,62 @@
             window.location = "/login";
         }
 
-        var bomCPU = 0;
-        var bomRAM = 0;
-        var bomDisco = 0;
-        var bomGPU = 0;
 
-        var alertaCPU = 0;
-        var alertaRAM = 0;
-        var alertaDisco = 0;
-        var alertaGPU = 0;
+        function mostrarElemento(elementoID) {
 
-        var ateCPU = 0;
-        var ateRAM = 0;
-        var ateDisco = 0;
-        var ateGPU = 0;
+            fetch("/medidas/alertas", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    fkEmpresa: sessionStorage.getItem("ID_EMPRESA")
+                })
+            })
+                .then(function (resposta) {
+                    
+                    if (resposta.ok) {
+                        resposta.JSON().then(function (resposta) {
+                            console.log(resposta);
+                        })
 
-        var ruimCPU = 0;
-        var ruimRAM = 0;
-        var ruimDisco = 0;
-        var ruimGPU = 0;
+                        bomCPU = resposta.alertaCPU - 0.01;
+                        bomRAM = resposta.alertaRAM - 0.01;
+                        bomDisco = resposta.alertaDISCO - 0.01;
+                        bomGPU = resposta.alertaGPU - 0.01;
 
-        async function obterAlertas() {
-            try {
-                const resposta = await fetch("/medidas/alertas", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        fkEmpresa: sessionStorage.getItem("ID_EMPRESA"),
-                    }),
-                });
+                        alertaCPU = resposta.alertaCPU;
+                        alertaRAM = resposta.alertaRAM;
+                        alertaDisco = resposta.alertaDISCO;
+                        alertaGPU = resposta.alertaGPU;
 
-                if (resposta.ok) {
-                    const dados = await resposta.json();
+                        ateCPU = resposta.criticoCPU - 0.01;
+                        ateRAM = resposta.criticoRAM - 0.01;
+                        ateDisco = resposta.criticoDISCO - 0.01;
+                        ateGPU = resposta.criticoGPU - 0.01;
 
-                    const ajustarAlerta = (valor) => (valor != null ? valor - 0.01 : 0);
+                        ruimCPU = resposta.criticoCPU;
+                        ruimRAM = resposta.criticoRAM;
+                        ruimDisco = resposta.criticoDISCO;
+                        ruimGPU = resposta.criticoGPU;
 
-                    bomCPU = ajustarAlerta(dados.alertaCPU);
-                    bomRAM = ajustarAlerta(dados.alertaRAM);
-                    bomDisco = ajustarAlerta(dados.alertaDISCO);
-                    bomGPU = ajustarAlerta(dados.alertaGPU);
+                    } else {
+                        resposta.text().then((texto) => {
+                            console.log(texto);
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                })
 
-                    alertaCPU = dados.alertaCPU;
-                    alertaRAM = dados.alertaRAM;
-                    alertaDisco = dados.alertaDISCO;
-                    alertaGPU = dados.alertaGPU;
-
-                    ateCPU = ajustarAlerta(dados.criticoCPU);
-                    ateRAM = ajustarAlerta(dados.criticoRAM);
-                    ateDisco = ajustarAlerta(dados.criticoDISCO);
-                    ateGPU = ajustarAlerta(dados.criticoGPU);
-
-                    ruimCPU = dados.criticoCPU;
-                    ruimRAM = dados.criticoRAM;
-                    ruimDisco = dados.criticoDISCO;
-                    ruimGPU = dados.criticoGPU;
-                } else {
-                    const textoErro = await resposta.text();
-                    console.log(textoErro);
-                }
-            } catch (erro) {
-                console.error(erro);
-            }
-        }
-
-        function ocultarElementos() {
-            const elementos = ["CPU", "RAM", "Disco", "GPU"];
-            elementos.forEach((elemento) => {
-                const elementoAtual = document.getElementById(elemento);
+            var elementos = ["CPU", "RAM", "Disco", "GPU"];
+            elementos.forEach(function (elemento) {
+                var elementoAtual = document.getElementById(elemento);
                 if (elementoAtual) {
                     elementoAtual.style.display = 'none';
                 }
             });
-        }
-
-        async function mostrarElemento(elementoID) {
-            await obterDadosGraficos(); // Aguarda a obtenção dos alertas antes de prosseguir.
-
-            ocultarElementos();
-
             var elementoSelecionado = document.getElementById(elementoID);
             if (elementoSelecionado) {
                 elementoSelecionado.style.display = 'block';
