@@ -278,8 +278,8 @@ ul {
 }
 
 
-table {
-    display: flex;
+.table {
+    /* display: flex; */
     border-style: none;
     border-color: #141619;
     border-radius: 5px;
@@ -367,12 +367,19 @@ td {
     color: #913cc5;
 }
 
+tbody {
+    display: table-column-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
 .tabelaProcesso {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 
 .ruim {
     background-color: red;

@@ -140,12 +140,13 @@
             <div class="caixaLogs">
                 <div class="caixaJanelas">
                     <div class="tabela">
-                        <table id="tabelaJanela" border="1">
+                        <table id="tabelaJanela" class="table" border="1">
                             <tr>
                                 <th>Janelas</th>
                                 <th>Horário</th>
                                 <th>Valor</th>
                             </tr>
+
                         </table>
                     </div>
                 </div>
@@ -516,11 +517,11 @@
                     console.log("Processo exibido:", processo);
 
                     // Atualizar a tabela com os dados do processo
-                    tabelaProcesso.innerHTML += `<tr>
-            <td>${processo[0].NomeProcesso}</td>
-            <td>${processo[0].dataHora}</td>
-            <td>${processo[0].uso} ${processo[0].simbolo}</td>
-        </tr>`;
+                            tabelaProcesso.innerHTML += `<tr>
+                    <td>${processo[0].NomeProcesso}</td>
+                    <td>${processo[0].dataHora}</td>
+                    <td>${processo[0].uso} ${processo[0].simbolo}</td>
+                </tr>`;
                 })
                 .catch(error => {
                     console.error("Erro durante a execução:", error);
