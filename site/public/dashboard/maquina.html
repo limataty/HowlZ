@@ -524,7 +524,7 @@
                         <td>${processo[i].dataHora}</td>
                         <td>${processo[i].uso} ${processo[i].simbolo}</td>
                         </tr>`;
-                        
+
                     }
 
                 })
@@ -537,34 +537,14 @@
         pegarProcessos();
 
 
-    var numerototalJanela = 0;
+        var numerototalJanela = 0;
 
-function pegarJanela() {
-    // Requisição para contar processos
+        function pegarJanela() {
+            // Requisição para contar processos
 
-    console.log("A função pegarJanela() foi chamada!");
+            console.log("A função pegarJanela() foi chamada!");
 
-    fetch("/processos/contarJanela", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            idMaquina: sessionStorage.getItem("ID_MAQUINA")
-        }),
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Erro na requisição: " + response.status);
-            }
-            return response.json();
-        })
-        .then(totalJanela => {
-            console.log("Total de janelas:", totalJanela);
-            numerototalJanela = totalJanela;
-
-            // Requisição para exibir processos
-            return fetch("/processos/exibirJanela", {
+            fetch("/processos/contarJanela", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -572,34 +552,54 @@ function pegarJanela() {
                 body: JSON.stringify({
                     idMaquina: sessionStorage.getItem("ID_MAQUINA")
                 }),
-            });
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Erro na requisição: " + response.status);
-            }
-            return response.json();
-        })
-        .then(janela => {
-            console.log("Janela exibido:", janela);
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Erro na requisição: " + response.status);
+                    }
+                    return response.json();
+                })
+                .then(totalJanela => {
+                    console.log("Total de janelas:", totalJanela);
+                    numerototalJanela = totalJanela;
 
-            for (let i = 0; i < numerototalJanela; i++) {
-                // Atualizar a tabela com os dados do processo
-                tabelaJanela.innerHTML += `<tr>
+                    // Requisição para exibir processos
+                    return fetch("/processos/exibirJanela", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            idMaquina: sessionStorage.getItem("ID_MAQUINA")
+                        }),
+                    });
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Erro na requisição: " + response.status);
+                    }
+                    return response.json();
+                })
+                .then(janela => {
+                    console.log("Janela exibido:", janela);
+
+                    for (let i = 0; i < numerototalJanela; i++) {
+                        // Atualizar a tabela com os dados do processo
+                        tabelaJanela.innerHTML += `<tr>
                 <td>${janela[i].titulo}</td>
                 <td>${janela[i].dataHora}</td>
                 </tr>`;
 
-            }
+                    }
 
-        })
-        .catch(error => {
-            console.error("Erro durante a execução:", error);
-        });
-}
+                })
+                .catch(error => {
+                    console.error("Erro durante a execução:", error);
+                });
+        }
 
-// Chamada da função
-pegarJanela();
+        // Chamada da função
+        pegarJanela();
 
     </script>
 </body>
@@ -783,25 +783,15 @@ pegarJanela();
                         console.log(`Dados atuais do gráfico ${nomeGrafico}:`);
                         console.log(dados);
 
-                        if (
-                            novoRegistro[0].momento_grafico ==
-                            dados.labels[dados.labels.length - 1]
-                        ) {
-                            console.log(
-                                "---------------------------------------------------------------"
-                            );
-                            console.log(
-                                `Como não há dados novos para ${nomeGrafico}, o gráfico não será atualizado.`
-                            );
-
+                        if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                            console.log("---------------------------------------------------------------");
+                            console.log(`Como não há dados novos para ${nomeGrafico}, o gráfico não será atualizado.`);
                             console.log("Horário do novo dado capturado:");
                             console.log(novoRegistro[0].momento_grafico);
                             console.log("Horário do último dado capturado:");
                             console.log(dados.labels[dados.labels.length - 1]);
-                            console.log(
-                                "---------------------------------------------------------------"
-                            );
-                        } else {
+                            console.log("---------------------------------------------------------------");
+                        } else if (novoRegistro[0].momento_grafico > dados.labels[dados.labels.length - 1]) {
                             // Atualizar valores do gráfico
                             dados.labels.shift();
                             dados.labels.push(novoRegistro[0].momento_grafico);
@@ -815,24 +805,25 @@ pegarJanela();
                             myChart.update();
                         }
 
-                        proximaAtualizacao = setTimeout(
-                            () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
-                            5000
-                        );
-                    });
-                } else {
-                    console.error(`Nenhum dado encontrado ou erro na API para ${tipoGrafico}`);
+                    }
+
                     proximaAtualizacao = setTimeout(
                         () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
-                        2000
+                        5000
                     );
-                }
-            })
-            .catch(function (error) {
-                console.error(
-                    `Erro na obtenção dos dados para ${nomeGrafico}: ${error.message}`
-                );
-            });
+                });
+    } else {
+        console.error(`Nenhum dado encontrado ou erro na API para ${tipoGrafico}`);
+        proximaAtualizacao = setTimeout(
+            () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
+            2000
+        );
     }
+        })
+        .catch (function (error) {
+        console.error(`Erro na obtenção dos dados para ${nomeGrafico}: ${error.message}`);
+    });
+}
+
 
 </script>
