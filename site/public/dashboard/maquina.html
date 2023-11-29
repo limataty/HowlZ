@@ -582,13 +582,13 @@ function pegarJanela() {
             return response.json();
         })
         .then(janela => {
-            console.log("Processo exibido:", janela);
+            console.log("Janela exibido:", janela);
 
             for (let i = 0; i < numerototalJanela; i++) {
                 // Atualizar a tabela com os dados do processo
                 tabelaJanela.innerHTML += `<tr>
-                <td>${resposta[i].titulo}</td>
-                <td>${resposta[i].dataHora}</td>
+                <td>${janela[i].titulo}</td>
+                <td>${janela[i].dataHora}</td>
                 </tr>`;
 
             }
