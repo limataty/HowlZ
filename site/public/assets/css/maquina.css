@@ -367,6 +367,13 @@ td {
     color: #913cc5;
 }
 
+.tabela {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .ruim {
     background-color: red;
 }
