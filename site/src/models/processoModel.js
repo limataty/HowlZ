@@ -42,7 +42,7 @@ function contarJanela(idMaquina) {
     FROM 
     Janela
     WHERE 
-    dataHora >= DATEADD(DAY, -3, GETDATE()) AND fkComputador = ${idMaquina};
+    dataHora >= DATEADD(DAY, -2, GETDATE()) AND fkComputador = ${idMaquina};
         `;
     }else if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
         instrucao = `
@@ -51,7 +51,7 @@ function contarJanela(idMaquina) {
 FROM 
     Janela
 WHERE 
-    dataHora >= CURDATE() - INTERVAL 1 WEEK AND fkComputador = ${idMaquina};
+    dataHora >= CURDATE() - INTERVAL 2 DAY AND fkComputador = ${idMaquina};
     `;
     }
     console.log(instrucao);
@@ -79,7 +79,7 @@ function exibirProcesso(idMaquina) {
                 JOIN TipoComponente ON TipoComponente.idTipoComponente = MonitoramentoProcesso.fkTipoComponente
             WHERE 
                 Processo.fkComputador = ${idMaquina} AND
-                MonitoramentoProcesso.dataHora >= DATEADD(DAY, -2, GETDATE())
+                MonitoramentoProcesso.dataHora >= DATEADD(DAY, -1, GETDATE())
         )
         SELECT
             NomeProcesso,
