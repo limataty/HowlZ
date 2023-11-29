@@ -775,45 +775,58 @@
     }
 
     function atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico) {
-        fetch(`/medidas/tempo-real/${testefk}/${tipoGrafico}`, {
-            cache: "no-store",
-        })
-            .then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (novoRegistro) {
-                        console.log(`Dados recebidos para ${nomeGrafico}: ${JSON.stringify(novoRegistro)}`);
+    fetch(`/medidas/tempo-real/${testefk}/${tipoGrafico}`, { cache: "no-store" })
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
 
-                        console.log(`Dados atuais do gráfico ${nomeGrafico}:`);
-                        console.log(dados);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);
 
-                        if (novoRegistro[0].momento_grafico > dados.labels[dados.labels.length - 1]) {
-                            // Atualizar valores do gráfico
-                            dados.labels.shift();
-                            dados.labels.push(novoRegistro[0].momento_grafico);
+                    avisoCaptura.innerHTML = "";
 
-                            dados.datasets[0].data.shift();
-                            dados.datasets[0].data.push(novoRegistro[0].totalCaptacao);
+                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                        console.log("---------------------------------------------------------------");
+                        console.log("Como não há dados novos para captura, o gráfico não será atualizado.");
+                        console.log("Horário do novo dado capturado:");
+                        console.log(novoRegistro[0].momento_grafico);
+                        console.log("Horário do último dado capturado:");
+                        console.log(dados.labels[dados.labels.length - 1]);
+                        console.log("---------------------------------------------------------------");
+                    } else {
+                        // Atualizar valores do gráfico
+                        dados.labels.shift();
+                        dados.labels.push(novoRegistro[0].momento_grafico);
 
-                            myChart.update();
-                        }
+                        dados.datasets[0].data.shift();
 
-                        proximaAtualizacao = setTimeout(
-                            () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
-                            5000
-                        );
-                    });
-                } else {
-                    console.error(`Nenhum dado encontrado ou erro na API para ${tipoGrafico}`);
+                       
+
+                        dados.datasets[0].data.push(novoRegistro[0].totalCaptacao);
+
+                        console.log(dados + "aqui as labels");
+
+                        myChart.update();
+                    }
+
                     proximaAtualizacao = setTimeout(
                         () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
-                        15000
+                        5000
                     );
-                }
-            })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados para ${nomeGrafico}: ${error.message}`);
-            });
-    }
+                });
+            } else {
+                console.error("Nenhum dado encontrado ou erro na API");
+                proximaAtualizacao = setTimeout(
+                    () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
+                    2000
+                );
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados para o gráfico: ${error.message}`);
+        });
+}
 
 
 </script>
