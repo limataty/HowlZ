@@ -775,7 +775,7 @@
     }
 
     function atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico) {
-        fetch(`/medidas/tempo-real/${testefk}?tipo=${tipoGrafico}`, {
+        fetch(`/medidas/tempo-real/${testefk}/${tipoGrafico}`, {
             cache: "no-store",
         })
             .then(function (response) {

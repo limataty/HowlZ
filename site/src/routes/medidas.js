@@ -7,7 +7,7 @@ router.get("/ultimas/:idCaptacao", function (req, res) {
     medidaController.buscarUltimasMedidas(req, res);
 });
 
-router.get("/tempo-real/:idCaptacao?:tipo", function (req, res) {
+router.get("/tempo-real/:idCaptacao/:tipo", function (req, res) {
     medidaController.buscarMedidasEmTempoReal(req, res);
 });
 
