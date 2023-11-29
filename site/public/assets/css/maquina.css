@@ -367,7 +367,7 @@ td {
     color: #913cc5;
 }
 
-.tabela {
+.tabelaProcesso {
     display: flex;
     flex-direction: column;
     justify-content: center;
