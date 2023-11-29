@@ -367,14 +367,8 @@ td {
     color: #913cc5;
 }
 
-tbody {
-    display: table-column-group;
-    vertical-align: middle;
-    border-color: inherit;
-}
-
 .tabelaProcesso {
-    /* display: flex; */
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
