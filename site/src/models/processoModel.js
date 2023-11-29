@@ -160,10 +160,113 @@ LIMIT 1;
     return database.executar(instrucao);
 }
 
+function exibirAlertas(idMaquina){
+    var instrucao = "";
+    if(process.env.AMBIENTE_PROCESSO == "producao"){
+        instrucao = `
+        SELECT 
+        MonitoramentoComponente.valor,
+        TipoComponente.nome AS nomeComponente,
+        UnidadeMedida.simbolo AS simbolo,
+        FORMAT(MonitoramentoComponente.dataHora, 'yyyy-MM-dd HH:mm:ss') AS dataHora,
+        Alerta.minimo
+    FROM 
+        MonitoramentoComponente
+    JOIN 
+        TipoMonitoramentoComponente ON MonitoramentoComponente.fkTipoMonitoramentoComponente = TipoMonitoramentoComponente.idTipoMonitoramentoComponente
+    JOIN 
+        TipoComponente ON TipoMonitoramentoComponente.fkTipoComponente = TipoComponente.idTipoComponente
+    JOIN 
+        UnidadeMedida ON TipoMonitoramentoComponente.fkUnidadeMedida = UnidadeMedida.idUnidadeMedida
+    JOIN 
+        Alerta ON Alerta.fkTipoMonitoramentoComponente = TipoMonitoramentoComponente.idTipoMonitoramentoComponente
+    JOIN 
+        Componente ON Componente.idComponente = MonitoramentoComponente.fkComponente
+    WHERE 
+        MonitoramentoComponente.valor > Alerta.minimo AND 
+        Componente.fkComputador = ${idMaquina};
+        `;
+    }else if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
+        instrucao = `
+        SELECT 
+        MonitoramentoComponente.valor,
+        TipoComponente.nome AS nomeComponente,
+        UnidadeMedida.simbolo AS simbolo,
+        FORMAT(MonitoramentoComponente.dataHora, 'yyyy-MM-dd HH:mm:ss') AS dataHora,
+        Alerta.minimo
+    FROM 
+        MonitoramentoComponente
+    JOIN 
+        TipoMonitoramentoComponente ON MonitoramentoComponente.fkTipoMonitoramentoComponente = TipoMonitoramentoComponente.idTipoMonitoramentoComponente
+    JOIN 
+        TipoComponente ON TipoMonitoramentoComponente.fkTipoComponente = TipoComponente.idTipoComponente
+    JOIN 
+        UnidadeMedida ON TipoMonitoramentoComponente.fkUnidadeMedida = UnidadeMedida.idUnidadeMedida
+    JOIN 
+        Alerta ON Alerta.fkTipoMonitoramentoComponente = TipoMonitoramentoComponente.idTipoMonitoramentoComponente
+    JOIN 
+        Componente ON Componente.idComponente = MonitoramentoComponente.fkComponente
+    WHERE 
+        MonitoramentoComponente.valor > Alerta.minimo AND 
+        Componente.fkComputador = ${idMaquina};
+    `;
+    }
+    console.log(instrucao);
+    return database.executar(instrucao);
+}
+
+function contarAlertas(idMaquina){
+    var instrucao = "";
+    if(process.env.AMBIENTE_PROCESSO == "producao"){
+        instrucao = `
+        SELECT 
+        COUNT(*) AS TotalAlertas
+    FROM 
+        MonitoramentoComponente
+    JOIN 
+        TipoMonitoramentoComponente ON MonitoramentoComponente.fkTipoMonitoramentoComponente = TipoMonitoramentoComponente.idTipoMonitoramentoComponente
+    JOIN 
+        TipoComponente ON TipoMonitoramentoComponente.fkTipoComponente = TipoComponente.idTipoComponente
+    JOIN 
+        UnidadeMedida ON TipoMonitoramentoComponente.fkUnidadeMedida = UnidadeMedida.idUnidadeMedida
+    JOIN 
+        Alerta ON Alerta.fkTipoMonitoramentoComponente = TipoMonitoramentoComponente.idTipoMonitoramentoComponente
+    JOIN 
+        Componente ON Componente.idComponente = MonitoramentoComponente.fkComponente
+    WHERE 
+        MonitoramentoComponente.valor > Alerta.minimo AND 
+        Componente.fkComputador = ${idMaquina};
+        `;
+    }else if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
+        instrucao = `
+        SELECT 
+        COUNT(*) AS TotalAlertas
+    FROM 
+        MonitoramentoComponente
+    JOIN 
+        TipoMonitoramentoComponente ON MonitoramentoComponente.fkTipoMonitoramentoComponente = TipoMonitoramentoComponente.idTipoMonitoramentoComponente
+    JOIN 
+        TipoComponente ON TipoMonitoramentoComponente.fkTipoComponente = TipoComponente.idTipoComponente
+    JOIN 
+        UnidadeMedida ON TipoMonitoramentoComponente.fkUnidadeMedida = UnidadeMedida.idUnidadeMedida
+    JOIN 
+        Alerta ON Alerta.fkTipoMonitoramentoComponente = TipoMonitoramentoComponente.idTipoMonitoramentoComponente
+    JOIN 
+        Componente ON Componente.idComponente = MonitoramentoComponente.fkComponente
+    WHERE 
+        MonitoramentoComponente.valor > Alerta.minimo AND 
+        Componente.fkComputador = ${idMaquina};
+    `;
+    }
+    console.log(instrucao);
+    return database.executar(instrucao);
+}
 
 module.exports = {
     exibirProcesso,
     exibirJanela,
     contarProcessoModel,
-    contarJanela
+    contarJanela,
+    contarAlertas,
+    exibirAlertas
 };

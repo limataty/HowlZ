@@ -72,36 +72,11 @@
                 </span></a></div>
 
         <div class="tabela">
-            <table border="1">
+            <table id="tabelaAlerta" border="1">
                 <tr>
                     <th>Alertas</th>
                     <th>Horário</th>
                     <th>Valor</th>
-                </tr>
-                <tr>
-                    <td>CPU</td>
-                    <td>21:40:31</td>
-                    <td>92%</td>
-                </tr>
-                <tr>
-                    <td>RAM</td>
-                    <td>22:59:31</td>
-                    <td>80%</td>
-                </tr>
-                <tr>
-                    <td>Memória</td>
-                    <td>22:00:31</td>
-                    <td>60%</td>
-                </tr>
-                <tr>
-                    <td>Disco</td>
-                    <td>22:55:31</td>
-                    <td>55%</td>
-                </tr>
-                <tr>
-                    <td>GPU</td>
-                    <td>22:21:31</td>
-                    <td>75%</td>
                 </tr>
             </table>
         </div>
@@ -125,5 +100,69 @@
 
         window.location = "/login";
     }
+
+    var numeroTotalAlertas = 0;
+
+function pegarJanela() {
+    // Requisição para contar processos
+
+    console.log("A função pegarJanela() foi chamada!");
+
+    fetch("/processos/contarAlertas", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            idMaquina: sessionStorage.getItem("ID_MAQUINA")
+        }),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erro na requisição: " + response.status);
+            }
+            return response.json();
+        })
+        .then(totalAlertas => {
+            console.log("Total de alertas:", totalAlertas);
+            numerototalAlertas = totalAlertas;
+
+            // Requisição para exibir processos
+            return fetch("/processos/exibirAlertas", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
+                }),
+            });
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erro na requisição: " + response.status);
+            }
+            return response.json();
+        })
+        .then(Alertas => {
+            console.log("Alertas exibidos:", Alertas);
+
+            for (let i = 0; i < numerototalAlertas; i++) {
+                // Atualizar a tabela com os dados do processo
+                tabelaAlerta.innerHTML += `<tr>
+                    <t>${Alertas[i].nomeComponente}</td>
+                    <td>${Alertas[i].dataHora}</td>
+                    <td>${Alertas[i].valor} ${Alertas[0].simbolo}</td>
+                </tr>`;
+            }
+
+        })
+        .catch(error => {
+            console.error("Erro durante a execução:", error);
+        });
+}
+
+// Chamada da função
+pegarJanela();
 
 </script>

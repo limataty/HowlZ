@@ -74,10 +74,49 @@ function contarJanela(req, res) {
     });
 }
 
+function exibirAlertas(req, res) {
+  var idMaquina = req.body.idMaquina;
+
+  processoModel
+    .exibirAlertas(idMaquina)
+    .then(function (resultado) {
+      console.log("resultado: " + resultado[0].titulo + " " + resultado[0].dataHora);
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log(
+        "\nHouve um erro ao realizar a validação! Erro: ",
+        erro.sqlMessage
+      );
+      res.status(500).send(erro.sqlMessage);
+    });
+}
+
+function contarAlertas(req, res) {
+  var idMaquina = req.body.idMaquina;
+
+  processoModel.contarAlertas(idMaquina)
+    .then(function (resultado) {
+      console.log("resultado: " + resultado[0].TotalLinhas);
+      res.json(resultado[0].TotalAlertas);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log(
+        "\nHouve um erro ao realizar a validação! Erro: ",
+        erro.sqlMessage
+      );
+      res.status(500).send(erro.sqlMessage);
+    });
+}
+
 module.exports = {
   exibirProcesso,
   exibirJanela,
   contarProcesso,
-  contarJanela
+  contarJanela,
+  contarAlertas,
+  exibirAlertas
 };
 

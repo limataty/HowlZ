@@ -19,4 +19,12 @@ router.post("/contarJanela", function (req, res) {
     processosController.contarJanela(req, res);
 })
 
+router.post("/contarAlertas", function (req, res) {
+    processosController.contarAlertas(req, res);
+})
+
+router.post("/exibirAlertas", function (req, res) {
+    processosController.exibirAlertas(req, res);
+})
+
 module.exports = router;
