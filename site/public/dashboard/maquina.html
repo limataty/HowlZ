@@ -516,10 +516,10 @@
                     console.log("Processo exibido:", processo);
 
                     // Atualizar a tabela com os dados do processo
-                    tabelaProcesso.innerHTML = `<tr>
-            <td>${processo.NomeProcesso}</td>
-            <td>${processo.dataHora}</td>
-            <td>${processo.uso} ${processo.simbolo}</td>
+                    tabelaProcesso.innerHTML += `<tr>
+            <td>${processo[0].NomeProcesso}</td>
+            <td>${processo[0].dataHora}</td>
+            <td>${processo[0].uso} ${processo[0].simbolo}</td>
         </tr>`;
                 })
                 .catch(error => {
