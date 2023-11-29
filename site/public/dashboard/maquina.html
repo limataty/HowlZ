@@ -716,7 +716,7 @@
 
         if (ctx) {
             let myChart = new Chart(ctx, config);
-            setTimeout(() => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico), 2000);
+            setTimeout(() => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico), 15000);
         } else {
             console.error(`Erro ao obter contexto do gráfico ${tipoGrafico}.`);
         }
@@ -783,39 +783,27 @@
                         console.log(`Dados atuais do gráfico ${nomeGrafico}:`);
                         console.log(dados);
 
-                        if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                            console.log("---------------------------------------------------------------");
-                            console.log(`Como não há dados novos para ${nomeGrafico}, o gráfico não será atualizado.`);
-                            console.log("Horário do novo dado capturado:");
-                            console.log(novoRegistro[0].momento_grafico);
-                            console.log("Horário do último dado capturado:");
-                            console.log(dados.labels[dados.labels.length - 1]);
-                            console.log("---------------------------------------------------------------");
-                        } else if (novoRegistro[0].momento_grafico > dados.labels[dados.labels.length - 1]) {
+                        if (novoRegistro[0].momento_grafico > dados.labels[dados.labels.length - 1]) {
                             // Atualizar valores do gráfico
                             dados.labels.shift();
                             dados.labels.push(novoRegistro[0].momento_grafico);
 
                             dados.datasets[0].data.shift();
-
-                            // Simulação de um novo dado (substitua pela lógica real)
-                            // var novoDado = Math.random() * 100; // exemplo: substitua pelo seu novo dado
-                            // dados.datasets[0].data.push(novoDado);
+                            dados.datasets[0].data.push(novoRegistro[0].totalCaptacao);
 
                             myChart.update();
                         }
 
-
                         proximaAtualizacao = setTimeout(
                             () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
-                            32000
+                            5000
                         );
                     });
                 } else {
                     console.error(`Nenhum dado encontrado ou erro na API para ${tipoGrafico}`);
                     proximaAtualizacao = setTimeout(
                         () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
-                        32000
+                        15000
                     );
                 }
             })
@@ -823,7 +811,6 @@
                 console.error(`Erro na obtenção dos dados para ${nomeGrafico}: ${error.message}`);
             });
     }
-
 
 
 </script>
