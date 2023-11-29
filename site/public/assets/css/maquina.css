@@ -301,9 +301,9 @@ td {
     border-style: groove;
     border-color: #4b0975;
     background-color: #7a0bc0;
-    text-align: left;
     word-wrap: break-word;
     max-width: 200px;
+    text-align: center;
 }
 
 .dashboard .alertas {
