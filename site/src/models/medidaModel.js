@@ -7,7 +7,7 @@ function buscarUltimasMedidas(idComputador, tipoComponente) {
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     instrucaoSql = `SELECT 
-    FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:ss') AS momento_grafico, 
+    FORMAT(MonitoramentoComponente.dataHora, 'HH:mm') AS momento_grafico, 
     MonitoramentoComponente.valor AS totalCaptacao
 FROM gi
     Componente
@@ -23,7 +23,7 @@ OFFSET 0 ROWS
 FETCH FIRST 5 ROWS ONLY;
 `;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-    instrucaoSql = `SELECT DATE_FORMAT(MonitoramentoComponente.dataHora, '%H:%i:%s') as momento_grafico, 
+    instrucaoSql = `SELECT DATE_FORMAT(MonitoramentoComponente.dataHora, '%H:%i') as momento_grafico, 
     MonitoramentoComponente.valor as totalCaptacao
 FROM Componente
 JOIN MonitoramentoComponente ON Componente.idComponente = MonitoramentoComponente.fkComponente
@@ -48,7 +48,7 @@ function buscarMedidasEmTempoReal(idComputador, tipoComponente) {
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     instrucaoSql = `SELECT 
-    FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:ss') AS momento_grafico, 
+    FORMAT(MonitoramentoComponente.dataHora, 'HH:mm') AS momento_grafico, 
     MonitoramentoComponente.valor AS totalCaptacao
 FROM 
     Componente
@@ -63,7 +63,7 @@ FETCH FIRST 1 ROW ONLY;
 
 `;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-    instrucaoSql = `SELECT DATE_FORMAT(MonitoramentoComponente.dataHora, '%H:%i:%s') as momento_grafico, 
+    instrucaoSql = `SELECT DATE_FORMAT(MonitoramentoComponente.dataHora, '%H:%i') as momento_grafico, 
     MonitoramentoComponente.valor as totalCaptacao
     FROM Componente
     JOIN MonitoramentoComponente ON Componente.idComponente = MonitoramentoComponente.fkComponente
@@ -87,7 +87,7 @@ function buscarMedidasEmTempoRealDisparos(idComputador, tipoComponente) {
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     instrucaoSql = `SELECT 
-    FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:ss') AS momento_grafico, 
+    FORMAT(MonitoramentoComponente.dataHora, 'HH:mm') AS momento_grafico, 
     MonitoramentoComponente.valor AS totalCaptacao
 FROM 
     Componente
@@ -102,7 +102,7 @@ FETCH FIRST 1 ROW ONLY;
 
     `;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-    instrucaoSql = `SELECT DATE_FORMAT(MonitoramentoComponente.dataHora, '%H:%i:%s') as momento_grafico, 
+    instrucaoSql = `SELECT DATE_FORMAT(MonitoramentoComponente.dataHora, '%H:%i') as momento_grafico, 
     MonitoramentoComponente.valor as totalCaptacao
     FROM Componente
     JOIN MonitoramentoComponente ON Componente.idComponente = MonitoramentoComponente.fkComponente

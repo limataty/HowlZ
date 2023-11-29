@@ -78,7 +78,10 @@ p {
 
 .banner-servicos h1 {
     font-size: 2.5em;
-    text-decoration: underline #7A0BC0 10px;
+}
+
+.banner-servicos h2{
+    
 }
 
 .container-secao-servicos {
