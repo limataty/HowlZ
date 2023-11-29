@@ -4,7 +4,7 @@ function buscarUltimasMedidas(req, res) {
   const limite_linhas = 7;
 
   var idComputador = req.params.idCaptacao;
-  var tipoComponente = req.query.tipo // Ajuste aqui para pegar o parâmetro correto
+  var tipoComponente = req.params.tipo // Ajuste aqui para pegar o parâmetro correto
 
   console.log(`Recuperando as últimas ${limite_linhas} medidas`);
 

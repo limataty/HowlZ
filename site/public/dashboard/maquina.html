@@ -624,7 +624,7 @@
             clearTimeout(proximaAtualizacao);
         }
 
-        fetch(`/medidas/ultimas/${testefk}?tipo=${tipoGrafico}`, {
+        fetch(`/medidas/ultimas/${testefk}/tipo${tipoGrafico}`, {
             cache: "no-store",
         })
             .then(function (response) {
@@ -783,8 +783,6 @@
 
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados);
-
-                    avisoCaptura.innerHTML = "";
 
                     if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
                         console.log("---------------------------------------------------------------");
