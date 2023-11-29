@@ -472,6 +472,8 @@
                 });
         }
 
+        var totalProcessos = 0;
+
         function pegarProcessos() {
             // Requisição para contar processos
 
@@ -494,6 +496,7 @@
                 })
                 .then(totalProcessos => {
                     console.log("Total de processos:", totalProcessos);
+                    totalProcessos = totalProcessos;
 
                     // Requisição para exibir processos
                     return fetch("/processos/exibirProcesso", {
