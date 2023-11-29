@@ -20,11 +20,10 @@ function exibirProcesso(req, res) {
 }
 
 function exibirJanela(req, res) {
-  var fkGestor = req.body.fkGestorServer;
   var idMaquina = req.body.idMaquina;
 
   processoModel
-    .exibirJanela(fkGestor, idMaquina)
+    .exibirJanela(idMaquina)
     .then(function (resultado) {
       console.log("resultado: " + resultado[0].titulo + " " + resultado[0].dataHora);
       res.json(resultado[0]);
