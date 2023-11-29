@@ -620,7 +620,7 @@
     let min;
     let max;
 
-    function escalas(min, max){
+    function escalas(min, max) {
         min = min;
         max = max;
     }
@@ -664,91 +664,83 @@
             });
     }
 
-    var config = {}
-    let myChart;
-
     function plotarGrafico(resposta, nomeGrafico, tipoGrafico, idCanvas) {
-        console.log(`Iniciando plotagem do gráfico ${nomeGrafico}...`);
+    console.log(`Iniciando plotagem do gráfico ${nomeGrafico}...`);
 
-        let labels = [];
-        let dados = {
+    let labels = resposta.map((registro) => registro.momento_grafico);
+    let dados = {
+        labels: labels,
+        datasets: [
+            {
+                label: idCanvas,
+                data: resposta.map((registro) => registro.totalCaptacao),
+                backgroundColor: "rgba(123, 11, 192, 0.514)",
+                borderColor: "rgb(122, 11, 192)",
+                fill: true,
+                hoverBorderWidth: 10,
+                borderWidth: 3,
+            },
+        ],
+    };
+
+    const config = {
+        type: "line",
+        data: {
             labels: labels,
             datasets: [
                 {
-                    label: idCanvas,
-                    data: [],
-                    backgroundColor: "rgba(123, 11, 192, 0.514)",
-                    borderColor: "rgb(122, 11, 192)",
-                    fill: true,
-                    hoverBorderWidth: 10,
-                    borderWidth: 3,
+                    label: nomeGrafico,
+                    data: dados.datasets[0].data,
+                    backgroundColor: dados.datasets[0].backgroundColor,
+                    borderColor: dados.datasets[0].borderColor,
+                    fill: dados.datasets[0].fill,
+                    hoverBorderWidth: dados.datasets[0].hoverBorderWidth,
+                    borderWidth: dados.datasets[0].borderWidth,
                 },
             ],
-        };
-
-        labels = resposta.map((registro) => registro.momento_grafico);
-        dados.datasets[0].data = resposta.map(
-            (registro) => registro.totalCaptacao
-        );
-
-        config = {
-            type: "line",
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: nomeGrafico,
-                        data: dados.datasets[0].data,
-                        backgroundColor: dados.datasets[0].backgroundColor,
-                        borderColor: dados.datasets[0].borderColor,
-                        fill: dados.datasets[0].fill,
-                        hoverBorderWidth: dados.datasets[0].hoverBorderWidth,
-                        borderWidth: dados.datasets[0].borderWidth,
-                    },
-                ],
+        },
+        options: {
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                }
             },
-            options: {
-                scales: {
-                    y: {
-                        min: 0,
-                        max: 100,
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-                tooltips: {
-                    bodyFontStyle: "bold",
-                    callbacks: {
-                        label: function (tooltipItem, data) {
-                            var value =
-                                data.datasets[tooltipItem.datasetIndex].data[
+            responsive: true,
+            maintainAspectRatio: false,
+            tooltips: {
+                bodyFontStyle: "bold",
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        var value =
+                            data.datasets[tooltipItem.datasetIndex].data[
                                 tooltipItem.index
-                                ];
-                            var label = data.labels[tooltipItem.index];
+                            ];
+                        var label = data.labels[tooltipItem.index];
 
-                            return `Hora ${label}: Valor de ${value}`;
-                        },
-                    },
-                },
-                legend: {
-                    labels: {
-                        fontColor: "white",
+                        return `Hora ${label}: Valor de ${value}`;
                     },
                 },
             },
-        };
+            legend: {
+                labels: {
+                    fontColor: "white",
+                },
+            },
+        },
+    };
 
-        let canvas = document.getElementById(idCanvas);
-        let ctx = canvas?.getContext?.("2d");
+    let canvas = document.getElementById(idCanvas);
+    let ctx = canvas?.getContext?.("2d");
+    let myChart;
 
-        if (ctx) {
-            myChart = new Chart(ctx, config);
-            setTimeout(() => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico), 15000);
-        } else {
-            console.error(`Erro ao obter contexto do gráfico ${tipoGrafico}.`);
-        }
-
+    if (ctx) {
+        myChart = new Chart(ctx, config);
+        setTimeout(() => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico), 15000);
+    } else {
+        console.error(`Erro ao obter contexto do gráfico ${tipoGrafico}.`);
     }
+}
 
     function atualizarBotoes() {
         var idComputador = sessionStorage.getItem("ID_MAQUINA");
@@ -799,37 +791,37 @@
         botao.classList.add(status);
     }
 
-    var escalaMax = false;
-    var escalaMin = false;
+    // var escalaMax = false;
+    // var escalaMin = false;
 
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'p') {
-            escalaMinF();
-        }
-        if (event.key === 'o') {
-            escalaMaxF();
-        }
-    });
+    // document.addEventListener('keydown', function (event) {
+    //     if (event.key === 'p') {
+    //         escalaMinF();
+    //     }
+    //     if (event.key === 'o') {
+    //         escalaMaxF();
+    //     }
+    // });
 
-    function escalaMinF() {
-        if (config.options.scales.y.min == min) {
-            config.options.scales.y.min = 0;
-        } else {
-            config.options.scales.y.min = min;
-        }
-        myChart.update()
-        escalaMin = true;
-    }
+    // function escalaMinF() {
+    //     if (config.options.scales.y.min == min) {
+    //         config.options.scales.y.min = 0;
+    //     } else {
+    //         config.options.scales.y.min = min;
+    //     }
+    //     myChart.update()
+    //     escalaMin = true;
+    // }
 
-    function escalaMaxF() {
-        if (config.options.scales.y.max == max) {
-            config.options.scales.y.max = 100;
-        } else {
-            config.options.scales.y.max = max;
-        }
-        myChart.update()
-        escalaMax = true;
-    }
+    // function escalaMaxF() {
+    //     if (config.options.scales.y.max == max) {
+    //         config.options.scales.y.max = 100;
+    //     } else {
+    //         config.options.scales.y.max = max;
+    //     }
+    //     myChart.update()
+    //     escalaMax = true;
+    // }
 
     function atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico) {
         fetch(`/medidas/tempo-real/${testefk}/${tipoGrafico}`, { cache: "no-store" })
@@ -855,19 +847,20 @@
                             dados.labels.push(novoRegistro[0].momento_grafico);
 
                             dados.datasets[0].data.shift();
-
                             dados.datasets[0].data.push(novoRegistro[0].totalCaptacao);
+
+                            // Atualizar o gráfico
+                            myChart.update();
 
                             console.log(dados + "aqui as labels");
 
-                            if (!escalaMin) {
-                                config.options.scales.y.min = 0;
-                            }
+                            // if (!escalaMin) {
+                            //     config.options.scales.y.min = 0;
+                            // }
 
-                            if (!escalaMax) {
-                                config.options.scales.y.max = 100;
-                            }
-                            myChart.update();
+                            // if (!escalaMax) {
+                            //     config.options.scales.y.max = 100;
+                            // }
 
                         }
 
