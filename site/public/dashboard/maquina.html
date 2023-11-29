@@ -543,7 +543,7 @@
 function pegarJanela() {
     // Requisição para contar processos
 
-    console.log("A função pegarProcessos() foi chamada!");
+    console.log("A função pegarJanela() foi chamada!");
 
     fetch("/processos/contarJanela", {
         method: "POST",
@@ -561,7 +561,7 @@ function pegarJanela() {
             return response.json();
         })
         .then(totalJanela => {
-            console.log("Total de processos:", totalJanela);
+            console.log("Total de janelas:", totalJanela);
             numerototalJanela = totalJanela;
 
             // Requisição para exibir processos
@@ -581,10 +581,10 @@ function pegarJanela() {
             }
             return response.json();
         })
-        .then(processo => {
-            console.log("Processo exibido:", processo);
+        .then(janela => {
+            console.log("Processo exibido:", janela);
 
-            for (let i = 0; i < numeroTotalProcessos; i++) {
+            for (let i = 0; i < numerototalJanela; i++) {
                 // Atualizar a tabela com os dados do processo
                 janelasHTML += `<tr>
                 <td>${resposta[i].titulo}</td>
