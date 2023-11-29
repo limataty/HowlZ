@@ -26,7 +26,7 @@ function exibirJanela(req, res) {
     .exibirJanela(idMaquina)
     .then(function (resultado) {
       console.log("resultado: " + resultado[0].titulo + " " + resultado[0].dataHora);
-      res.json(resultado[0]);
+      res.json(resultado);
     })
     .catch(function (erro) {
       console.log(erro);
