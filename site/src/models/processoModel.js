@@ -64,7 +64,7 @@ function exibirProcesso(idMaquina) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucao = `
         WITH RankedMonitoramento AS (
-            SELECT TOP 1 
+            SELECT
                 Processo.nome AS NomeProcesso, 
                 MonitoramentoProcesso.dataHora,
                 fkTipoComponente,

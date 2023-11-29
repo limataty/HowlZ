@@ -477,7 +477,6 @@
 
             console.log("A função pegarProcessos() foi chamada!");
 
-
             fetch("/processos/contarProcesso", {
                 method: "POST",
                 headers: {
@@ -516,12 +515,16 @@
                 .then(processo => {
                     console.log("Processo exibido:", processo);
 
-                    // Atualizar a tabela com os dados do processo
-                            tabelaProcesso.innerHTML += `<tr>
-                    <td>${processo[0].NomeProcesso}</td>
-                    <td>${processo[0].dataHora}</td>
-                    <td>${processo[0].uso} ${processo[0].simbolo}</td>
-                </tr>`;
+                    for (let i = 0; i < totalProcessos; i++) {
+                        // Atualizar a tabela com os dados do processo
+                        tabelaProcesso.innerHTML += `<tr>
+                        <td>${processo[i].NomeProcesso}</td>
+                        <td>${processo[i].dataHora}</td>
+                        <td>${processo[i].uso} ${processo[i].simbolo}</td>
+                        </tr>`;
+                        
+                    }
+
                 })
                 .catch(error => {
                     console.error("Erro durante a execução:", error);

@@ -285,6 +285,7 @@ table {
     border-radius: 5px;
     margin: 0 20px 10px 10px;
     border-spacing: 4px;
+    text-align: center;
 }
 
 th {
