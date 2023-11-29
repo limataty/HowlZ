@@ -8,7 +8,7 @@ body{
     align-content: center;
 }
 .tabela{
-    display: flex;
+    /* display: flex; */
     flex-direction: row;
     padding-left: 25%;
     padding-top: 5%;
