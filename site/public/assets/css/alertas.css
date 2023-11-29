@@ -15,7 +15,7 @@ body{
 }
 
 table{
-    display: flex;
+    /* display: flex; */
     border-style: none;
     border-color: #141619;
     border-radius: 5px;
@@ -30,7 +30,7 @@ th {
     border-style: groove;
     border-color: #3f0961;
     background-color:#20092e;
-    text-align: left;
+    text-align: center;
     width: 250px;
     padding: 10px;
 }
@@ -41,7 +41,7 @@ td{
     border-style: groove;
     border-color: #4b0975;
     background-color:#7a0bc0;
-    text-align: left;
+    text-align: center;
     word-wrap: break-word ;
     padding: 10px;
     max-width: 200px;
