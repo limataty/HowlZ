@@ -538,68 +538,70 @@
         pegarProcessos();
 
 
+    var numerototalJanela = 0;
 
+function pegarJanela() {
+    // Requisição para contar processos
 
+    console.log("A função pegarProcessos() foi chamada!");
 
-        // function pegarJanela() {
-        //     fetch("/processos/contarJanela", {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify({
-        //             idMaquina: sessionStorage.getItem("ID_MAQUINA")
-        //         }),
-        //     })
-        //         .then(function (json) {
-        //             console.log("ESTOU NO THEN DO entrar()!");
-        //             var janelasHTML = "";
-        //             if (json.ok) {
-        //                 console.log(json);
-        //                 for (let i = 0; i < json.length; i++) {
-        //                     fetch("/processos/exibirJanela", {
-        //                         method: "POST",
-        //                         headers: {
-        //                             "Content-Type": "application/json",
-        //                         },
-        //                         body: JSON.stringify({
-        //                             fkGestorServer: sessionStorage.getItem("ID_USUARIO"),
-        //                             idMaquina: sessionStorage.getItem("ID_MAQUINA")
-        //                         }),
-        //                     })
-        //                         .then(function (resposta) {
-        //                             console.log("ESTOU NO THEN DO entrar()!");
+    fetch("/processos/contarJanela", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            idMaquina: sessionStorage.getItem("ID_MAQUINA")
+        }),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erro na requisição: " + response.status);
+            }
+            return response.json();
+        })
+        .then(totalJanela => {
+            console.log("Total de processos:", totalJanela);
+            numerototalJanela = totalJanela;
 
-        //                             if (resposta.ok) {
-        //                                 console.log(resposta);
-        //                                 janelasHTML += `<tr>
-        //                                     <td>${resposta[0].titulo}</td>
-        //                                     <td>${resposta[0].dataHora}</td>
-        //                                     </tr>`
-        //                                 tabelaJanela.innerHTML = janelasHTML;
-        //                             } else {
-        //                                 resposta.text().then((texto) => {
-        //                                     console.log(texto);
-        //                                 });
-        //                             }
-        //                         })
-        //                         .catch(function (erro) {
-        //                             console.log(erro);
-        //                         });
-        //                 }
+            // Requisição para exibir processos
+            return fetch("/processos/exibirJanela", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    idMaquina: sessionStorage.getItem("ID_MAQUINA")
+                }),
+            });
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erro na requisição: " + response.status);
+            }
+            return response.json();
+        })
+        .then(processo => {
+            console.log("Processo exibido:", processo);
 
-        //             } else {
-        //                 json.text().then((texto) => {
-        //                     console.log(texto);
-        //                 });
-        //             }
-        //         })
-        //         .catch(function (erro) {
-        //             console.log(erro);
-        //         });
-        // }
+            for (let i = 0; i < numeroTotalProcessos; i++) {
+                // Atualizar a tabela com os dados do processo
+                janelasHTML += `<tr>
+                <td>${resposta[i].titulo}</td>
+                <td>${resposta[i].dataHora}</td>
+                </tr>`;
 
-        // pegarJanela();
+            }
+
+        })
+        .catch(error => {
+            console.error("Erro durante a execução:", error);
+        });
+}
+
+// Chamada da função
+pegarJanela();
+
     </script>
 </body>
 
@@ -611,7 +613,7 @@
     var testefk = sessionStorage.getItem("ID_MAQUINA");
     let proximaAtualizacao;
 
-    window.onload = obterDadosGraficos, pegarProcessos();
+    window.onload = obterDadosGraficos, pegarProcessos(), pegarJanela();
 
     function obterDadosGraficos() {
 
