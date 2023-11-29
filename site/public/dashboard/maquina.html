@@ -586,7 +586,7 @@ function pegarJanela() {
 
             for (let i = 0; i < numerototalJanela; i++) {
                 // Atualizar a tabela com os dados do processo
-                janelasHTML += `<tr>
+                tabelaJanela.innerHTML += `<tr>
                 <td>${resposta[i].titulo}</td>
                 <td>${resposta[i].dataHora}</td>
                 </tr>`;
