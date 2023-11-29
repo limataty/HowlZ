@@ -17,17 +17,15 @@ body{
 
 .tabela::-webkit-scrollbar,
 .tabelaAlerta::-webkit-scrollbar {
-    width: 32px;
-    /* Largura da barra de rolo */
+    width: 12px; /* Largura da barra de rolo */
 }
 
 .tabela::-webkit-scrollbar-thumb,
 .tabelaAlerta::-webkit-scrollbar-thumb {
-    background-color: #888;
-    /* Cor da barra de rolo */
-    border-radius: 4px;
-    /* Borda arredondada */
+    background-color: #888; /* Cor da barra de rolo */
+    border-radius: 6px; /* Borda arredondada */
 }
+
 
 table{
     /* display: flex; */
