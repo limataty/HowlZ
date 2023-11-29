@@ -624,7 +624,7 @@
             clearTimeout(proximaAtualizacao);
         }
 
-        fetch(`/medidas/ultimas/${testefk}/tipo${tipoGrafico}`, {
+        fetch(`/medidas/ultimas/${testefk}/${tipoGrafico}`, {
             cache: "no-store",
         })
             .then(function (response) {
