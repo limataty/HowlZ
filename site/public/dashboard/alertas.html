@@ -101,7 +101,6 @@
 
 <script>
 
-<<<<<<< Updated upstream
     function botaoMenu() {
         var menuLateral = document.getElementById("menuLateral");
         var botaoMenuImg = document.getElementById("botaoMenuImg");
@@ -112,18 +111,6 @@
         var content = document.querySelector(".content");
         content.classList.toggle("content-shift");
     }
-=======
-function botaoMenu() {
-            var menuLateral = document.getElementById("menuLateral");
-            var botaoMenuImg = document.getElementById("botaoMenuImg");
-
-            menuLateral.classList.toggle("ver-menu");
-            botaoMenuImg.style.display = menuLateral.classList.contains("ver-menu") ? "none" : "block";
-
-            var content = document.querySelector(".content");
-            content.classList.toggle("content-shift");
-        }
->>>>>>> Stashed changes
 
     var nomeDaEmpresa = sessionStorage.getItem("NOME_EMPRESA");
     document.getElementById("nomeDaEmpresa").innerHTML = nomeDaEmpresa;

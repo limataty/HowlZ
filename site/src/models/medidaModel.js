@@ -47,8 +47,8 @@ function buscarMedidasEmTempoReal(idComputador, tipoComponente) {
   instrucaoSql = "";
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
-    instrucaoSql = `SELECT 
-    FORMAT(MonitoramentoComponente.dataHora, 'HH:mm') AS momento_grafico, 
+    instrucaoSql = `SELECT TOP 1
+    FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:ss') AS momento_grafico, 
     MonitoramentoComponente.valor AS totalCaptacao
 FROM 
     Componente
@@ -57,9 +57,7 @@ JOIN
 WHERE 
     MonitoramentoComponente.fkTipoMonitoramentoComponente = ${tipoComponente} AND Componente.fkComputador = ${idComputador}
 ORDER BY 
-    MonitoramentoComponente.dataHora DESC
-OFFSET 0 ROWS
-FETCH FIRST 1 ROW ONLY;
+    MonitoramentoComponente.dataHora DESC;
 
 `;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
