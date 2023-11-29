@@ -317,6 +317,7 @@ hr {
     filter: brightness(50%);
 }
 
+<<<<<<< Updated upstream
 .enviarEmpresa {
     height: 50px;
     width: 130px;
@@ -333,3 +334,18 @@ hr {
 .enviarEmpresa button:hover {
     filter: brightness(50%);
 }
+=======
+::-webkit-scrollbar {
+    background-color:#7935a2; /* Cor de fundo da barra de rolagem */
+    border-radius: 5px;
+
+}
+
+::-webkit-scrollbar-thumb {
+    background-color:#202225  /* Cor da alça da barra de rolagem */
+
+
+
+}
+
+>>>>>>> Stashed changes
