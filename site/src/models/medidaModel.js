@@ -7,7 +7,7 @@ function buscarUltimasMedidas(idComputador, tipoComponente) {
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     instrucaoSql = `SELECT 
-    FORMAT(MonitoramentoComponente.dataHora, 'HH:mm') AS momento_grafico, 
+    FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:ss') AS momento_grafico, 
     MonitoramentoComponente.valor AS totalCaptacao
 FROM
     Componente
@@ -85,7 +85,7 @@ function buscarMedidasEmTempoRealDisparos(idComputador, tipoComponente) {
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     instrucaoSql = `SELECT 
-    FORMAT(MonitoramentoComponente.dataHora, 'HH:mm') AS momento_grafico, 
+    FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:ss') AS momento_grafico, 
     MonitoramentoComponente.valor AS totalCaptacao
 FROM 
     Componente

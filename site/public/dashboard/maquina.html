@@ -808,14 +808,14 @@
 
                         proximaAtualizacao = setTimeout(
                             () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
-                            5000
+                            32000
                         );
                     });
                 } else {
                     console.error(`Nenhum dado encontrado ou erro na API para ${tipoGrafico}`);
                     proximaAtualizacao = setTimeout(
                         () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
-                        2000
+                        32000
                     );
                 }
             })
