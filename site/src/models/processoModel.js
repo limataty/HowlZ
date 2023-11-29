@@ -66,10 +66,10 @@ function exibirProcesso(idMaquina) {
         WITH RankedMonitoramento AS (
             SELECT
                 Processo.nome AS NomeProcesso, 
-                MonitoramentoProcesso.dataHora,
+                FORMAT(MonitoramentoProcesso.dataHora, 'yyyy-MM-dd HH:mm:ss') AS dataHoraFormatada,
                 fkTipoComponente,
-                TipoComponente.nome as NomeComponente,
-                MonitoramentoProcesso.valor as uso,
+                TipoComponente.nome AS NomeComponente,
+                MonitoramentoProcesso.valor AS uso,
                 UnidadeMedida.simbolo,
                 ROW_NUMBER() OVER (PARTITION BY Processo.idProcesso ORDER BY MonitoramentoProcesso.dataHora DESC) AS RowNum
             FROM 
@@ -83,7 +83,7 @@ function exibirProcesso(idMaquina) {
         )
         SELECT
             NomeProcesso,
-            dataHora,
+            dataHoraFormatada AS dataHora,
             fkTipoComponente,
             NomeComponente,
             uso,
