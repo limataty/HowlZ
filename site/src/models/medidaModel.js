@@ -9,7 +9,7 @@ function buscarUltimasMedidas(idComputador, tipoComponente) {
     instrucaoSql = `SELECT 
     FORMAT(MonitoramentoComponente.dataHora, 'HH:mm:ss') AS momento_grafico, 
     MonitoramentoComponente.valor AS totalCaptacao
-FROM 
+FROM gi
     Componente
 JOIN 
     MonitoramentoComponente ON Componente.idComponente = MonitoramentoComponente.fkComponente
