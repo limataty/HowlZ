@@ -444,22 +444,22 @@
                         elementoSelecionado.style.display = 'block';
 
                         if (elementoID === 'CPU') {
-                            obterDadosGrafico(testefk, 'CPU', '1', 'canvasCPU');
+                            obterDadosGraficos(testefk, 'CPU', '1', 'canvasCPU');
                             alertaComp1.innerHTML = `Bom: Até ${bomCPU}%</span>`;
                             alertaComp2.innerHTML = `Alerta: De ${ValertaCPU}% à ${ateCPU}%`;
                             alertaComp3.innerHTML = `Ruim: A partir de ${ruimCPU}%`;
                         } else if (elementoID === 'RAM') {
-                            obterDadosGrafico(testefk, 'RAM', '2', 'canvasRAM');
+                            obterDadosGraficos(testefk, 'RAM', '2', 'canvasRAM');
                             alertaComp1.innerHTML = `Bom: Até ${bomRAM}%</span>`;
                             alertaComp2.innerHTML = `Alerta: De ${ValertaRAM}% à ${ateRAM}%`;
                             alertaComp3.innerHTML = `Ruim: A partir de ${ruimRAM}%`;
                         } else if (elementoID === 'Disco') {
-                            obterDadosGrafico(testefk, 'Disco', '3', 'canvasDISCO');
+                            obterDadosGraficos(testefk, 'Disco', '3', 'canvasDISCO');
                             alertaComp1.innerHTML = `Bom: Até ${bomDisco}%</span>`;
                             alertaComp2.innerHTML = `Alerta: De ${ValertaDisco}% à ${ateDisco}%`;
                             alertaComp3.innerHTML = `Ruim: A partir de ${ruimDisco}%`;
                         } else if (elementoID === 'GPU') {
-                            obterDadosGrafico(testefk, 'GPU', '4', 'canvasGPU');
+                            obterDadosGraficos(testefk, 'GPU', '4', 'canvasGPU');
                             alertaComp1.innerHTML = `Bom: Até ${bomGPU}%</span>`;
                             alertaComp2.innerHTML = `Alerta: De ${ValertaGPU}% à ${ateGPU}%`;
                             alertaComp3.innerHTML = `Ruim: A partir de ${ruimGPU}%`;
@@ -614,8 +614,8 @@
 
     window.onload = obterDadosGraficos, pegarProcessos(), pegarJanela();
 
-    function obterDadosGraficos() {
-
+    function obterDadosGraficos(testefk, nomeGrafico, tipoGrafico, idCanvas) {
+        obterDadosGrafico(testefk, nomeGrafico, tipoGrafico, idCanvas);
     }
 
 
@@ -805,25 +805,25 @@
                             myChart.update();
                         }
 
-                    }
 
+                        proximaAtualizacao = setTimeout(
+                            () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
+                            5000
+                        );
+                    });
+                } else {
+                    console.error(`Nenhum dado encontrado ou erro na API para ${tipoGrafico}`);
                     proximaAtualizacao = setTimeout(
                         () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
-                        5000
+                        2000
                     );
-                });
-    } else {
-        console.error(`Nenhum dado encontrado ou erro na API para ${tipoGrafico}`);
-        proximaAtualizacao = setTimeout(
-            () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
-            2000
-        );
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados para ${nomeGrafico}: ${error.message}`);
+            });
     }
-        })
-        .catch (function (error) {
-        console.error(`Erro na obtenção dos dados para ${nomeGrafico}: ${error.message}`);
-    });
-}
+
 
 
 </script>
