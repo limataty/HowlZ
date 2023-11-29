@@ -612,7 +612,7 @@ pegarJanela();
     var testefk = sessionStorage.getItem("ID_MAQUINA");
     let proximaAtualizacao;
 
-    window.onload = obterDadosGraficos, pegarProcessos(), pegarJanela();
+    window.onload = obterDadosGraficos, pegarProcessos(), pegarJanela(), obterDadosGrafico(testefk, 'RAM', '2', 'canvasRAM');
 
     function obterDadosGraficos() {
 
@@ -722,12 +722,6 @@ pegarJanela();
         }
     }
 
-    setInterval(() => {
-        // atualizarBotoes();
-        // pegarProcessos();
-        // pegarJanela();
-    }, 15000);
-
     function atualizarBotoes() {
         var idComputador = sessionStorage.getItem("ID_MAQUINA");
 
@@ -744,10 +738,10 @@ pegarJanela();
             .then(function (resposta) {
                 console.log(JSON.stringify(resposta));
 
-                var statusGPU = obterStatus(resposta[0].monitoramentoGPU, criticoGPU, alertaGPU);
-                var statusRAM = obterStatus(resposta[0].monitoramentoRAM, criticoRAM, alertaRAM);
-                var statusCPU = obterStatus(resposta[0].MonitoramentoCPU, criticoCPU, alertaCPU);
-                var statusDisco = obterStatus(resposta[0].monitoramentoDISCO, criticoDISCO, alertaDISCO);
+                var statusGPU = obterStatus(resposta[0].monitoramentoGPU, ruimGPU, alertaGPU);
+                var statusRAM = obterStatus(resposta[0].monitoramentoRAM, ruimRAM, alertaRAM);
+                var statusCPU = obterStatus(resposta[0].MonitoramentoCPU, ruimCPU, alertaCPU);
+                var statusDisco = obterStatus(resposta[0].monitoramentoDISCO, ruimDisco, alertaDISCO);
 
                 atualizarBotao(document.getElementById("botaoGraficoGPU"), statusGPU, resposta[0].monitoramentoGPU);
                 atualizarBotao(document.getElementById("botaoGraficoRAM"), statusRAM, resposta[0].monitoramentoRAM);
