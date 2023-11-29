@@ -612,7 +612,7 @@ pegarJanela();
     var testefk = sessionStorage.getItem("ID_MAQUINA");
     let proximaAtualizacao;
 
-    window.onload = obterDadosGraficos, pegarProcessos(), pegarJanela(), obterDadosGrafico(testefk, 'RAM', '2', 'canvasRAM');
+    window.onload = obterDadosGrafico(testefk, 'RAM', '2', 'canvasRAM'), obterDadosGraficos, pegarProcessos(), pegarJanela();
 
     function obterDadosGraficos() {
 
