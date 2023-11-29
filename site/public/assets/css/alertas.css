@@ -14,6 +14,11 @@ body{
     padding-top: 5%;
 }
 
+.tabela,
+.tabelaAlerta {
+    max-height: 400px; /* Defina a altura máxima que desejar */
+    overflow-y: auto;
+}
 
 .tabela::-webkit-scrollbar,
 .tabelaAlerta::-webkit-scrollbar {
@@ -25,7 +30,6 @@ body{
     background-color: #888; /* Cor da barra de rolo */
     border-radius: 6px; /* Borda arredondada */
 }
-
 
 table{
     /* display: flex; */
