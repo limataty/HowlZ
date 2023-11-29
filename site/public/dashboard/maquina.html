@@ -714,12 +714,15 @@
         let canvas = document.getElementById(idCanvas);
         let ctx = canvas?.getContext?.("2d");
 
+        let myChart;
+
         if (ctx) {
-            let myChart = new Chart(ctx, config);
+            myChart = new Chart(ctx, config);
             setTimeout(() => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico), 15000);
         } else {
             console.error(`Erro ao obter contexto do gráfico ${tipoGrafico}.`);
         }
+
     }
 
     function atualizarBotoes() {
