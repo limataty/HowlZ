@@ -21,6 +21,7 @@ body{
     flex-direction: row;
     justify-content: center;
     align-items: center;
+<<<<<<< Updated upstream
     max-height: 450px; /* Defina a altura máxima que desejar */
     overflow-y: auto;
 }
@@ -41,6 +42,9 @@ body{
 .tabelaAlerta::-webkit-scrollbar-thumb {
     background-color: #3e0661; /* Cor da barra de rolo */
     border-radius: 5px;
+=======
+    padding-top: 5%;
+>>>>>>> Stashed changes
 }
 
 table{
