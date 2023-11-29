@@ -1,7 +1,7 @@
 var medidaModel = require("../models/medidaModel");
 
 function buscarUltimasMedidas(req, res) {
-  const limite_linhas = 7;
+  const limite_linhas = 5;
 
   var idComputador = req.params.idCaptacao;
   var tipoComponente = req.params.tipo // Ajuste aqui para pegar o parâmetro correto

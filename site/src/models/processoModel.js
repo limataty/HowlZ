@@ -134,7 +134,7 @@ function exibirJanela(idMaquina) {
             FROM 
                 Janela
             WHERE 
-                dataHora >= DATEADD(DAY, -2, GETDATE()) AND 
+                dataHora >= DATEADD(DAY, -1, GETDATE()) AND 
                 fkComputador = ${idMaquina} AND 
                 titulo IS NOT NULL
         )

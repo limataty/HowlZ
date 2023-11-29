@@ -16,7 +16,7 @@ JOIN
 JOIN 
     Computador ON Componente.fkComputador = Computador.idComputador
 WHERE 
-    Computador.idComputador = ${idComputador} AND MonitoramentoComponente.fkTipoMonitoramentoComponente = ${tipoComponente}
+    Computador.idComputador = ${idComputador} AND MonitoramentoComponente.fkTipoMonitoramentoComponente = ${tipoComponente} AND MonitoramentoComponente.valor != 0
 ORDER BY 
     MonitoramentoComponente.dataHora DESC
 OFFSET 0 ROWS

@@ -190,6 +190,12 @@
         };
 
         var options = {
+            Scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                }
+            },
             responsive: true,
             maintainAspectRatio: false,
             title: {
@@ -448,21 +454,25 @@
                             alertaComp1.innerHTML = `Bom: Até ${bomCPU}%</span>`;
                             alertaComp2.innerHTML = `Alerta: De ${ValertaCPU}% à ${ateCPU}%`;
                             alertaComp3.innerHTML = `Ruim: A partir de ${ruimCPU}%`;
+                            escalas(0, 60)
                         } else if (elementoID === 'RAM') {
                             obterDadosGraficos(testefk, 'RAM', '2', 'canvasRAM');
                             alertaComp1.innerHTML = `Bom: Até ${bomRAM}%</span>`;
                             alertaComp2.innerHTML = `Alerta: De ${ValertaRAM}% à ${ateRAM}%`;
                             alertaComp3.innerHTML = `Ruim: A partir de ${ruimRAM}%`;
+                            escalas(60, 100)
                         } else if (elementoID === 'Disco') {
                             obterDadosGraficos(testefk, 'Disco', '3', 'canvasDISCO');
                             alertaComp1.innerHTML = `Bom: Até ${bomDisco}%</span>`;
                             alertaComp2.innerHTML = `Alerta: De ${ValertaDisco}% à ${ateDisco}%`;
                             alertaComp3.innerHTML = `Ruim: A partir de ${ruimDisco}%`;
+                            escalas(0, 100)
                         } else if (elementoID === 'GPU') {
                             obterDadosGraficos(testefk, 'GPU', '4', 'canvasGPU');
                             alertaComp1.innerHTML = `Bom: Até ${bomGPU}%</span>`;
                             alertaComp2.innerHTML = `Alerta: De ${ValertaGPU}% à ${ateGPU}%`;
                             alertaComp3.innerHTML = `Ruim: A partir de ${ruimGPU}%`;
+                            escalas(0, 60)
                         }
                     }
                 })
@@ -607,6 +617,14 @@
 </html>
 
 <script>
+    let min;
+    let max;
+
+    function escalas(min, max){
+        min = min;
+        max = max;
+    }
+
     console.log("Cheguei!");
 
     var testefk = sessionStorage.getItem("ID_MAQUINA");
@@ -646,6 +664,9 @@
             });
     }
 
+    var config = {}
+    let myChart;
+
     function plotarGrafico(resposta, nomeGrafico, tipoGrafico, idCanvas) {
         console.log(`Iniciando plotagem do gráfico ${nomeGrafico}...`);
 
@@ -670,7 +691,7 @@
             (registro) => registro.totalCaptacao
         );
 
-        const config = {
+        config = {
             type: "line",
             data: {
                 labels: labels,
@@ -687,7 +708,7 @@
                 ],
             },
             options: {
-                Scales: {
+                scales: {
                     y: {
                         min: 0,
                         max: 100,
@@ -719,8 +740,6 @@
 
         let canvas = document.getElementById(idCanvas);
         let ctx = canvas?.getContext?.("2d");
-
-        let myChart;
 
         if (ctx) {
             myChart = new Chart(ctx, config);
@@ -780,57 +799,95 @@
         botao.classList.add(status);
     }
 
+    var escalaMax = false;
+    var escalaMin = false;
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'p') {
+            escalaMinF();
+        }
+        if (event.key === 'o') {
+            escalaMaxF();
+        }
+    });
+
+    function escalaMinF() {
+        if (config.options.scales.y.min == min) {
+            config.options.scales.y.min = 0;
+        } else {
+            config.options.scales.y.min = min;
+        }
+        myChart.update()
+        escalaMin = true;
+    }
+
+    function escalaMaxF() {
+        if (config.options.scales.y.max == max) {
+            config.options.scales.y.max = 100;
+        } else {
+            config.options.scales.y.max = max;
+        }
+        myChart.update()
+        escalaMax = true;
+    }
+
     function atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico) {
-    fetch(`/medidas/tempo-real/${testefk}/${tipoGrafico}`, { cache: "no-store" })
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+        fetch(`/medidas/tempo-real/${testefk}/${tipoGrafico}`, { cache: "no-store" })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (novoRegistro) {
+                        console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
 
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(dados);
+                        console.log(`Dados atuais do gráfico:`);
+                        console.log(dados);
 
-                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                        console.log("---------------------------------------------------------------");
-                        console.log("Como não há dados novos para captura, o gráfico não será atualizado.");
-                        console.log("Horário do novo dado capturado:");
-                        console.log(novoRegistro[0].momento_grafico);
-                        console.log("Horário do último dado capturado:");
-                        console.log(dados.labels[dados.labels.length - 1]);
-                        console.log("---------------------------------------------------------------");
-                    } else {
-                        // Atualizar valores do gráfico
-                        dados.labels.shift();
-                        dados.labels.push(novoRegistro[0].momento_grafico);
+                        if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                            console.log("---------------------------------------------------------------");
+                            console.log("Como não há dados novos para captura, o gráfico não será atualizado.");
+                            console.log("Horário do novo dado capturado:");
+                            console.log(novoRegistro[0].momento_grafico);
+                            console.log("Horário do último dado capturado:");
+                            console.log(dados.labels[dados.labels.length - 1]);
+                            console.log("---------------------------------------------------------------");
+                        } else {
+                            // Atualizar valores do gráfico
+                            dados.labels.shift();
+                            dados.labels.push(novoRegistro[0].momento_grafico);
 
-                        dados.datasets[0].data.shift();
+                            dados.datasets[0].data.shift();
 
-                       
+                            dados.datasets[0].data.push(novoRegistro[0].totalCaptacao);
 
-                        dados.datasets[0].data.push(novoRegistro[0].totalCaptacao);
+                            console.log(dados + "aqui as labels");
 
-                        console.log(dados + "aqui as labels");
+                            if (!escalaMin) {
+                                config.options.scales.y.min = 0;
+                            }
 
-                        myChart.update();
-                    }
+                            if (!escalaMax) {
+                                config.options.scales.y.max = 100;
+                            }
+                            myChart.update();
 
+                        }
+
+                        proximaAtualizacao = setTimeout(
+                            () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
+                            5000
+                        );
+                    });
+                } else {
+                    console.error("Nenhum dado encontrado ou erro na API");
                     proximaAtualizacao = setTimeout(
                         () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
-                        5000
+                        2000
                     );
-                });
-            } else {
-                console.error("Nenhum dado encontrado ou erro na API");
-                proximaAtualizacao = setTimeout(
-                    () => atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico),
-                    2000
-                );
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados para o gráfico: ${error.message}`);
-        });
-}
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados para o gráfico: ${error.message}`);
+            });
+    }
 
 
 </script>
