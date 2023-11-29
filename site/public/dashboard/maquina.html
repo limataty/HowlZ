@@ -472,7 +472,7 @@
                 });
         }
 
-        var totalProcessos = 0;
+        var numeroTotalProcessos = 0;
 
         function pegarProcessos() {
             // Requisição para contar processos
@@ -496,7 +496,7 @@
                 })
                 .then(totalProcessos => {
                     console.log("Total de processos:", totalProcessos);
-                    totalProcessos = totalProcessos;
+                    numeroTotalProcessos = totalProcessos;
 
                     // Requisição para exibir processos
                     return fetch("/processos/exibirProcesso", {
@@ -518,7 +518,7 @@
                 .then(processo => {
                     console.log("Processo exibido:", processo);
 
-                    for (let i = 0; i < totalProcessos; i++) {
+                    for (let i = 0; i < numeroTotalProcessos; i++) {
                         // Atualizar a tabela com os dados do processo
                         tabelaProcesso.innerHTML += `<tr>
                         <td>${processo[i].NomeProcesso}</td>
