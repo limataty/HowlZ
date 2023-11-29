@@ -395,6 +395,30 @@
 
         function mostrarElemento(elementoID) {
 
+            if(elementoID === 'CPU'){
+                var botao = document.getElementById("botaoGraficoCPU");
+                var elemento01 = document.getElementById("botaoGraficoRAM");
+                var elemento02 = document.getElementById("botaoGraficoDisco");
+                var elemento03 = document.getElementById("botaoGraficoGPU");
+            }else if(elementoID === 'RAM'){
+                var botao = document.getElementById("botaoGraficoRAM");
+                var elemento01 = document.getElementById("botaoGraficoCPU");
+                var elemento02 = document.getElementById("botaoGraficoDisco");
+                var elemento03 = document.getElementById("botaoGraficoGPU");
+            }else if(elementoID === 'Disco'){
+                var botao = document.getElementById("botaoGraficoDisco");
+                var elemento01 = document.getElementById("botaoGraficoCPU");
+                var elemento02 = document.getElementById("botaoGraficoRAM");
+                var elemento03 = document.getElementById("botaoGraficoGPU");
+            }else if(elementoID === 'GPU'){
+                var botao = document.getElementById("botaoGraficoGPU");
+                var elemento01 = document.getElementById("botaoGraficoCPU");
+                var elemento02 = document.getElementById("botaoGraficoRAM");
+                var elemento03 = document.getElementById("botaoGraficoDisco");
+            }
+
+            mudarBotao(botao, elemento01, elemento02, elemento03)
+
             fetch("/medidas/alertas", {
                 method: "POST",
                 headers: {
@@ -454,31 +478,38 @@
                             alertaComp1.innerHTML = `Bom: Até ${bomCPU}%</span>`;
                             alertaComp2.innerHTML = `Alerta: De ${ValertaCPU}% à ${ateCPU}%`;
                             alertaComp3.innerHTML = `Ruim: A partir de ${ruimCPU}%`;
-                            escalas(0, 60)
+                            // mudarBotao(botaoGraficoCPU)
                         } else if (elementoID === 'RAM') {
                             obterDadosGraficos(testefk, 'RAM', '2', 'canvasRAM');
                             alertaComp1.innerHTML = `Bom: Até ${bomRAM}%</span>`;
                             alertaComp2.innerHTML = `Alerta: De ${ValertaRAM}% à ${ateRAM}%`;
                             alertaComp3.innerHTML = `Ruim: A partir de ${ruimRAM}%`;
-                            escalas(60, 100)
+                            // mudarBotao(botaoGraficoRAM)
                         } else if (elementoID === 'Disco') {
                             obterDadosGraficos(testefk, 'Disco', '3', 'canvasDISCO');
                             alertaComp1.innerHTML = `Bom: Até ${bomDisco}%</span>`;
                             alertaComp2.innerHTML = `Alerta: De ${ValertaDisco}% à ${ateDisco}%`;
                             alertaComp3.innerHTML = `Ruim: A partir de ${ruimDisco}%`;
-                            escalas(0, 100)
+                            // mudarBotao(botaoGraficoDisco)
                         } else if (elementoID === 'GPU') {
                             obterDadosGraficos(testefk, 'GPU', '4', 'canvasGPU');
                             alertaComp1.innerHTML = `Bom: Até ${bomGPU}%</span>`;
                             alertaComp2.innerHTML = `Alerta: De ${ValertaGPU}% à ${ateGPU}%`;
                             alertaComp3.innerHTML = `Ruim: A partir de ${ruimGPU}%`;
-                            escalas(0, 60)
+                            // mudarBotao(botaoGraficoGPU)
                         }
                     }
                 })
                 .catch(function (erro) {
                     console.log(erro);
                 });
+        }
+
+        function mudarBotao(botao, elemento01, elemento02, elemento03) {
+            botao.style.filter = "brightness(70%)";
+            elemento01.style.filter = "none";
+            elemento02.style.filter = "none";
+            elemento03.style.filter = "none";
         }
 
         var numeroTotalProcessos = 0;
@@ -617,13 +648,6 @@
 </html>
 
 <script>
-    let min;
-    let max;
-
-    function escalas(min, max) {
-        min = min;
-        max = max;
-    }
 
     console.log("Cheguei!");
 
@@ -791,38 +815,6 @@
         botao.classList.add(status);
     }
 
-    // var escalaMax = false;
-    // var escalaMin = false;
-
-    // document.addEventListener('keydown', function (event) {
-    //     if (event.key === 'p') {
-    //         escalaMinF();
-    //     }
-    //     if (event.key === 'o') {
-    //         escalaMaxF();
-    //     }
-    // });
-
-    // function escalaMinF() {
-    //     if (config.options.scales.y.min == min) {
-    //         config.options.scales.y.min = 0;
-    //     } else {
-    //         config.options.scales.y.min = min;
-    //     }
-    //     myChart.update()
-    //     escalaMin = true;
-    // }
-
-    // function escalaMaxF() {
-    //     if (config.options.scales.y.max == max) {
-    //         config.options.scales.y.max = 100;
-    //     } else {
-    //         config.options.scales.y.max = max;
-    //     }
-    //     myChart.update()
-    //     escalaMax = true;
-    // }
-
     function atualizarGrafico(testefk, dados, myChart, idCanvas, nomeGrafico, tipoGrafico) {
         fetch(`/medidas/tempo-real/${testefk}/${tipoGrafico}`, { cache: "no-store" })
             .then(function (response) {
@@ -853,14 +845,6 @@
                             myChart.update();
 
                             console.log(dados + "aqui as labels");
-
-                            // if (!escalaMin) {
-                            //     config.options.scales.y.min = 0;
-                            // }
-
-                            // if (!escalaMax) {
-                            //     config.options.scales.y.max = 100;
-                            // }
 
                         }
 
